@@ -24,6 +24,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="Doxygen.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">LibDriver DS18B20
    &#160;<span id="projectnumber">2.0.0</span>
@@ -104,13 +105,13 @@ $(document).ready(function(){initNavTree('driver__ds18b20_8h_source.html',''); i
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{</div>
 <div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#ggaa76e51e2201d4058f4274ca420c165f6a2240dc3e5f913d272861b29b87e06942">   79</a></span>&#160;    <a class="code" href="group__ds18b20__base__driver.html#ggaa76e51e2201d4058f4274ca420c165f6a2240dc3e5f913d272861b29b87e06942">DS18B20_MODE_SKIP_ROM</a>  = 0x00,        </div>
 <div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#ggaa76e51e2201d4058f4274ca420c165f6a6fefdf17cbb1204ac17187e4c6c96eeb">   80</a></span>&#160;    <a class="code" href="group__ds18b20__base__driver.html#ggaa76e51e2201d4058f4274ca420c165f6a6fefdf17cbb1204ac17187e4c6c96eeb">DS18B20_MODE_MATCH_ROM</a> = 0x01,        </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}<a class="code" href="group__ds18b20__base__driver.html#gaa76e51e2201d4058f4274ca420c165f6">ds18b20_mode_t</a>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <a class="code" href="group__ds18b20__base__driver.html#gaa76e51e2201d4058f4274ca420c165f6">ds18b20_mode_t</a>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#ga3804f6549e6eeb30fc781d36ebbf8fbd">   86</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;{</div>
 <div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#gga3804f6549e6eeb30fc781d36ebbf8fbdaa97a8020f8db2ddfdb22ce3f543001b2">   88</a></span>&#160;    <a class="code" href="group__ds18b20__base__driver.html#gga3804f6549e6eeb30fc781d36ebbf8fbdaa97a8020f8db2ddfdb22ce3f543001b2">DS18B20_POWER_MODE_PARASITE</a>   = 0x00,        </div>
 <div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#gga3804f6549e6eeb30fc781d36ebbf8fbdab1abf829bf00979b637436a159283324">   89</a></span>&#160;    <a class="code" href="group__ds18b20__base__driver.html#gga3804f6549e6eeb30fc781d36ebbf8fbdab1abf829bf00979b637436a159283324">DS18B20_POWER_MODE_EXTERNALLY</a> = 0x01,        </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}<a class="code" href="group__ds18b20__base__driver.html#ga3804f6549e6eeb30fc781d36ebbf8fbd">ds18b20_power_mode_t</a>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <a class="code" href="group__ds18b20__base__driver.html#ga3804f6549e6eeb30fc781d36ebbf8fbd">ds18b20_power_mode_t</a>;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
 <div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#ga6a1cab097fcad68347f07f97e1bb2af8">   95</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;{</div>
@@ -118,7 +119,7 @@ $(document).ready(function(){initNavTree('driver__ds18b20_8h_source.html',''); i
 <div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#gga6a1cab097fcad68347f07f97e1bb2af8a6274d477f2d9d92a62050c3375c361a0">   98</a></span>&#160;    <a class="code" href="group__ds18b20__base__driver.html#gga6a1cab097fcad68347f07f97e1bb2af8a6274d477f2d9d92a62050c3375c361a0">DS18B20_RESOLUTION_10BIT</a> = 0x01,        </div>
 <div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#gga6a1cab097fcad68347f07f97e1bb2af8a0396bfa58a01fdd9922771715e1467f6">   99</a></span>&#160;    <a class="code" href="group__ds18b20__base__driver.html#gga6a1cab097fcad68347f07f97e1bb2af8a0396bfa58a01fdd9922771715e1467f6">DS18B20_RESOLUTION_11BIT</a> = 0x02,        </div>
 <div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#gga6a1cab097fcad68347f07f97e1bb2af8af2f20b32fccc2658193d818188ae54ca">  100</a></span>&#160;    <a class="code" href="group__ds18b20__base__driver.html#gga6a1cab097fcad68347f07f97e1bb2af8af2f20b32fccc2658193d818188ae54ca">DS18B20_RESOLUTION_12BIT</a> = 0x03,        </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}<a class="code" href="group__ds18b20__base__driver.html#ga6a1cab097fcad68347f07f97e1bb2af8">ds18b20_resolution_t</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <a class="code" href="group__ds18b20__base__driver.html#ga6a1cab097fcad68347f07f97e1bb2af8">ds18b20_resolution_t</a>;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="structds18b20__handle__s.html">  106</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structds18b20__handle__s.html">ds18b20_handle_s</a></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
@@ -134,7 +135,7 @@ $(document).ready(function(){initNavTree('driver__ds18b20_8h_source.html',''); i
 <div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="structds18b20__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f">  117</a></span>&#160;    uint8_t <a class="code" href="structds18b20__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f">inited</a>;                                 </div>
 <div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="structds18b20__handle__s.html#a37e90f5e3bd99fac2021fb3a326607d4">  118</a></span>&#160;    uint8_t <a class="code" href="structds18b20__handle__s.html#a37e90f5e3bd99fac2021fb3a326607d4">mode</a>;                                   </div>
 <div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="structds18b20__handle__s.html#ae3c9459b1dbf0dc64f4398a7b7c12e59">  119</a></span>&#160;    uint8_t <a class="code" href="structds18b20__handle__s.html#ae3c9459b1dbf0dc64f4398a7b7c12e59">rom</a>[8];                                 </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#ga98871c12e3fad6c31dae60144c3a51c5">  120</a></span>&#160;}<a class="code" href="group__ds18b20__base__driver.html#ga98871c12e3fad6c31dae60144c3a51c5">ds18b20_handle_t</a>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#ga98871c12e3fad6c31dae60144c3a51c5">  120</a></span>&#160;} <a class="code" href="group__ds18b20__base__driver.html#ga98871c12e3fad6c31dae60144c3a51c5">ds18b20_handle_t</a>;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
 <div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="structds18b20__info__s.html">  125</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structds18b20__info__s.html">ds18b20_info_s</a></div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;{</div>
@@ -147,7 +148,7 @@ $(document).ready(function(){initNavTree('driver__ds18b20_8h_source.html',''); i
 <div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="structds18b20__info__s.html#a8f9dbe66ac0b66ebae0a36fcb4ba368e">  133</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structds18b20__info__s.html#a8f9dbe66ac0b66ebae0a36fcb4ba368e">temperature_min</a>;             </div>
 <div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="structds18b20__info__s.html#a3366a5dce9b829e03c3d321c2b4df3f6">  134</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structds18b20__info__s.html#a3366a5dce9b829e03c3d321c2b4df3f6">temperature_max</a>;             </div>
 <div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="structds18b20__info__s.html#a41b0bd442708b70d252c50b92c75265a">  135</a></span>&#160;    uint32_t <a class="code" href="structds18b20__info__s.html#a41b0bd442708b70d252c50b92c75265a">driver_version</a>;           </div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#gaf0d8f59ec1b4c532700951b5039bc839">  136</a></span>&#160;}<a class="code" href="group__ds18b20__base__driver.html#gaf0d8f59ec1b4c532700951b5039bc839">ds18b20_info_t</a>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="group__ds18b20__base__driver.html#gaf0d8f59ec1b4c532700951b5039bc839">  136</a></span>&#160;} <a class="code" href="group__ds18b20__base__driver.html#gaf0d8f59ec1b4c532700951b5039bc839">ds18b20_info_t</a>;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
 <div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="group__ds18b20__link__driver.html#gaeb6d8c99dd1508afac2d506e0fbba748">  155</a></span>&#160;<span class="preprocessor">#define DRIVER_DS18B20_LINK_INIT(HANDLE, STRUCTURE)   memset(HANDLE, 0, sizeof(STRUCTURE))</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
