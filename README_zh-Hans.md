@@ -1,10 +1,12 @@
+[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+
 <div align=center>
 <img src="/doc/image/logo.png"/>
 </div>
 
 ## LibDriver DS18B20
 
-[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+[![API](https://img.shields.io/badge/api-reference-blue)](https://www.libdriver.com/docs/ds18b20/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
 
 DS18B20数字温度计提供9位至12位温度测量，并具有非易失性用户可编程上限报警功能。DS18B20通信在定义上只需要一个单总线与微处理器通信。此外，DS18B20还可以直接从数据线供电（“寄生电源”），无需外部电源。每个DS18B20都有一个唯一的64位串行代码，允许多个DS18B20在同一单线上工作使用一个微处理器来控制大面积分布的多个DS18B20。该芯片被用于暖通空调环境控制、温度监控建筑物、设备或机械内部的系统，以及过程监控系统。
 
