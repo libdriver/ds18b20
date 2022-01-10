@@ -60,7 +60,9 @@ extern "C"{
 /**
  * @brief ds18b20 max search size definition
  */
-#define DS18B20_MAX_SEARCH_SIZE 64        /**< max 64 devices */
+#ifndef DS18B20_MAX_SEARCH_SIZE
+    #define DS18B20_MAX_SEARCH_SIZE 64        /**< max 64 devices */
+#endif
 
 /**
  * @}
