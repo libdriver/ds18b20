@@ -101,12 +101,12 @@ const uint8_t gc_ds18b20_crc_table[256] =
  *            - 1 check failed
  * @note      none
  */
-static uint8_t _ds18b20_check_crc(uint8_t *buf, uint8_t len, uint8_t crc)
+static uint8_t a_ds18b20_check_crc(uint8_t *buf, uint8_t len, uint8_t crc)
 {
-    volatile uint8_t i;
-    volatile uint8_t crc8 = 0;
+    uint8_t i;
+    uint8_t crc8 = 0;
     
-    for (i=0; i<len; i++)
+    for (i = 0; i < len; i++)
     {
         crc8 = gc_ds18b20_crc_table[crc8 ^ buf[i]];        /* calculate crc */
     }
@@ -128,13 +128,13 @@ static uint8_t _ds18b20_check_crc(uint8_t *buf, uint8_t len, uint8_t crc)
  *            - 1 reset failed
  * @note      none
  */
-static uint8_t _ds18b20_reset(ds18b20_handle_t *handle)
+static uint8_t a_ds18b20_reset(ds18b20_handle_t *handle)
 {
-    volatile uint8_t retry = 0;
-    volatile uint8_t res;
+    uint8_t retry = 0;
+    uint8_t res;
     
     handle->disable_irq();                                              /* disable irq */
-    if (handle->bus_write(0))                                           /* write 0 */
+    if (handle->bus_write(0) != 0)                                      /* write 0 */
     {
         handle->enable_irq();                                           /* enable irq */
         handle->debug_print("ds18b20: bus write failed.\n");            /* write failed */
@@ -142,7 +142,7 @@ static uint8_t _ds18b20_reset(ds18b20_handle_t *handle)
         return 1;                                                       /* return error */
     }
     handle->delay_us(750);                                              /* wait 750 us */
-    if (handle->bus_write(1))                                           /* write 1 */
+    if (handle->bus_write(1) != 0)                                      /* write 1 */
     {
         handle->enable_irq();                                           /* enable irq */
         handle->debug_print("ds18b20: bus write failed.\n");            /* write failed */
@@ -151,9 +151,9 @@ static uint8_t _ds18b20_reset(ds18b20_handle_t *handle)
     }
     handle->delay_us(15);                                               /* wait 15 us */
     res = 1;                                                            /* reset res */
-    while (res && (retry < 200))                                        /* wait 200 us */
+    while ((res != 0) && (retry < 200))                                 /* wait 200 us */
     {
-        if (handle->bus_read((uint8_t *)&res))                          /* read 1 bit */
+        if (handle->bus_read((uint8_t *)&res) != 0)                     /* read 1 bit */
         {
             handle->enable_irq();                                       /* enable irq */
             handle->debug_print("ds18b20: bus read failed.\n");         /* read failed */
@@ -175,9 +175,9 @@ static uint8_t _ds18b20_reset(ds18b20_handle_t *handle)
         retry = 0;                                                      /* reset retry */
     }
     res = 0;                                                            /* reset res */
-    while (!res && (retry < 240))                                       /* wait 240 us */
+    while ((res == 0)&& (retry < 240))                                  /* wait 240 us */
     {
-        if (handle->bus_read((uint8_t *)&res))                          /* read one bit */
+        if (handle->bus_read((uint8_t *)&res) != 0)                     /* read one bit */
         {
             handle->enable_irq();                                       /* enable irq */
             handle->debug_print("ds18b20: bus read failed.\n");         /* read failed */
@@ -208,23 +208,23 @@ static uint8_t _ds18b20_reset(ds18b20_handle_t *handle)
  *             - 1 read bit failed
  * @note       none
  */
-static uint8_t _ds18b20_read_bit(ds18b20_handle_t *handle, uint8_t *data)
+static uint8_t a_ds18b20_read_bit(ds18b20_handle_t *handle, uint8_t *data)
 {
-    if (handle->bus_write(0))                                       /* write 0 */
+    if (handle->bus_write(0) != 0)                                  /* write 0 */
     {
         handle->debug_print("ds18b20: bus write failed.\n");        /* write failed */
         
         return 1;                                                   /* return error */
     }
     handle->delay_us(2);                                            /* wait 2 us */
-    if (handle->bus_write(1))                                       /* write 1 */
+    if (handle->bus_write(1) != 0)                                  /* write 1 */
     {
         handle->debug_print("ds18b20: bus write failed.\n");        /* write failed */
         
         return 1;                                                   /* return error */
     }
     handle->delay_us(12);                                           /* wait 12 us */
-    if (handle->bus_read(data))                                     /* read 1 bit */
+    if (handle->bus_read(data) != 0)                                /* read 1 bit */
     {
         handle->debug_print("ds18b20: bus read failed.\n");         /* read failed */
         
@@ -244,15 +244,15 @@ static uint8_t _ds18b20_read_bit(ds18b20_handle_t *handle, uint8_t *data)
  *             - 1 read byte failed
  * @note       none
  */
-static uint8_t _ds18b20_read_byte(ds18b20_handle_t *handle, uint8_t *byte)
+static uint8_t a_ds18b20_read_byte(ds18b20_handle_t *handle, uint8_t *byte)
 {
-    volatile uint8_t i, j;
+    uint8_t i, j;
     
     *byte = 0;                                                              /* set byte 0 */
     handle->disable_irq();                                                  /* disable irq */
     for (i = 1; i <= 8; i++)
     {
-        if (_ds18b20_read_bit(handle, (uint8_t *)&j))                       /* read 1 bit */
+        if (a_ds18b20_read_bit(handle, (uint8_t *)&j) != 0)                 /* read 1 bit */
         {
             handle->enable_irq();                                           /* enable irq */
             handle->debug_print("ds18b20: bus read byte failed.\n");        /* read byte failed */
@@ -275,19 +275,19 @@ static uint8_t _ds18b20_read_byte(ds18b20_handle_t *handle, uint8_t *byte)
  *            - 1 write byte failed
  * @note      none
  */
-static uint8_t _ds18b20_write_byte(ds18b20_handle_t *handle, uint8_t byte)
+static uint8_t a_ds18b20_write_byte(ds18b20_handle_t *handle, uint8_t byte)
 {
-    volatile uint8_t j;
-    volatile uint8_t test_b;
+    uint8_t j;
+    uint8_t test_b;
     
     handle->disable_irq();                                                  /* disable irq */
     for (j = 1; j <= 8; j++)                                                /* run 8 times, 8 bist = 1 Byte */
     {
         test_b = byte & 0x01;                                               /* get 1 bit */
         byte = byte >> 1;                                                   /* right shift 1 bit */
-        if (test_b)                                                         /* write 1 */
+        if (test_b != 0)                                                    /* write 1 */
         {
-            if (handle->bus_write(0))                                       /* write 0 */
+            if (handle->bus_write(0) != 0)                                  /* write 0 */
             {
                 handle->enable_irq();                                       /* enable irq */
                 handle->debug_print("ds18b20: bus write failed.\n");        /* write failed */
@@ -295,7 +295,7 @@ static uint8_t _ds18b20_write_byte(ds18b20_handle_t *handle, uint8_t byte)
                 return 1;                                                   /* return error */
             }
             handle->delay_us(2);                                            /* wait 2 us */
-            if (handle->bus_write(1))                                       /* write 1 */
+            if (handle->bus_write(1) != 0)                                  /* write 1 */
             {
                 handle->enable_irq();                                       /* enable irq */
                 handle->debug_print("ds18b20: bus write failed.\n");        /* write failed */
@@ -306,7 +306,7 @@ static uint8_t _ds18b20_write_byte(ds18b20_handle_t *handle, uint8_t byte)
         }
         else                                                                /* write 0 */
         {
-            if (handle->bus_write(0))                                       /* write 0 */
+            if (handle->bus_write(0) != 0)                                  /* write 0 */
             {
                 handle->enable_irq();                                       /* enable irq */
                 handle->debug_print("ds18b20: bus write failed.\n");        /* write failed */
@@ -314,7 +314,7 @@ static uint8_t _ds18b20_write_byte(ds18b20_handle_t *handle, uint8_t byte)
                 return 1;                                                   /* return error */
             }
             handle->delay_us(60);                                           /* wait 60 us */
-            if (handle->bus_write(1))                                       /* write 1 */
+            if (handle->bus_write(1) != 0)                                  /* write 1 */
             {
                 handle->enable_irq();                                       /* enable irq */
                 handle->debug_print("ds18b20: bus write failed.\n");        /* write failed */
@@ -350,7 +350,7 @@ uint8_t ds18b20_set_mode(ds18b20_handle_t *handle, ds18b20_mode_t mode)
         return 3;                   /* return error */
     }
     
-    handle->mode = mode;            /* set mode */
+    handle->mode = (uint8_t)mode;   /* set mode */
     
     return 0;                       /* success return 0 */
 }
@@ -419,7 +419,7 @@ uint8_t ds18b20_set_rom(ds18b20_handle_t *handle, uint8_t rom[8])
  */
 uint8_t ds18b20_get_rom(ds18b20_handle_t *handle, uint8_t rom[8])
 {
-    volatile uint8_t i;
+    uint8_t i;
     
     if (handle == NULL)                                                 /* check handle */
     {
@@ -430,13 +430,13 @@ uint8_t ds18b20_get_rom(ds18b20_handle_t *handle, uint8_t rom[8])
         return 3;                                                       /* return error */
     }
     
-    if (_ds18b20_reset(handle))                                         /* reset bus */
+    if (a_ds18b20_reset(handle) != 0)                                   /* reset bus */
     {
         handle->debug_print("ds18b20: bus rest failed.\n");             /* reset bus failed */
         
         return 1;                                                       /* return error */
     }
-    if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_ROM))              /* write read rom command */
+    if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_ROM) != 0)        /* write read rom command */
     {
         handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
         
@@ -444,7 +444,7 @@ uint8_t ds18b20_get_rom(ds18b20_handle_t *handle, uint8_t rom[8])
     }
     for (i = 0; i < 8; i++)                                             /* read 8 bytes */
     {
-        if (_ds18b20_read_byte(handle, (uint8_t *)&rom[i]))             /* read 1 byte */
+        if (a_ds18b20_read_byte(handle, (uint8_t *)&rom[i]) != 0)       /* read 1 byte */
         {
             handle->debug_print("ds18b20: read rom failed.\n");         /* read failed */
             
@@ -468,7 +468,7 @@ uint8_t ds18b20_get_rom(ds18b20_handle_t *handle, uint8_t rom[8])
  */
 uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_resolution_t resolution)
 {
-    volatile uint8_t i, buf[9];
+    uint8_t i, buf[9];
     
     if (handle == NULL)                                                         /* check handle */
     {
@@ -481,19 +481,19 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
     
     if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if use skip rom mode */
     {
-        if ( _ds18b20_reset(handle))                                            /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* bus reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* sent skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         } 
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* sent read scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -501,32 +501,32 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
         } 
         for (i = 0; i < 9; i++)
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read 9 bytes */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read 9 bytes */
             {
                 handle->debug_print("ds18b20: read data failed.\n");            /* read data failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* crc check error */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* bus reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* write skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* write skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_WRITE_SCRATCHPAD))          /* write scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_WRITE_SCRATCHPAD) != 0)    /* write scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -536,7 +536,7 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
         buf[4] |= resolution << 5;                                              /* set resolution bits */
         for (i = 0; i < 3; i++)
         {
-            if (_ds18b20_write_byte(handle, buf[2+i]))                          /* write command */
+            if (a_ds18b20_write_byte(handle, buf[2+i]) != 0)                    /* write command */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
@@ -548,13 +548,13 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
     }
     else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* bus reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* send match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* send match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -562,14 +562,14 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* send read scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* send read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -577,26 +577,26 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
         } 
         for (i = 0; i < 9; i++)
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read 9 bytes */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read 9 bytes */
             {
                 handle->debug_print("ds18b20: read data failed.\n");            /* read data failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* crc check error */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* match rom */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* match rom */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -604,14 +604,14 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_WRITE_SCRATCHPAD))          /* write scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_WRITE_SCRATCHPAD) != 0)    /* write scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -621,7 +621,7 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
         buf[4] |= resolution << 5;                                              /* set resolution bits */
         for (i = 0; i < 3; i++)
         {
-            if (_ds18b20_write_byte(handle, buf[2+i]))                          /* write command */
+            if (a_ds18b20_write_byte(handle, buf[2 + i]) != 0)                  /* write command */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
@@ -652,7 +652,7 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
  */
 uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_resolution_t *resolution)
 {
-    volatile uint8_t i, buf[9];
+    uint8_t i, buf[9];
     
     if (handle == NULL)                                                         /* check handle */
     {
@@ -665,19 +665,19 @@ uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_reso
     
     if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if use skip rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* sent skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* write read scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* write read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -685,14 +685,14 @@ uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_reso
         }
         for (i = 0; i < 9; i++)                                                 /* read 9 bytes */
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read bytes */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read bytes */
             {
                 handle->debug_print("ds18b20: read data failed.\n");            /* read data failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* crc check failed */
             
@@ -704,13 +704,13 @@ uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_reso
     }
     else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* sent match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* sent match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -718,14 +718,14 @@ uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_reso
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* sent read scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -733,14 +733,14 @@ uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_reso
          } 
         for (i = 0; i < 9; i++)                                                     
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read 9 bytes */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read 9 bytes */
             {
                 handle->debug_print("ds18b20: read dtaa failed.\n");            /* read failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* check crc failed */
             
@@ -772,7 +772,7 @@ uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_reso
  */
 uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t threshold_high, int8_t threshold_low)
 {
-    volatile uint8_t i, buf[9];
+    uint8_t i, buf[9];
     
     if (handle == NULL)                                                         /* check handle */
     {
@@ -785,19 +785,19 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
     
     if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if use skip rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* sent skip rom commmand */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom commmand */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* sent read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scrachpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -805,42 +805,42 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
         }
         for (i = 0; i < 9; i++)
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read 9 bytes */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read 9 bytes */
             {
                 handle->debug_print("ds18b20: read data failed.\n");            /* read data failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* crc check error */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* sent skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_WRITE_SCRATCHPAD))          /* sent write scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_WRITE_SCRATCHPAD) != 0)    /* sent write scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        buf[2] = threshold_high;                                                /* set high threshold */
-        buf[3] = threshold_low;                                                 /* set low threshold */
+        buf[2] = (uint8_t)threshold_high;                                       /* set high threshold */
+        buf[3] = (uint8_t)threshold_low;                                        /* set low threshold */
         for (i = 0; i < 3; i++)
         {
-            if (_ds18b20_write_byte(handle, buf[2+i]))                          /* write command */
+            if (a_ds18b20_write_byte(handle, buf[2 + i]) != 0)                  /* write command */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
@@ -852,13 +852,13 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
     }
     else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* bus reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* sent match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* sent match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -866,14 +866,14 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* sent read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scrachpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -881,26 +881,26 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
         }
         for (i = 0; i < 9; i++)
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read 9 byte */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read 9 byte */
             {
                 handle->debug_print("ds18b20: read data failed.\n");            /* read data failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* crc check error */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* sent match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* sent match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -908,24 +908,24 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_WRITE_SCRATCHPAD))          /* write scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_WRITE_SCRATCHPAD) != 0)    /* write scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        buf[2] = threshold_high;                                                /* set high threshold */
-        buf[3] = threshold_low;                                                 /* set low threshold */
+        buf[2] = (uint8_t)threshold_high;                                       /* set high threshold */
+        buf[3] = (uint8_t)threshold_low;                                        /* set low threshold */
         for (i = 0; i < 3; i++)
         {
-            if (_ds18b20_write_byte(handle, buf[2+i]))                          /* write command */
+            if (a_ds18b20_write_byte(handle, buf[2 + i]) != 0)                  /* write command */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
@@ -957,7 +957,7 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
  */
 uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *threshold_high, int8_t *threshold_low)
 {
-    volatile uint8_t i, buf[9];
+    uint8_t i, buf[9];
     
     if (handle == NULL)                                                         /* check handle */
     {
@@ -970,19 +970,19 @@ uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *
     
     if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if use skip rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* sent skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* sent read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scrachpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -990,14 +990,14 @@ uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *
         }
         for (i = 0; i < 9; i++)
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read 9 bytes */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read 9 bytes */
             {
                 handle->debug_print("ds18b20: read data failed.\n");            /* read data failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* crc check error */
             
@@ -1010,13 +1010,13 @@ uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *
     }
     else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* write match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* write match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1024,14 +1024,14 @@ uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* sent read scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1039,14 +1039,14 @@ uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *
         }
         for (i = 0; i < 9; i++)                                                 /* read 9 bytes */
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read bytes */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read bytes */
             {
                 handle->debug_print("ds18b20: read data failed.\n");            /* read byte failed */
                 
                 return 1;                                                       /* return error */ 
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* crc error */
             
@@ -1077,7 +1077,7 @@ uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *
  */
 uint8_t ds18b20_copy_scratchpad_to_eeprom(ds18b20_handle_t *handle)
 {
-    volatile uint8_t i, buf[9];
+    uint8_t i;
     
     if (handle == NULL)                                                         /* check handle */
     {
@@ -1090,19 +1090,19 @@ uint8_t ds18b20_copy_scratchpad_to_eeprom(ds18b20_handle_t *handle)
     
     if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if use skip rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* sent skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_COPY_SCRATCHPAD))           /* write copy scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_COPY_SCRATCHPAD) != 0)     /* write copy scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1113,13 +1113,13 @@ uint8_t ds18b20_copy_scratchpad_to_eeprom(ds18b20_handle_t *handle)
     }
     else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* bus reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* write match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* write match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1127,14 +1127,14 @@ uint8_t ds18b20_copy_scratchpad_to_eeprom(ds18b20_handle_t *handle)
         }    
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_COPY_SCRATCHPAD))           /* write copy scratchpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_COPY_SCRATCHPAD) != 0)     /* write copy scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1163,7 +1163,7 @@ uint8_t ds18b20_copy_scratchpad_to_eeprom(ds18b20_handle_t *handle)
  */
 uint8_t ds18b20_copy_eeprom_to_scratchpad(ds18b20_handle_t *handle)
 {
-    volatile uint8_t i, buf[9];
+    uint8_t i;
     
     if (handle == NULL)                                                         /* check handle */
     {
@@ -1176,19 +1176,19 @@ uint8_t ds18b20_copy_eeprom_to_scratchpad(ds18b20_handle_t *handle)
     
     if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if use in skip rom */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* sent skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_RECALL_EE))                 /* write recall ee command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_RECALL_EE) != 0)           /* write recall ee command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1199,13 +1199,13 @@ uint8_t ds18b20_copy_eeprom_to_scratchpad(ds18b20_handle_t *handle)
     }
     else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* sent match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* sent match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command */
             
@@ -1213,14 +1213,14 @@ uint8_t ds18b20_copy_eeprom_to_scratchpad(ds18b20_handle_t *handle)
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_RECALL_EE))                 /* sent recall ee command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_RECALL_EE) != 0)           /* sent recall ee command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1361,16 +1361,16 @@ uint8_t ds18b20_init(ds18b20_handle_t *handle)
         return 3;                                                      /* return error */
     }
     
-    if (handle->bus_init())                                            /* initialize bus */
+    if (handle->bus_init() != 0)                                       /* initialize bus */
     {
         handle->debug_print("ds18b20: bus init failed.\n");            /* bus innit failed */
         
         return 1;                                                      /* return error */
     }
-    if (_ds18b20_reset(handle))                                        /* reset chip */
+    if (a_ds18b20_reset(handle) != 0)                                  /* reset chip */
     {
         handle->debug_print("ds18b20: reset failed.\n");               /* reset chip failed */
-        handle->bus_deinit();                                          /* close bus */
+        (void)handle->bus_deinit();                                    /* close bus */
         
         return 4;                                                      /* return error */
     }
@@ -1400,7 +1400,7 @@ uint8_t ds18b20_deinit(ds18b20_handle_t *handle)
         return 3;                                                /* return error */
     }
     
-    if (handle->bus_deinit())                                    /* close bus */
+    if (handle->bus_deinit() != 0)                               /* close bus */
     {
         handle->debug_print("ds18b20: deinit failed.\n");        /* deinit failed */
         
@@ -1425,9 +1425,9 @@ uint8_t ds18b20_deinit(ds18b20_handle_t *handle)
  */
 uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
 {
-    volatile uint8_t i, buf[9];
-    volatile uint8_t res;
-    volatile uint32_t cnt;
+    uint8_t i, buf[9];
+    uint8_t res;
+    uint32_t cnt;
     
     if (handle == NULL)                                                         /* check handle */
     {
@@ -1440,19 +1440,19 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
     
     if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if use skip rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* bus reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* sent skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_CONVERT_T))                 /* sent convert temp command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_CONVERT_T) != 0)           /* sent convert temp command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1460,9 +1460,9 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         cnt = 0;                                                                /* reset cnt */
         res = 0;                                                                /* reset res */
-        while ((!res) && (cnt<100))                                             /* wait 1 s */
+        while ((res == 0) && (cnt < 100))                                       /* wait 1 s */
         {
-            if (_ds18b20_read_bit(handle, (uint8_t *)&res))                     /* read 1 bit */
+            if (a_ds18b20_read_bit(handle, (uint8_t *)&res) != 0)               /* read 1 bit */
             {
                 handle->debug_print("ds18b20: read bit failed.\n");             /* read bit failed */
                 
@@ -1477,19 +1477,19 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
             
             return 1;                                                           /* reset error */
         }
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* bus reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* send skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* send skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* write read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* write read scrachpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1497,27 +1497,26 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         for (i = 0; i < 9; i++)                                                 /* read 9 bytes */
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read bytes */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read bytes */
             {
                 handle->debug_print("ds18b20: read byte failed.\n");            /* read byte failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* crc check failed */
             
             return 1;                                                           /* return error */
         }
-        *raw = (int16_t)(buf[1] << 8) | buf[0];                                 /* get raw data */
+        *raw = (int16_t)(((uint16_t)buf[1]) << 8) | buf[0];                     /* get raw data */
         if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_9BIT)                  /* if 9 bit resolution */
         {
-            if ((*raw) & (1 << 15))                                             /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
             {
                 *raw = (*raw ) >> 3;                                            /* right shift 3 */
-                *raw = (*raw) | 0xE000;                                         /* set negtive part */
-                *raw = - (~(*raw) + 1);                                         /* convert */
+                *raw = (*raw) | 0xE000U;                                        /* set negtive part */
             }
             else                                                                /* if positive */
             {
@@ -1527,11 +1526,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         else if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_10BIT)            /* if 10 bit resolution */
         {
-            if ((*raw) & (1 << 15))                                             /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
             {
                 *raw = (*raw ) >> 2;                                            /* right shift 2 */
-                *raw = (*raw) | 0xC000;                                         /* set negtive part */
-                *raw = - (~(*raw) + 1);                                         /* convert */
+                *raw = (*raw) | 0xC000U;                                        /* set negtive part */
             }
             else
             {
@@ -1541,11 +1539,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         else if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_11BIT)            /* if 11 bit resolution */
         {
-            if ((*raw) & (1 << 15))                                             /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
             {
                 *raw = (*raw ) >> 1;                                            /* right shift 1 */
-                *raw = (*raw) | 0x8000;                                         /* set negtive part */
-                *raw = - (~(*raw) + 1);                                         /* convert */
+                *raw = (*raw) | 0x8000U;                                        /* set negtive part */
             }
             else
             {
@@ -1569,13 +1566,13 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
     }
     else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
         
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* sent match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* sent match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
 
@@ -1583,14 +1580,14 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* wrtie command failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_CONVERT_T))                 /* sent convert temp command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_CONVERT_T) != 0)           /* sent convert temp command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1598,9 +1595,9 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         cnt = 0;                                                                /* reset cnt */
         res = 0;                                                                /* reset res */
-        while ((!res) && (cnt<100))                                             /* read max 1s */
+        while ((res == 0) && (cnt < 100))                                       /* read max 1s */
         {
-            if (_ds18b20_read_bit(handle, (uint8_t *)&res))                     /* read 1 bit */
+            if (a_ds18b20_read_bit(handle, (uint8_t *)&res) != 0)               /* read 1 bit */
             {
                 handle->debug_print("ds18b20: read bit failed.\n");             /* read 1 bit failed */
                 
@@ -1615,13 +1612,13 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_reset(handle))                                             /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* reset bus failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* sent match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* sent match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1629,14 +1626,14 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
         } 
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD))           /* send read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* send read scrachpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1644,27 +1641,26 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         for (i = 0; i < 9; i++)                                                 /* read 9 bytes */
         {
-            if (_ds18b20_read_byte(handle, (uint8_t *)&buf[i]))                 /* read byte */
+            if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read byte */
             {
                 handle->debug_print("ds18b20: read byte failed.\n");            /* read failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]))                      /* check crc */
+        if (a_ds18b20_check_crc((uint8_t *)buf, 8, buf[8]) != 0)                /* check crc */
         {
             handle->debug_print("ds18b20: crc check error.\n");                 /* crc check error */
             
             return 1;                                                           /* return error */
         }
-        *raw = (int16_t)(buf[1] << 8) | buf[0];                                 /* get raw data */
+        *raw = (int16_t)(((uint16_t)buf[1]) << 8) | buf[0];                     /* get raw data */
         if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_9BIT)                  /* if 9 bit resolution */
         {
-            if ((*raw) & (1 << 15))                                             /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
             {
                 *raw = (*raw ) >> 3;                                            /* right shift 3 */
-                *raw = (*raw) | 0xE000;                                         /* set negtive part */
-                *raw = - (~(*raw) + 1);                                         /* convert */
+                *raw = (*raw) | 0xE000U;                                        /* set negtive part */
             }
             else                                                                /* if positive */
             {
@@ -1674,11 +1670,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         else if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_10BIT)            /* if 10 bit resolution */
         {
-            if ((*raw) & (1 << 15))                                             /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
             {
                 *raw = (*raw ) >> 2;                                            /* right shift 2 */
-                *raw = (*raw) | 0xC000;                                         /* set negtive part */
-                *raw = - (~(*raw) + 1);                                         /* convert */
+                *raw = (*raw) | 0xC000U;                                        /* set negtive part */
             }
             else
             {
@@ -1688,11 +1683,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         else if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_11BIT)            /* if 11 bit resolution */
         {
-            if ((*raw) & (1 << 15))                                             /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
             {
                 *raw = (*raw ) >> 1;                                            /* right shift 1 */
-                *raw = (*raw) | 0x8000;                                         /* set negtive part */
-                *raw = - (~(*raw) + 1);                                         /* convert */
+                *raw = (*raw) | 0x8000U;                                        /* set negtive part */
             }
             else
             {
@@ -1731,17 +1725,17 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
  *             - 1 read failed
  * @note       none
  */
-static uint8_t _ds18b20_read_2bit(ds18b20_handle_t *handle, uint8_t *data)    
+static uint8_t a_ds18b20_read_2bit(ds18b20_handle_t *handle, uint8_t *data)    
 {
-    volatile uint8_t i;
-    volatile uint8_t res;
+    uint8_t i;
+    uint8_t res;
     
     *data = 0;                                                          /* reset data */
     handle->disable_irq();                                              /* disable irq */
     for (i = 0; i < 2; i++)                                             /* read 2 bit */
     {
         *data <<= 1;                                                    /* left shift 1 */
-        if (_ds18b20_read_bit(handle, (uint8_t *)&res))                 /* read one bit */
+        if (a_ds18b20_read_bit(handle, (uint8_t *)&res) != 0)           /* read one bit */
         {
             handle->enable_irq();                                       /* enable irq */
             handle->debug_print("ds18b20: read bit failed.\n");         /* read bit failed */
@@ -1765,10 +1759,10 @@ static uint8_t _ds18b20_read_2bit(ds18b20_handle_t *handle, uint8_t *data)
  *            - 1 write failed
  * @note      none
  */
-static uint8_t _ds18b20_write_bit(ds18b20_handle_t *handle, uint8_t bit)
+static uint8_t a_ds18b20_write_bit(ds18b20_handle_t *handle, uint8_t bit)
 {    
     handle->disable_irq();                                          /* disable irq */
-    if (handle->bus_write(0))                                       /* write 0 */
+    if (handle->bus_write(0) != 0)                                  /* write 0 */
     {
         handle->enable_irq();                                       /* enable irq */
         handle->debug_print("ds18b20: write bit failed.\n");        /* write bit failed */
@@ -1776,7 +1770,7 @@ static uint8_t _ds18b20_write_bit(ds18b20_handle_t *handle, uint8_t bit)
         return 1;                                                   /* return error */
     }
     handle->delay_us(12);                                           /* wait 12 us */
-    if (handle->bus_write(bit))                                     /* write bit */
+    if (handle->bus_write(bit) != 0)                                /* write bit */
     {
         handle->enable_irq();                                       /* enable irq */
         handle->debug_print("ds18b20: write bit failed.\n");        /* write bit failed */
@@ -1784,7 +1778,7 @@ static uint8_t _ds18b20_write_bit(ds18b20_handle_t *handle, uint8_t bit)
         return 1;                                                   /* return error */
     } 
     handle->delay_us(30);                                           /* wait 30 us */
-    if (handle->bus_write(1))                                       /* write 1 */
+    if (handle->bus_write(1) != 0)                                  /* write 1 */
     {
         handle->enable_irq();                                       /* enable irq */
         handle->debug_print("ds18b20: write bit failed.\n");        /* write bit failed */
@@ -1808,13 +1802,13 @@ static uint8_t _ds18b20_write_bit(ds18b20_handle_t *handle, uint8_t bit)
  *                - 1 search failed
  * @note          none
  */
-static uint8_t _ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uint8_t cmd, uint8_t *number)
+static uint8_t a_ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uint8_t cmd, uint8_t *number)
 {     
-    volatile uint8_t k, l = 0, conflict_bit, m, n;
-    volatile uint8_t buffer[DS18B20_MAX_SEARCH_SIZE];
-    volatile uint8_t ss[64];
-    volatile uint8_t s = 0;
-    volatile uint8_t num = 0;
+    uint8_t k, l = 0, conflict_bit, m, n;
+    uint8_t buffer[DS18B20_MAX_SEARCH_SIZE];
+    uint8_t ss[64];
+    uint8_t s = 0;
+    uint8_t num = 0;
     
     if ((*number) > DS18B20_MAX_SEARCH_SIZE)                                              /* check number */
     {
@@ -1823,15 +1817,16 @@ static uint8_t _ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uint
         return 1;                                                                         /* return error */
     }
     memset((uint8_t *)buffer, 0, DS18B20_MAX_SEARCH_SIZE);                                /* clear buffer */
+    memset((uint8_t *)ss, 0, sizeof(uint8_t) * 64);                                       /* clear buffer */
     do
     {
-        if (_ds18b20_reset(handle))                                                       /* reset bus */
+        if (a_ds18b20_reset(handle) != 0)                                                 /* reset bus */
         {
             handle->debug_print("ds18b20: reset failed.\n");                              /* reset bus failed */
             
             return 1;                                                                     /* return error */
         }
-        if (_ds18b20_write_byte(handle, cmd))                                             /* write 1 byte */
+        if (a_ds18b20_write_byte(handle, cmd) != 0)                                       /* write 1 byte */
         {
             handle->debug_print("ds18b20: write command failed.\n");                      /* write command failed */
             
@@ -1841,7 +1836,7 @@ static uint8_t _ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uint
         {
             for (n = 0; n < 8; n++)                                                       /* read 8 bit */
             {
-                if (_ds18b20_read_2bit(handle, (uint8_t *)&k))                            /* read 2 bit */
+                if (a_ds18b20_read_2bit(handle, (uint8_t *)&k) != 0)                      /* read 2 bit */
                 {
                     handle->debug_print("ds18b20: read 2bit failed.\n");                  /* read 2 bit failed */
                     
@@ -1851,43 +1846,43 @@ static uint8_t _ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uint
                 s = s >> 1;                                                               /* right shift 1 bit */
                 if (k == 0x01)                                                            /* 0000 0001 */
                 {
-                    if (_ds18b20_write_bit(handle, 0))                                    /* write 0 */
+                    if (a_ds18b20_write_bit(handle, 0) != 0)                              /* write 0 */
                     {
                         handle->debug_print("ds18b20: write bit failed.\n");              /* write bit failed */
                         
                         return 1;                                                         /* return error */
                     }
-                    ss[(m*8+n)] = 0;                                                      /* set 0 */
+                    ss[(m * 8 + n)] = 0;                                                  /* set 0 */
                 }
                 else if (k == 0x02)                                                       /* 0000 0010 */
                 {
                     s = s | 0x80;                                                         /* set 7 bit */
-                    if (_ds18b20_write_bit(handle, 1))                                    /* write 1 */
+                    if (a_ds18b20_write_bit(handle, 1) != 0)                              /* write 1 */
                     {
                         handle->debug_print("ds18b20: write bit failed.\n");              /* write bit failed */
                         
                         return 1;                                                         /* return error */
                     }
-                    ss[(m*8+n)] = 1;                                                      /* set 1 */
+                    ss[(m * 8 + n)] = 1;                                                  /* set 1 */
                 }    
                 else if (k == 0x00)                                                       /* if 0000 */
                 {
-                    conflict_bit = m*8+n+1;                                               /* flag conflict bit */
+                    conflict_bit = (uint8_t)(m * 8 + n + 1);                              /* flag conflict bit */
                     if (conflict_bit > buffer[l])                                         /* check buffer */
                     {
-                        if (_ds18b20_write_bit(handle, 0))                                /* write 0 */
+                        if (a_ds18b20_write_bit(handle, 0) != 0)                          /* write 0 */
                         {
                             handle->debug_print("ds18b20: write bit failed.\n");          /* write bit failed */
                             
                             return 1;                                                     /* return error */
                         }
-                        ss[(m*8+n)] = 0;                                                  /* set 0 */
+                        ss[(m * 8 + n)] = 0;                                              /* set 0 */
                         buffer[++l] = conflict_bit;                                       /* set conflict bit */
                     }
                     else if (conflict_bit < buffer[l])                                    /* if > buffer */
                     {
-                        s = s|((ss[(m*8+n)] & 0x01) <<7);                                 /* get s */
-                        if (_ds18b20_write_bit(handle, ss[(m*8+n)]))                      /* write data */
+                        s = s|((ss[(m * 8 + n)] & 0x01) << 7);                            /* get s */
+                        if (a_ds18b20_write_bit(handle, ss[(m*8+n)]) != 0)                /* write data */
                         {
                             handle->debug_print("ds18b20: write bit failed.\n");          /* write bit failed */
                             
@@ -1897,14 +1892,18 @@ static uint8_t _ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uint
                     else if (conflict_bit == buffer[l])                                   /* if == buffer */
                     {
                         s = s | 0x80;                                                     /* set 7 bit */
-                        if (_ds18b20_write_bit(handle, 1))                                /* write 1 */
+                        if (a_ds18b20_write_bit(handle, 1) != 0)                          /* write 1 */
                         {
                             handle->debug_print("ds18b20: write bit failed.\n");          /* write bit failed */
                             
                             return 1;                                                     /* return error */
                         }
-                        ss[(m*8+n)] = 1;                                                  /* set 1 */
+                        ss[(m * 8 + n)] = 1;                                              /* set 1 */
                         l = l-1;                                                          /* l-- */
+                    }
+                    else
+                    {
+                        
                     }
                 }
                 else
@@ -1950,7 +1949,7 @@ uint8_t ds18b20_search_rom(ds18b20_handle_t *handle, uint8_t (*rom)[8], uint8_t 
         return 3;                                                            /* return error */
     }
     
-    return _ds18b20_search(handle, rom, DS18B20_CMD_SEARCH_ROM, num);        /* return search result */
+    return a_ds18b20_search(handle, rom, DS18B20_CMD_SEARCH_ROM, num);       /* return search result */
 }
 
 /**
@@ -1974,7 +1973,7 @@ uint8_t ds18b20_search_alarm(ds18b20_handle_t *handle, uint8_t (*rom)[8], uint8_
         return 3;                                                              /* return error */
     }
     
-    return _ds18b20_search(handle, rom, DS18B20_CMD_ALARM_SEARCH, num);        /* return search result */
+    return a_ds18b20_search(handle, rom, DS18B20_CMD_ALARM_SEARCH, num);       /* return search result */
 }
 
 /**
@@ -1988,7 +1987,7 @@ uint8_t ds18b20_search_alarm(ds18b20_handle_t *handle, uint8_t (*rom)[8], uint8_
  */
 uint8_t ds18b20_get_power_mode(ds18b20_handle_t *handle, ds18b20_power_mode_t *power_mode)
 {
-    volatile uint8_t i, buf[9];
+    uint8_t i;
     
     if (handle == NULL)                                                         /* check handle */
     {
@@ -2001,25 +2000,25 @@ uint8_t ds18b20_get_power_mode(ds18b20_handle_t *handle, ds18b20_power_mode_t *p
     
     if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if use skip rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* bus reset */
+        if (a_ds18b20_reset(handle) != 0)                                       /* bus reset */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* bus reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM))                  /* sent skip rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_POWER_SUPPLY))         /* write read power supply command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_POWER_SUPPLY) != 0)   /* write read power supply command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_read_bit(handle, (uint8_t *)power_mode))                   /* get power mode */
+        if (a_ds18b20_read_bit(handle, (uint8_t *)power_mode) != 0)             /* get power mode */
         {
             handle->debug_print("ds18b20: read bit failed.\n");                 /* read bit failed */
             
@@ -2030,13 +2029,13 @@ uint8_t ds18b20_get_power_mode(ds18b20_handle_t *handle, ds18b20_power_mode_t *p
     }
     else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
     {
-        if (_ds18b20_reset(handle))                                             /* bus reset */
+        if (a_ds18b20_reset(handle) != 0)                                       /* bus reset */
         {
             handle->debug_print("ds18b20: bus reset failed.\n");                /* bus reset failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM))                 /* sent match rom command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_MATCH_ROM) != 0)           /* sent match rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
 
@@ -2044,20 +2043,20 @@ uint8_t ds18b20_get_power_mode(ds18b20_handle_t *handle, ds18b20_power_mode_t *p
         }
         for (i = 0; i < 8; i++)
         {
-            if (_ds18b20_write_byte(handle, handle->rom[i]))                    /* send rom */
+            if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
                 handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
         }
-        if (_ds18b20_write_byte(handle, DS18B20_CMD_READ_POWER_SUPPLY))         /* write read power supply */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_POWER_SUPPLY) != 0)   /* write read power supply */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (_ds18b20_read_bit(handle, (uint8_t *)power_mode))                   /* get power mode */
+        if (a_ds18b20_read_bit(handle, (uint8_t *)power_mode) != 0)             /* get power mode */
         {
             handle->debug_print("ds18b20: read bit failed.\n");                 /* read bit failed */
             

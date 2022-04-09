@@ -22,7 +22,7 @@ var NAVTREEINDEX1 =
 "structds18b20__handle__s.html#a2193b7364a6c4090ba298435005b817a":[0,0,1,0,0],
 "structds18b20__handle__s.html#a37e90f5e3bd99fac2021fb3a326607d4":[0,0,1,0,10],
 "structds18b20__handle__s.html#a406c9433252b7366de417b7a60915c81":[0,0,1,0,5],
-"structds18b20__handle__s.html#a75f9f50c23e87e9407f9ec4e34bb42f2":[0,0,1,0,4],
+"structds18b20__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b":[0,0,1,0,4],
 "structds18b20__handle__s.html#a97ffc4fce945527bd6ab25a3596caef7":[0,0,1,0,6],
 "structds18b20__handle__s.html#aac09376076eae94d89ca85ff63018eee":[0,0,1,0,7],
 "structds18b20__handle__s.html#abe23165605a343d08776c029a60eb242":[0,0,1,0,2],

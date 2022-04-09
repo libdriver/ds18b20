@@ -48,7 +48,7 @@ static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
  */
 uint8_t ds18b20_match_init(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* link interface function */
     DRIVER_DS18B20_LINK_INIT(&gs_handle, ds18b20_handle_t);
@@ -64,7 +64,7 @@ uint8_t ds18b20_match_init(void)
     
     /* ds18b20 init */
     res = ds18b20_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: init failed.\n");
         
@@ -73,10 +73,10 @@ uint8_t ds18b20_match_init(void)
     
     /* set match rom mode */
     res = ds18b20_set_mode(&gs_handle, DS18B20_MODE_MATCH_ROM);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -95,12 +95,12 @@ uint8_t ds18b20_match_init(void)
  */
 uint8_t ds18b20_match_read(uint8_t rom[8], float *temperature)
 {
-    volatile uint8_t res;
-    volatile int16_t raw;
+    uint8_t res;
+    int16_t raw;
     
     /* set rom */
     res = ds18b20_set_rom(&gs_handle, (uint8_t *)rom);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set rom failed.\n");
         
@@ -108,7 +108,7 @@ uint8_t ds18b20_match_read(uint8_t rom[8], float *temperature)
     }
     
     /* read temperature */
-    if (ds18b20_read(&gs_handle, (int16_t *)&raw, temperature))
+    if (ds18b20_read(&gs_handle, (int16_t *)&raw, temperature) != 0)
     {
         return 1;
     }
@@ -128,7 +128,7 @@ uint8_t ds18b20_match_read(uint8_t rom[8], float *temperature)
 uint8_t ds18b20_match_deinit(void)
 {
     /* ds18b20 close */
-    if (ds18b20_deinit(&gs_handle))
+    if (ds18b20_deinit(&gs_handle) != 0)
     {
         return 1;
     }

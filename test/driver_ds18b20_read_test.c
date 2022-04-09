@@ -49,11 +49,11 @@ static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
  */
 uint8_t ds18b20_read_test(uint32_t times)
 {
-    volatile uint8_t res;
-    volatile uint32_t i;
-    volatile int16_t raw;
-    volatile float temperature;
-    volatile uint8_t rom[8];
+    uint8_t res;
+    uint32_t i;
+    int16_t raw;
+    float temperature;
+    uint8_t rom[8];
     ds18b20_info_t info;
    
     /* link interface function */
@@ -70,7 +70,7 @@ uint8_t ds18b20_read_test(uint32_t times)
 
     /* get ds18b20 info */
     res = ds18b20_info(&info);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: get info failed.\n");
        
@@ -92,7 +92,7 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* ds18b20 init */
     res = ds18b20_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: init failed.\n");
        
@@ -104,10 +104,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* skip rom mode */
     res = ds18b20_set_mode(&gs_handle, DS18B20_MODE_SKIP_ROM);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -115,10 +115,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* RESOLUTION_9BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_9BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -126,10 +126,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
-        if (res)
+        if (res != 0)
         {
             ds18b20_interface_debug_print("ds18b20: read failed.\n");
-            ds18b20_deinit(&gs_handle);
+            (void)ds18b20_deinit(&gs_handle);
             
             return 1;
         }
@@ -139,10 +139,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* RESOLUTION_10BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_10BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -150,10 +150,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
-        if (res)
+        if (res != 0)
         {
             ds18b20_interface_debug_print("ds18b20: read failed.\n");
-            ds18b20_deinit(&gs_handle);
+            (void)ds18b20_deinit(&gs_handle);
             
             return 1;
         }
@@ -163,10 +163,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* RESOLUTION_11BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_11BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -174,10 +174,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
-        if (res)
+        if (res != 0)
         {
             ds18b20_interface_debug_print("ds18b20: read failed.\n");
-            ds18b20_deinit(&gs_handle);
+            (void)ds18b20_deinit(&gs_handle);
             
             return 1;
         }
@@ -187,10 +187,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* RESOLUTION_12BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_12BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -198,10 +198,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
-        if (res)
+        if (res != 0)
         {
             ds18b20_interface_debug_print("ds18b20: read failed.\n");
-            ds18b20_deinit(&gs_handle);
+            (void)ds18b20_deinit(&gs_handle);
             
             return 1;
         }
@@ -211,28 +211,28 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* get rom */
     res = ds18b20_get_rom(&gs_handle, (uint8_t *)rom);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: get rom failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     res = ds18b20_set_rom(&gs_handle, (uint8_t *)rom);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set match rom mode */
     res = ds18b20_set_mode(&gs_handle, DS18B20_MODE_MATCH_ROM);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -240,10 +240,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* RESOLUTION_9BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_9BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -251,10 +251,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
-        if (res)
+        if (res != 0)
         {
             ds18b20_interface_debug_print("ds18b20: read failed.\n");
-            ds18b20_deinit(&gs_handle);
+            (void)ds18b20_deinit(&gs_handle);
             
             return 1;
         }
@@ -264,10 +264,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* RESOLUTION_10BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_10BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -275,10 +275,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
-        if (res)
+        if (res != 0)
         {
             ds18b20_interface_debug_print("ds18b20: read failed.\n");
-            ds18b20_deinit(&gs_handle);
+            (void)ds18b20_deinit(&gs_handle);
             
             return 1;
         }
@@ -288,10 +288,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* RESOLUTION_11BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_11BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -299,10 +299,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
-        if (res)
+        if (res != 0)
         {
             ds18b20_interface_debug_print("ds18b20: read failed.\n");
-            ds18b20_deinit(&gs_handle);
+            (void)ds18b20_deinit(&gs_handle);
             
             return 1;
         }
@@ -312,10 +312,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* RESOLUTION_12BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_12BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -323,10 +323,10 @@ uint8_t ds18b20_read_test(uint32_t times)
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
-        if (res)
+        if (res != 0)
         {
             ds18b20_interface_debug_print("ds18b20: read failed.\n");
-            ds18b20_deinit(&gs_handle);
+            (void)ds18b20_deinit(&gs_handle);
             
             return 1;
         }
@@ -336,7 +336,7 @@ uint8_t ds18b20_read_test(uint32_t times)
     
     /* finish read test */
     ds18b20_interface_debug_print("ds18b20: finish read test.\n");
-    ds18b20_deinit(&gs_handle);
+    (void)ds18b20_deinit(&gs_handle);
     
     return 0;
 }

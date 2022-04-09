@@ -35,8 +35,8 @@
  * </table>
  */
   
-#ifndef _DRIVER_DS18B20_ALARM_H_
-#define _DRIVER_DS18B20_ALARM_H_
+#ifndef DRIVER_DS18B20_ALARM_H
+#define DRIVER_DS18B20_ALARM_H
 
 #include "driver_ds18b20_interface.h"
 

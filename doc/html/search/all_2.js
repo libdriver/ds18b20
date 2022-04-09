@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['debug_5fprint_6',['debug_print',['../structds18b20__handle__s.html#a75f9f50c23e87e9407f9ec4e34bb42f2',1,'ds18b20_handle_s']]],
+  ['debug_5fprint_6',['debug_print',['../structds18b20__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b',1,'ds18b20_handle_s']]],
   ['delay_5fms_7',['delay_ms',['../structds18b20__handle__s.html#a406c9433252b7366de417b7a60915c81',1,'ds18b20_handle_s']]],
   ['delay_5fus_8',['delay_us',['../structds18b20__handle__s.html#a97ffc4fce945527bd6ab25a3596caef7',1,'ds18b20_handle_s']]],
   ['disable_5firq_9',['disable_irq',['../structds18b20__handle__s.html#aac09376076eae94d89ca85ff63018eee',1,'ds18b20_handle_s']]],
@@ -75,7 +75,7 @@ var searchData=
   ['ds18b20_5finfo_5fs_78',['ds18b20_info_s',['../structds18b20__info__s.html',1,'']]],
   ['ds18b20_5finfo_5ft_79',['ds18b20_info_t',['../group__ds18b20__base__driver.html#gaf0d8f59ec1b4c532700951b5039bc839',1,'driver_ds18b20.h']]],
   ['ds18b20_5finit_80',['ds18b20_init',['../group__ds18b20__base__driver.html#ga42a0bced6314bc11b3c47f1d83bbff9a',1,'ds18b20_init(ds18b20_handle_t *handle):&#160;driver_ds18b20.c'],['../group__ds18b20__base__driver.html#ga42a0bced6314bc11b3c47f1d83bbff9a',1,'ds18b20_init(ds18b20_handle_t *handle):&#160;driver_ds18b20.c']]],
-  ['ds18b20_5finterface_5fdebug_5fprint_81',['ds18b20_interface_debug_print',['../group__ds18b20__interface__driver.html#ga1e8871ce3ea791bbe4e8952e643a3636',1,'ds18b20_interface_debug_print(char *fmt,...):&#160;driver_ds18b20_interface_template.c'],['../group__ds18b20__interface__driver.html#ga1e8871ce3ea791bbe4e8952e643a3636',1,'ds18b20_interface_debug_print(char *fmt,...):&#160;driver_ds18b20_interface_template.c']]],
+  ['ds18b20_5finterface_5fdebug_5fprint_81',['ds18b20_interface_debug_print',['../group__ds18b20__interface__driver.html#gabb823545b537ecf6e62e279baaac6dc4',1,'ds18b20_interface_debug_print(const char *const fmt,...):&#160;driver_ds18b20_interface_template.c'],['../group__ds18b20__interface__driver.html#gabb823545b537ecf6e62e279baaac6dc4',1,'ds18b20_interface_debug_print(const char *const fmt,...):&#160;driver_ds18b20_interface_template.c']]],
   ['ds18b20_5finterface_5fdeinit_82',['ds18b20_interface_deinit',['../group__ds18b20__interface__driver.html#ga03a7158f8be182347f2263bb61efb869',1,'ds18b20_interface_deinit(void):&#160;driver_ds18b20_interface_template.c'],['../group__ds18b20__interface__driver.html#ga03a7158f8be182347f2263bb61efb869',1,'ds18b20_interface_deinit(void):&#160;driver_ds18b20_interface_template.c']]],
   ['ds18b20_5finterface_5fdelay_5fms_83',['ds18b20_interface_delay_ms',['../group__ds18b20__interface__driver.html#ga0fc93e0908a80f48e859cf1aeb8d3136',1,'ds18b20_interface_delay_ms(uint32_t ms):&#160;driver_ds18b20_interface_template.c'],['../group__ds18b20__interface__driver.html#ga0fc93e0908a80f48e859cf1aeb8d3136',1,'ds18b20_interface_delay_ms(uint32_t ms):&#160;driver_ds18b20_interface_template.c']]],
   ['ds18b20_5finterface_5fdelay_5fus_84',['ds18b20_interface_delay_us',['../group__ds18b20__interface__driver.html#gaffa80ae3f3b868b8acec66e67cd6533b',1,'ds18b20_interface_delay_us(uint32_t us):&#160;driver_ds18b20_interface_template.c'],['../group__ds18b20__interface__driver.html#gaffa80ae3f3b868b8acec66e67cd6533b',1,'ds18b20_interface_delay_us(uint32_t us):&#160;driver_ds18b20_interface_template.c']]],
