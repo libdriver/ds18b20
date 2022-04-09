@@ -128,10 +128,9 @@ void ds18b20_interface_disable_irq(void)
 /**
  * @brief     interface print format data
  * @param[in] fmt is the format data
- * @return    length of the send data
  * @note      none
  */
-uint16_t ds18b20_interface_debug_print(char *fmt, ...)
+void ds18b20_interface_debug_print(const char *const fmt, ...)
 {
-    return 0;
+    
 }

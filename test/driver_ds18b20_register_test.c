@@ -49,12 +49,12 @@ static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
  */
 uint8_t ds18b20_register_test(void)
 {
-    volatile uint8_t res, i;
-    volatile float temp, temp_check;
-    volatile int8_t reg;
-    volatile int8_t threshold_high, threshold_low;
-    volatile int8_t threshold_high_check, threshold_low_check;
-    volatile uint8_t rom[8], rom_check[8];
+    uint8_t res, i;
+    float temp, temp_check;
+    int8_t reg;
+    int8_t threshold_high, threshold_low;
+    int8_t threshold_high_check, threshold_low_check;
+    uint8_t rom[8], rom_check[8];
     ds18b20_info_t info;
     ds18b20_mode_t mode;
     ds18b20_power_mode_t power_mode;
@@ -74,7 +74,7 @@ uint8_t ds18b20_register_test(void)
    
     /* get ds18b20 info */
     res = ds18b20_info(&info);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: get info failed.\n");
        
@@ -99,7 +99,7 @@ uint8_t ds18b20_register_test(void)
     
     /* ds18b20 init */
     res = ds18b20_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: init failed.\n");
        
@@ -111,19 +111,19 @@ uint8_t ds18b20_register_test(void)
     
     /* skip rom */
     res = ds18b20_set_mode(&gs_handle, DS18B20_MODE_SKIP_ROM);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: set skip rom mode.\n");
     res = ds18b20_get_mode(&gs_handle, &mode);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: get mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -131,19 +131,19 @@ uint8_t ds18b20_register_test(void)
     
     /* match rom */
     res = ds18b20_set_mode(&gs_handle, DS18B20_MODE_MATCH_ROM);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: set match rom mode.\n");
     res = ds18b20_get_mode(&gs_handle, &mode);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: get mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -152,27 +152,27 @@ uint8_t ds18b20_register_test(void)
     /* ds18b20_set_rom/ds18b20_get_rom test */
     ds18b20_interface_debug_print("ds18b20: ds18b20_set_rom/ds18b20_get_rom test.\n");
     res = ds18b20_get_rom(&gs_handle, (uint8_t *)rom);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: get rom failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     res = ds18b20_set_rom(&gs_handle, (uint8_t *)rom);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: set rom.\n");
     res = ds18b20_get_rom(&gs_handle, (uint8_t *)rom_check);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: get rom failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -188,33 +188,34 @@ uint8_t ds18b20_register_test(void)
     /* ds18b20_get_power_mode test */
     ds18b20_interface_debug_print("ds18b20: ds18b20_get_power_mode test.\n");
     res = ds18b20_get_power_mode(&gs_handle, &power_mode);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: get power mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: check power mode %s.\n", power_mode?"externally power":"parasite power");
+    ds18b20_interface_debug_print("ds18b20: check power mode %s.\n",
+                                  power_mode == DS18B20_POWER_MODE_EXTERNALLY ? "externally power" : "parasite power");
     
     /* ds18b20_scrachpad_set_resolution/ds18b20_scrachpad_get_resolution test */
     ds18b20_interface_debug_print("ds18b20: ds18b20_scrachpad_set_resolution/ds18b20_scrachpad_get_resolution test.\n");
     
     /* RESOLUTION_9BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_9BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 9bit.\n");
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -222,19 +223,19 @@ uint8_t ds18b20_register_test(void)
    
     /* RESOLUTION_10BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_10BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 10bit.\n");
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -242,19 +243,19 @@ uint8_t ds18b20_register_test(void)
     
     /* RESOLUTION_11BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_11BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 11bit.\n");
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -262,19 +263,19 @@ uint8_t ds18b20_register_test(void)
     
     /* RESOLUTION_12BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_12BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 12bit.\n");
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -282,23 +283,23 @@ uint8_t ds18b20_register_test(void)
     
     /* ds18b20_scrachpad_set_alarm_threshold/ds18b20_scrachpad_get_alarm_threshold test */
     ds18b20_interface_debug_print("ds18b20: ds18b20_scrachpad_set_alarm_threshold/ds18b20_scrachpad_get_alarm_threshold test.\n");
-    threshold_high = rand()%128;
-    threshold_low = -(rand()%128);
+    threshold_high = (int8_t)(rand()%128);
+    threshold_low = (int8_t)(-(rand()%128));
     res = ds18b20_scratchpad_set_alarm_threshold(&gs_handle, threshold_high, threshold_low);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set alarm threshold failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: scrachpad set alarm high threshold %d.\n", threshold_high);
     ds18b20_interface_debug_print("ds18b20: scrachpad set alarm low threshold %d.\n", threshold_low);
     res = ds18b20_scrachpad_get_alarm_threshold(&gs_handle, (int8_t *)&threshold_high_check, (int8_t *)&threshold_low_check);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad get alarm threshold failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -308,35 +309,35 @@ uint8_t ds18b20_register_test(void)
     /* ds18b20_copy_scratchpad_to_eeprom/ds18b20_copy_eeprom_to_scratchpad test */
     ds18b20_interface_debug_print("ds18b20: ds18b20_copy_scratchpad_to_eeprom/ds18b20_copy_eeprom_to_scratchpad test.\n");
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_9BIT);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     res = ds18b20_copy_scratchpad_to_eeprom(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: copy scratchpad to eeprom failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: copy scratchpad to eeprom.\n");
     res = ds18b20_copy_eeprom_to_scratchpad(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: ds18b20 copy eeprom to scratchpad failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -346,19 +347,19 @@ uint8_t ds18b20_register_test(void)
     ds18b20_interface_debug_print("ds18b20: ds18b20_alarm_convert_to_register/ds18b20_alarm_convert_to_data test.\n");
     temp = (float)(rand()%36000)/1000.0f;
     res = ds18b20_alarm_convert_to_register(&gs_handle, temp, (int8_t *)&reg);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: alarm convert to register failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     ds18b20_interface_debug_print("ds18b20: set alarm convert to register %0.2f.\n", temp);
     res = ds18b20_alarm_convert_to_data(&gs_handle, reg, (float *)&temp_check);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: alarm convert to data failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -366,7 +367,7 @@ uint8_t ds18b20_register_test(void)
     
     /* finish register test */
     ds18b20_interface_debug_print("ds18b20: finish register test.\n");
-    ds18b20_deinit(&gs_handle);
+    (void)ds18b20_deinit(&gs_handle);
     
     return 0;
 }

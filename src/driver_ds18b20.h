@@ -35,8 +35,8 @@
  * </table>
  */
 
-#ifndef _DRIVER_DS18B20_H_
-#define _DRIVER_DS18B20_H_
+#ifndef DRIVER_DS18B20_H
+#define DRIVER_DS18B20_H
 
 #include <stdint.h>
 #include <stdio.h>
@@ -107,18 +107,18 @@ typedef enum
  */
 typedef struct ds18b20_handle_s
 {
-    uint8_t (*bus_init)(void);                      /**< point to a bus_init function address */
-    uint8_t (*bus_deinit)(void);                    /**< point to a bus_deinit function address */
-    uint8_t (*bus_read)(uint8_t *value);            /**< point to a bus_read function address */
-    uint8_t (*bus_write)(uint8_t value);            /**< point to a bus_write function address */
-    void (*delay_ms)(uint32_t ms);                  /**< point to a delay_ms function address */
-    void (*delay_us)(uint32_t us);                  /**< point to a delay_us function address */
-    void (*enable_irq)(void);                       /**< point to a enable_irq function address */
-    void (*disable_irq)(void);                      /**< point to a disable_irq function address */
-    uint16_t (*debug_print)(char *fmt, ...);        /**< point to a debug_print function address */
-    uint8_t inited;                                 /**< inited flag */
-    uint8_t mode;                                   /**< chip mode */
-    uint8_t rom[8];                                 /**< chip mode */
+    uint8_t (*bus_init)(void);                              /**< point to a bus_init function address */
+    uint8_t (*bus_deinit)(void);                            /**< point to a bus_deinit function address */
+    uint8_t (*bus_read)(uint8_t *value);                    /**< point to a bus_read function address */
+    uint8_t (*bus_write)(uint8_t value);                    /**< point to a bus_write function address */
+    void (*delay_ms)(uint32_t ms);                          /**< point to a delay_ms function address */
+    void (*delay_us)(uint32_t us);                          /**< point to a delay_us function address */
+    void (*enable_irq)(void);                               /**< point to a enable_irq function address */
+    void (*disable_irq)(void);                              /**< point to a disable_irq function address */
+    void (*debug_print)(const char *const fmt, ...);        /**< point to a debug_print function address */
+    uint8_t inited;                                         /**< inited flag */
+    uint8_t mode;                                           /**< chip mode */
+    uint8_t rom[8];                                         /**< chip mode */
 } ds18b20_handle_t;
 
 /**

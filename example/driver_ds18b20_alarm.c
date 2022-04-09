@@ -35,7 +35,7 @@
  * </table>
  */
 
-#include "driver_ds18b20_match.h"
+#include "driver_ds18b20_alarm.h"
 
 static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
 
@@ -48,7 +48,7 @@ static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
  */
 uint8_t ds18b20_alarm_init(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* link interface function */
     DRIVER_DS18B20_LINK_INIT(&gs_handle, ds18b20_handle_t);
@@ -64,7 +64,7 @@ uint8_t ds18b20_alarm_init(void)
     
     /* ds18b20 init */
     res = ds18b20_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: init failed.\n");
         
@@ -73,10 +73,10 @@ uint8_t ds18b20_alarm_init(void)
     
     /* set match rom mode */
     res = ds18b20_set_mode(&gs_handle, DS18B20_MODE_MATCH_ROM);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -96,13 +96,13 @@ uint8_t ds18b20_alarm_init(void)
  */
 uint8_t ds18b20_alarm_set_threshold(uint8_t rom[8], float low, float high)
 {
-    volatile uint8_t res;
-    volatile int8_t threshold_high;
-    volatile int8_t threshold_low;
+    uint8_t res;
+    int8_t threshold_high;
+    int8_t threshold_low;
     
     /* set rom */
     res = ds18b20_set_rom(&gs_handle, (uint8_t *)rom);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set rom failed.\n");
         
@@ -111,7 +111,7 @@ uint8_t ds18b20_alarm_set_threshold(uint8_t rom[8], float low, float high)
     
     /* convert high threshold */
     res = ds18b20_alarm_convert_to_register(&gs_handle, high, (int8_t *)&threshold_high);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: alarm convert to register failed.\n");
         
@@ -120,7 +120,7 @@ uint8_t ds18b20_alarm_set_threshold(uint8_t rom[8], float low, float high)
     
     /* convert low threshold */
     res = ds18b20_alarm_convert_to_register(&gs_handle, low, (int8_t *)&threshold_low);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: alarm convert to register failed.\n");
         
@@ -129,7 +129,7 @@ uint8_t ds18b20_alarm_set_threshold(uint8_t rom[8], float low, float high)
     
     /* set alarm threshold */
     res = ds18b20_scratchpad_set_alarm_threshold(&gs_handle, threshold_high, threshold_low);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set alarm threshold failed.\n");
         
@@ -151,13 +151,13 @@ uint8_t ds18b20_alarm_set_threshold(uint8_t rom[8], float low, float high)
  */
 uint8_t ds18b20_alarm_get_threshold(uint8_t rom[8], float *low, float *high)
 {
-    volatile uint8_t res;
-    volatile int8_t threshold_high;
-    volatile int8_t threshold_low;
+    uint8_t res;
+    int8_t threshold_high;
+    int8_t threshold_low;
     
     /* set rom */
     res = ds18b20_set_rom(&gs_handle, (uint8_t *)rom);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set rom failed.\n");
         
@@ -166,7 +166,7 @@ uint8_t ds18b20_alarm_get_threshold(uint8_t rom[8], float *low, float *high)
     
     /* get alarm threshold */
     res = ds18b20_scrachpad_get_alarm_threshold(&gs_handle, (int8_t *)&threshold_high, (int8_t *)&threshold_low);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad get alarm threshold failed.\n");
         
@@ -175,7 +175,7 @@ uint8_t ds18b20_alarm_get_threshold(uint8_t rom[8], float *low, float *high)
     
     /* convert low threshold */
     res = ds18b20_alarm_convert_to_data(&gs_handle, threshold_low, low);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: alarmc onvert to data failed.\n");
         
@@ -184,7 +184,7 @@ uint8_t ds18b20_alarm_get_threshold(uint8_t rom[8], float *low, float *high)
     
     /* convert high threshold */
     res = ds18b20_alarm_convert_to_data(&gs_handle, threshold_high, high);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: alarmc onvert to data failed.\n");
         
@@ -206,7 +206,7 @@ uint8_t ds18b20_alarm_get_threshold(uint8_t rom[8], float *low, float *high)
 uint8_t ds18b20_alarm_search(uint8_t (*rom)[8], uint8_t *num)
 {
     /* search alarm */
-    if (ds18b20_search_alarm(&gs_handle, rom, num))
+    if (ds18b20_search_alarm(&gs_handle, rom, num) != 0)
     {
         return 1;
     }
@@ -226,7 +226,7 @@ uint8_t ds18b20_alarm_search(uint8_t (*rom)[8], uint8_t *num)
 uint8_t ds18b20_alarm_deinit(void)
 {
     /* ds18b20 close */
-    if (ds18b20_deinit(&gs_handle))
+    if (ds18b20_deinit(&gs_handle) != 0)
     {
         return 1;
     }

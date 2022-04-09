@@ -135,7 +135,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             if (strcmp("reg", argv[2]) == 0)
             {
                 /* run reg test */
-                if (ds18b20_register_test())
+                if (ds18b20_register_test() != 0)
                 {
                     return 1;
                 }
@@ -148,7 +148,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             else if (strcmp("search", argv[2]) == 0)
             {
                 /* run search test */
-                if (ds18b20_search_test())
+                if (ds18b20_search_test() != 0)
                 {
                     return 1;
                 }
@@ -169,34 +169,34 @@ uint8_t ds18b20(uint8_t argc, char **argv)
              /* search function */
             if (strcmp("search", argv[2]) == 0)
             {
-                volatile uint8_t res, i, j;
-                volatile uint8_t rom[8][8];
-                volatile uint8_t num;
+                uint8_t res, i, j;
+                uint8_t rom[8][8];
+                uint8_t num;
                 
                 res = ds18b20_search_init();
-                if (res)
+                if (res != 0)
                 {
                     return 1;
                 }
                 num = 8;
                 res = ds18b20_search((uint8_t (*)[8])rom, (uint8_t *)&num);
-                if (res)
+                if (res != 0)
                 {
-                    ds18b20_search_deinit();
+                    (void)ds18b20_search_deinit();
                     
                     return 1;
                 }
                 ds18b20_interface_debug_print("ds18b20: find %d rom(s).\n", num);
-                for (i=0; i<num; i++)
+                for (i = 0; i < num; i++)
                 {
-                    uart1_print("ds18b20: %d/%d is ", (uint32_t)(i+1), (uint32_t)num);
-                    for (j=0; j<8; j++)
+                    ds18b20_interface_debug_print("ds18b20: %d/%d is ", (uint32_t)(i+1), (uint32_t)num);
+                    for (j = 0; j < 8; j++)
                     {
                         ds18b20_interface_debug_print("%02X ", rom[i][j]);
                     }
                     ds18b20_interface_debug_print(".\n");
                 }
-                ds18b20_search_deinit();
+                (void)ds18b20_search_deinit();
                 
                 return 0;
             }
@@ -221,7 +221,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             if (strcmp("read", argv[2]) == 0)
             {
                 /* run read test */
-                if (ds18b20_read_test(atoi(argv[3])))
+                if (ds18b20_read_test(atoi(argv[3])) != 0)
                 {
                     return 1;
                 }
@@ -242,41 +242,41 @@ uint8_t ds18b20(uint8_t argc, char **argv)
              /* read function */
             if (strcmp("read", argv[2]) == 0)
             {
-                volatile uint8_t res;
-                volatile uint32_t times;
-                volatile uint32_t i;
-                volatile float temperature;
+                uint8_t res;
+                uint32_t times;
+                uint32_t i;
+                float temperature;
                 
                 res = ds18b20_basic_init();
-                if (res)
+                if (res != 0)
                 {
                     return 1;
                 }
                 times = atoi(argv[3]);
-                for (i=0; i<times; i++)
+                for (i = 0; i < times; i++)
                 {
-                    delay_ms(2000);
+                    ds18b20_interface_delay_ms(2000);
                     res = ds18b20_basic_read((float *)&temperature);
-                    if (res)
+                    if (res != 0)
                     {
-                        ds18b20_basic_deinit();
+                        (void)ds18b20_basic_deinit();
                         
                         return 1;
                     }
-                    ds18b20_interface_debug_print("ds18b20: %d/%d.\n", (uint32_t)(i+1), (uint32_t)times);
+                    ds18b20_interface_debug_print("ds18b20: %d/%d.\n", (uint32_t)(i + 1), (uint32_t)times);
                     ds18b20_interface_debug_print("ds18b20: temperature is %0.2fC.\n", temperature);
                 }
-                ds18b20_basic_deinit();
+                (void)ds18b20_basic_deinit();
                 
                 return 0;
             }
             /* alarm function */
             else if (strcmp("alarm", argv[2]) == 0)
             {
-                volatile uint8_t res;
-                volatile uint8_t rom[8][8];
-                volatile uint8_t num;
-                volatile uint8_t i, j;
+                uint8_t res;
+                uint8_t rom[8][8];
+                uint8_t num;
+                uint8_t i, j;
                 
                 if (strcmp("search", argv[3]) != 0)
                 {
@@ -284,29 +284,29 @@ uint8_t ds18b20(uint8_t argc, char **argv)
                 }
                 
                 res = ds18b20_alarm_init();
-                if (res)
+                if (res != 0)
                 {
                     return 1;
                 }
                 num = 8;
                 res = ds18b20_alarm_search((uint8_t (*)[8])rom, (uint8_t *)&num);
-                if (res)
+                if (res != 0)
                 {
-                    ds18b20_alarm_deinit();
+                    (void)ds18b20_alarm_deinit();
                     
                     return 1;
                 }
                 ds18b20_interface_debug_print("ds18b20: find %d alarm rom(s).\n", num);
-                for (i=0; i<num; i++)
+                for (i = 0; i < num; i++)
                 {
-                    uart1_print("ds18b20: %d/%d is ", (uint32_t)(i+1), (uint32_t)num);
-                    for (j=0; j<8; j++)
+                    ds18b20_interface_debug_print("ds18b20: %d/%d is ", (uint32_t)(i + 1), (uint32_t)num);
+                    for (j = 0; j < 8; j++)
                     {
                         ds18b20_interface_debug_print("%02X ", rom[i][j]);
                     }
                     ds18b20_interface_debug_print(".\n");
                 }
-                ds18b20_alarm_deinit();
+                (void)ds18b20_alarm_deinit();
                 
                 return 0;
                 
@@ -331,20 +331,20 @@ uint8_t ds18b20(uint8_t argc, char **argv)
              /* match function */
             if (strcmp("match", argv[2]) == 0)
             {
-                volatile uint8_t res;
-                volatile uint32_t times;
-                volatile uint32_t i;
-                volatile float temperature;
-                volatile uint8_t rom[8];
+                uint8_t res;
+                uint32_t times;
+                uint32_t i;
+                float temperature;
+                uint8_t rom[8];
                 
                 times = atoi(argv[3]);
                 if (strcmp("-rom", argv[4]) != 0)
                 {
                     return 5;
                 }
-                for (i=0; i<8; i++)
+                for (i = 0; i < 8; i++)
                 {
-                    volatile uint8_t temp;
+                    uint8_t temp;
                     
                     if (strlen(argv[5+i]) < 2)
                     {
@@ -369,35 +369,35 @@ uint8_t ds18b20(uint8_t argc, char **argv)
                     rom[i] = temp;
                 }
                 res = ds18b20_match_init();
-                if (res)
+                if (res != 0)
                 {
                     return 1;
                 }
-                for (i=0; i<times; i++)
+                for (i = 0; i < times; i++)
                 {
-                    delay_ms(2000);
+                    ds18b20_interface_delay_ms(2000);
                     res = ds18b20_match_read((uint8_t *)rom, (float *)&temperature);
-                    if (res)
+                    if (res != 0)
                     {
-                        ds18b20_match_deinit();
+                        (void)ds18b20_match_deinit();
                         
                         return 1;
                     }
                     ds18b20_interface_debug_print("ds18b20: %d/%d.\n", (uint32_t)(i+1), (uint32_t)times);
                     ds18b20_interface_debug_print("ds18b20: temperature is %0.2fC.\n", temperature);
                 }
-                ds18b20_match_deinit();
+                (void)ds18b20_match_deinit();
                 
                 return 0;
             }
             /* alarm get function */
             else if (strcmp("alarm", argv[2]) == 0)
             {
-                volatile uint8_t res;
-                volatile uint8_t i;
-                volatile uint8_t rom[8];
-                volatile float low;
-                volatile float high;
+                uint8_t res;
+                uint8_t i;
+                uint8_t rom[8];
+                float low;
+                float high;
                 
                 if (strcmp("get", argv[3]) != 0)
                 {
@@ -407,9 +407,9 @@ uint8_t ds18b20(uint8_t argc, char **argv)
                 {
                     return 5;
                 }
-                for (i=0; i<8; i++)
+                for (i = 0; i < 8; i++)
                 {
-                    volatile uint8_t temp;
+                    uint8_t temp;
                     
                     if (strlen(argv[5+i]) < 2)
                     {
@@ -434,22 +434,22 @@ uint8_t ds18b20(uint8_t argc, char **argv)
                     rom[i] = temp;
                 }
                 res = ds18b20_alarm_init();
-                if (res)
+                if (res != 0)
                 {
-                    ds18b20_alarm_deinit();
+                    (void)ds18b20_alarm_deinit();
                     
                     return 1;
                 }
                 res = ds18b20_alarm_get_threshold((uint8_t *)rom, (float *)&low, (float *)&high);
-                if (res)
+                if (res != 0)
                 {
-                    ds18b20_alarm_deinit();
+                    (void)ds18b20_alarm_deinit();
                     
                     return 1;
                 }
                 ds18b20_interface_debug_print("ds18b20: alarm low threshold is %0.2f.\n", low); 
                 ds18b20_interface_debug_print("ds18b20: alarm high threshold is %0.2f.\n", high); 
-                ds18b20_alarm_deinit();
+                (void)ds18b20_alarm_deinit();
                 
                 return 0;
             }
@@ -473,11 +473,11 @@ uint8_t ds18b20(uint8_t argc, char **argv)
              /* alarm set function */
             if (strcmp("alarm", argv[2]) == 0)
             {
-                volatile uint8_t res;
-                volatile uint8_t i;
-                volatile uint8_t rom[8];
-                volatile float low;
-                volatile float high;
+                uint8_t res;
+                uint8_t i;
+                uint8_t rom[8];
+                float low;
+                float high;
                 
                 if (strcmp("set", argv[3]) != 0)
                 {
@@ -489,9 +489,9 @@ uint8_t ds18b20(uint8_t argc, char **argv)
                 {
                     return 5;
                 }
-                for (i=0; i<8; i++)
+                for (i = 0; i < 8; i++)
                 {
-                    volatile uint8_t temp;
+                    uint8_t temp;
                     
                     if (strlen(argv[7+i]) < 2)
                     {
@@ -516,22 +516,22 @@ uint8_t ds18b20(uint8_t argc, char **argv)
                     rom[i] = temp;
                 }
                 res = ds18b20_alarm_init();
-                if (res)
+                if (res != 0)
                 {
-                    ds18b20_alarm_deinit();
+                    (void)ds18b20_alarm_deinit();
                     
                     return 1;
                 }
                 res = ds18b20_alarm_set_threshold((uint8_t *)rom, low, high);
-                if (res)
+                if (res != 0)
                 {
-                    ds18b20_alarm_deinit();
+                    (void)ds18b20_alarm_deinit();
                     
                     return 1;
                 }
                 ds18b20_interface_debug_print("ds18b20: set alarm low threshold %0.2f.\n", low); 
                 ds18b20_interface_debug_print("ds18b20: set alarm high threshold %0.2f.\n", high); 
-                ds18b20_alarm_deinit();
+                (void)ds18b20_alarm_deinit();
                 
                 return 0;
             }
@@ -560,7 +560,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
  */
 int main(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* stm32f407 clock init and hal init */
     clock_init();

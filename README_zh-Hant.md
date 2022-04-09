@@ -1,4 +1,4 @@
-[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md)
+[English](/README.md) | [ 简体中文](/README_zh-Hans.md) | [繁體中文](/README_zh-Hant.md) | [日本語](/README_ja.md) | [Deutsch](/README_de.md) | [한국어](/README_ko.md)
 
 <div align=center>
 <img src="/doc/image/logo.png"/>
@@ -6,11 +6,11 @@
 
 ## LibDriver DS18B20
 
-[![API](https://img.shields.io/badge/api-reference-blue)](https://www.libdriver.com/docs/ds18b20/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
+[![MISRA](https://img.shields.io/badge/misra-compliant-brightgreen.svg)](/misra/README.md) [![API](https://img.shields.io/badge/api-reference-blue.svg)](https://www.libdriver.com/docs/ds18b20/index.html) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](/LICENSE)
 
 DS18B20數字溫度計提供9位至12位溫度測量，並具有非易失性用戶可編程上限報警功能。 DS18B20通信在定義上只需要一個單總線與微處理器通信。此外，DS18B20還可以直接從數據線供電（“寄生電源”），無需外部電源。每個DS18B20都有一個唯一的64位串行代碼，允許多個DS18B20在同一單線上工作使用一個微處理器來控制大面積分佈的多個DS18B20。該芯片被用於暖通空調環境控制、溫度監控建築物、設備或機械內部的系統，以及過程監控系統。
 
-LibDriver DS18B20是LibDriver推出的DS18B20全功能驅動，該驅動提供溫度讀取、ROM匹配溫度讀取、報警讀取和搜索ROM等功能。
+LibDriver DS18B20是LibDriver推出的DS18B20全功能驅動，該驅動提供溫度讀取、ROM匹配溫度讀取、報警讀取和搜索ROM等功能並且它符合MISRA標準。
 
 ### 目錄
 

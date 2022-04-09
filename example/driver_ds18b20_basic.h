@@ -35,8 +35,8 @@
  * </table>
  */
   
-#ifndef _DRIVER_DS18B20_BASIC_H_
-#define _DRIVER_DS18B20_BASIC_H_
+#ifndef DRIVER_DS18B20_BASIC_H
+#define DRIVER_DS18B20_BASIC_H
 
 #include "driver_ds18b20_interface.h"
 

@@ -35,7 +35,7 @@
  * </table>
  */
 
-#include "driver_ds18b20_read_test.h"
+#include "driver_ds18b20_search_test.h"
 
 static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
 
@@ -48,8 +48,8 @@ static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
  */
 uint8_t ds18b20_search_test(void)
 {
-    volatile uint8_t res, i, num;
-    volatile uint8_t rom[3][8];
+    uint8_t res, i, num;
+    uint8_t rom[3][8];
     ds18b20_info_t info;
    
     /* link interface function */
@@ -66,7 +66,7 @@ uint8_t ds18b20_search_test(void)
    
     /* get ds18b20 info */
     res = ds18b20_info(&info);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: get info failed.\n");
        
@@ -91,7 +91,7 @@ uint8_t ds18b20_search_test(void)
     
     /* ds18b20 init */
     res = ds18b20_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: init failed.\n");
        
@@ -106,10 +106,10 @@ uint8_t ds18b20_search_test(void)
     
     /* search rom */
     res = ds18b20_search_rom(&gs_handle, (uint8_t (*)[8])rom, (uint8_t *)&num);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: search rom failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -127,7 +127,7 @@ uint8_t ds18b20_search_test(void)
             char hex_buf[6];
             
             memset((char *)hex_buf, 0 ,sizeof(char)*6);
-            snprintf((char *)hex_buf, 6, "0x%02X ", rom[i][j]);
+            (void)snprintf((char *)hex_buf, 6, "0x%02X ", rom[i][j]);
             strcat((char *)cmd_buf, (char *)hex_buf);
         }
         ds18b20_interface_debug_print("%s.\n",cmd_buf);
@@ -141,10 +141,10 @@ uint8_t ds18b20_search_test(void)
     
     /* search alarm rom */
     res = ds18b20_search_alarm(&gs_handle, (uint8_t (*)[8])rom, (uint8_t *)&num);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: search alarm rom failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -162,7 +162,7 @@ uint8_t ds18b20_search_test(void)
             char hex_buf[6];
             
             memset((char *)hex_buf, 0 ,sizeof(char)*6);
-            snprintf((char *)hex_buf, 6, "0x%02X ", rom[i][j]);
+            (void)snprintf((char *)hex_buf, 6, "0x%02X ", rom[i][j]);
             strcat((char *)cmd_buf, (char *)hex_buf);
         }
         ds18b20_interface_debug_print("%s.\n",cmd_buf);
@@ -170,7 +170,7 @@ uint8_t ds18b20_search_test(void)
     
     /* finish search test */
     ds18b20_interface_debug_print("ds18b20: finish search test.\n");
-    ds18b20_deinit(&gs_handle);
+    (void)ds18b20_deinit(&gs_handle);
     
     return 0;
 }

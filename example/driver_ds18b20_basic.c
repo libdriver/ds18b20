@@ -48,7 +48,7 @@ static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
  */
 uint8_t ds18b20_basic_init(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* link interface function */
     DRIVER_DS18B20_LINK_INIT(&gs_handle, ds18b20_handle_t);
@@ -64,7 +64,7 @@ uint8_t ds18b20_basic_init(void)
     
     /* ds18b20 init */
     res = ds18b20_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: init failed.\n");
         
@@ -73,20 +73,20 @@ uint8_t ds18b20_basic_init(void)
     
     /* set skip rom mode */
     res = ds18b20_set_mode(&gs_handle, DS18B20_MODE_SKIP_ROM);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: set mode failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
     
     /* set default resolution */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_BASIC_DEFAULT_RESOLUTION);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
-        ds18b20_deinit(&gs_handle);
+        (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
@@ -104,10 +104,10 @@ uint8_t ds18b20_basic_init(void)
  */
 uint8_t ds18b20_basic_read(float *temperature)
 {
-    volatile int16_t raw;
+    int16_t raw;
     
     /* read temperature */
-    if (ds18b20_read(&gs_handle, (int16_t *)&raw, temperature))
+    if (ds18b20_read(&gs_handle, (int16_t *)&raw, temperature) != 0)
     {
         return 1;
     }
@@ -127,7 +127,7 @@ uint8_t ds18b20_basic_read(float *temperature)
 uint8_t ds18b20_basic_deinit(void)
 {
     /* close ds18b20 */
-    if (ds18b20_deinit(&gs_handle))
+    if (ds18b20_deinit(&gs_handle) != 0)
     {
         return 1;
     }

@@ -1,6 +1,6 @@
 var group__ds18b20__interface__driver =
 [
-    [ "ds18b20_interface_debug_print", "group__ds18b20__interface__driver.html#ga1e8871ce3ea791bbe4e8952e643a3636", null ],
+    [ "ds18b20_interface_debug_print", "group__ds18b20__interface__driver.html#gabb823545b537ecf6e62e279baaac6dc4", null ],
     [ "ds18b20_interface_deinit", "group__ds18b20__interface__driver.html#ga03a7158f8be182347f2263bb61efb869", null ],
     [ "ds18b20_interface_delay_ms", "group__ds18b20__interface__driver.html#ga0fc93e0908a80f48e859cf1aeb8d3136", null ],
     [ "ds18b20_interface_delay_us", "group__ds18b20__interface__driver.html#gaffa80ae3f3b868b8acec66e67cd6533b", null ],

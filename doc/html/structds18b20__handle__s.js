@@ -4,7 +4,7 @@ var structds18b20__handle__s =
     [ "bus_init", "structds18b20__handle__s.html#adfb6535c66ecb88edda3273848aaf54d", null ],
     [ "bus_read", "structds18b20__handle__s.html#abe23165605a343d08776c029a60eb242", null ],
     [ "bus_write", "structds18b20__handle__s.html#abfcb2d495a2e0ec23a7c710c62a95c5b", null ],
-    [ "debug_print", "structds18b20__handle__s.html#a75f9f50c23e87e9407f9ec4e34bb42f2", null ],
+    [ "debug_print", "structds18b20__handle__s.html#a769d5b3a6c14790a0e126e8fe70b384b", null ],
     [ "delay_ms", "structds18b20__handle__s.html#a406c9433252b7366de417b7a60915c81", null ],
     [ "delay_us", "structds18b20__handle__s.html#a97ffc4fce945527bd6ab25a3596caef7", null ],
     [ "disable_irq", "structds18b20__handle__s.html#aac09376076eae94d89ca85ff63018eee", null ],

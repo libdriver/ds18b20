@@ -48,7 +48,7 @@ static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
  */
 uint8_t ds18b20_search_init(void)
 {
-    volatile uint8_t res;
+    uint8_t res;
     
     /* link interface function */
     DRIVER_DS18B20_LINK_INIT(&gs_handle, ds18b20_handle_t);
@@ -64,7 +64,7 @@ uint8_t ds18b20_search_init(void)
     
     /* ds18b20 init */
     res = ds18b20_init(&gs_handle);
-    if (res)
+    if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: init failed.\n");
         
@@ -86,7 +86,7 @@ uint8_t ds18b20_search_init(void)
 uint8_t ds18b20_search(uint8_t (*rom)[8], uint8_t *num)
 {
     /* search rom*/
-    if (ds18b20_search_rom(&gs_handle, rom, num))
+    if (ds18b20_search_rom(&gs_handle, rom, num) != 0)
     {
         return 1;
     }
@@ -106,7 +106,7 @@ uint8_t ds18b20_search(uint8_t (*rom)[8], uint8_t *num)
 uint8_t ds18b20_search_deinit(void)
 {
     /* ds18b20 close */
-    if (ds18b20_deinit(&gs_handle))
+    if (ds18b20_deinit(&gs_handle) != 0)
     {
         return 1;
     }
