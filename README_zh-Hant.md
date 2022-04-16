@@ -58,7 +58,7 @@ uint8_t i;
 float temperature;
 
 res = ds18b20_basic_init();
-if (res)
+if (res != 0)
 {
     return 1;
 }
@@ -67,11 +67,11 @@ if (res)
 
 for (i = 0; i < 3; i++)
 {
-    delay_ms(2000);
+    ds18b20_interface_delay_ms(2000);
     res = ds18b20_basic_read((float *)&temperature);
-    if (res)
+    if (res != 0)
     {
-        ds18b20_basic_deinit();
+        (void)ds18b20_basic_deinit();
 
         return 1;
     }
@@ -83,7 +83,7 @@ for (i = 0; i < 3; i++)
 
 ...
 
-ds18b20_basic_deinit();
+(void)ds18b20_basic_deinit();
 
 return 0;
 ```
@@ -97,7 +97,7 @@ float temperature;
 uint8_t rom[8];
 
 res = ds18b20_match_init();
-if (res)
+if (res != 0)
 {
     return 1;
 }
@@ -106,11 +106,11 @@ if (res)
 
 for (i = 0; i < 3; i++)
 {
-    delay_ms(2000);
+    ds18b20_interface_delay_ms(2000);
     res = ds18b20_match_read((uint8_t *)rom, (float *)&temperature);
-    if (res)
+    if (res != 0)
     {
-        ds18b20_match_deinit();
+        (void)ds18b20_match_deinit();
 
         return 1;
     }
@@ -122,7 +122,7 @@ for (i = 0; i < 3; i++)
 
 ...
 
-ds18b20_match_deinit();
+(void)ds18b20_match_deinit();
 
 return 0;
 ```
@@ -136,7 +136,7 @@ uint8_t num;
 uint8_t i, j;
 
 res = ds18b20_alarm_init();
-if (res)
+if (res != 0)
 {
     return 1;
 }
@@ -145,9 +145,9 @@ if (res)
 
 num = 8;
 res = ds18b20_alarm_search((uint8_t (*)[8])rom, (uint8_t *)&num);
-if (res)
+if (res != 0)
 {
-    ds18b20_alarm_deinit();
+    (void)ds18b20_alarm_deinit();
 
     return 1;
 }
@@ -169,7 +169,7 @@ for (i = 0; i < num; i++)
 
 ...
 
-ds18b20_alarm_deinit();
+(void)ds18b20_alarm_deinit();
 
 return 0;
 ```
@@ -182,7 +182,7 @@ uint8_t rom[8][8];
 uint8_t num;
 
 res = ds18b20_search_init();
-if (res)
+if (res != 0)
 {
     return 1;
 }
@@ -191,9 +191,9 @@ if (res)
 
 num = 8;
 res = ds18b20_search((uint8_t (*)[8])rom, (uint8_t *)&num);
-if (res)
+if (res != 0)
 {
-    ds18b20_search_deinit();
+    (void)ds18b20_search_deinit();
 
     return 1;
 }
@@ -203,7 +203,7 @@ ds18b20_interface_debug_print("ds18b20: find %d rom(s).\n", num);
 
 for (i = 0; i < num; i++)
 {
-    uart1_print("ds18b20: %d/%d is ", (uint32_t)(i+1), (uint32_t)num);
+    ds18b20_interface_debug_print("ds18b20: %d/%d is ", (uint32_t)(i+1), (uint32_t)num);
     for (j = 0; j < 8; j++)
     {
         ds18b20_interface_debug_print("%02X ", rom[i][j]);
@@ -216,7 +216,7 @@ for (i = 0; i < num; i++)
 
 ...
     
-ds18b20_search_deinit();
+(void)ds18b20_search_deinit();
 
 return 0;
 ```
