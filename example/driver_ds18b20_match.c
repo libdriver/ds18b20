@@ -102,8 +102,6 @@ uint8_t ds18b20_match_read(uint8_t rom[8], float *temperature)
     res = ds18b20_set_rom(&gs_handle, (uint8_t *)rom);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: set rom failed.\n");
-        
         return 1;
     }
     

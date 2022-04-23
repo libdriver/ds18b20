@@ -139,34 +139,32 @@ $(document).ready(function(){initNavTree('driver__ds18b20__match_8c_source.html'
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    res = <a class="code" href="group__ds18b20__base__driver.html#ga4cf8a45542f1dfdca17347c0870f870f">ds18b20_set_rom</a>(&amp;gs_handle, (uint8_t *)rom);</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">if</span> (res != 0)</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="group__ds18b20__interface__driver.html#gabb823545b537ecf6e62e279baaac6dc4">ds18b20_interface_debug_print</a>(<span class="stringliteral">&quot;ds18b20: set rom failed.\n&quot;</span>);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">/* read temperature */</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="group__ds18b20__base__driver.html#ga7b55e1d3f3ba9ca53c3a78c1d8d221b4">ds18b20_read</a>(&amp;gs_handle, (int16_t *)&amp;raw, temperature) != 0)</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="group__ds18b20__example__driver.html#ga6bafc384b9f254b9f236dbdd522237b9">  128</a></span>&#160;uint8_t <a class="code" href="group__ds18b20__example__driver.html#ga6bafc384b9f254b9f236dbdd522237b9">ds18b20_match_deinit</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;{</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="comment">/* ds18b20 close */</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="group__ds18b20__base__driver.html#gaa7b94675deaafbe00917e7e232278c77">ds18b20_deinit</a>(&amp;gs_handle) != 0)</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    }</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="comment">/* read temperature */</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="group__ds18b20__base__driver.html#ga7b55e1d3f3ba9ca53c3a78c1d8d221b4">ds18b20_read</a>(&amp;gs_handle, (int16_t *)&amp;raw, temperature) != 0)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="group__ds18b20__example__driver.html#ga6bafc384b9f254b9f236dbdd522237b9">  126</a></span>&#160;uint8_t <a class="code" href="group__ds18b20__example__driver.html#ga6bafc384b9f254b9f236dbdd522237b9">ds18b20_match_deinit</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;{</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="comment">/* ds18b20 close */</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="group__ds18b20__base__driver.html#gaa7b94675deaafbe00917e7e232278c77">ds18b20_deinit</a>(&amp;gs_handle) != 0)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
 <div class="ttc" id="adriver__ds18b20__match_8h_html"><div class="ttname"><a href="driver__ds18b20__match_8h.html">driver_ds18b20_match.h</a></div><div class="ttdoc">driver ds18b20 match header file</div></div>
 <div class="ttc" id="agroup__ds18b20__base__driver_html_ga42a0bced6314bc11b3c47f1d83bbff9a"><div class="ttname"><a href="group__ds18b20__base__driver.html#ga42a0bced6314bc11b3c47f1d83bbff9a">ds18b20_init</a></div><div class="ttdeci">uint8_t ds18b20_init(ds18b20_handle_t *handle)</div><div class="ttdoc">initialize the chip</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20_8c_source.html#l01305">driver_ds18b20.c:1305</a></div></div>
 <div class="ttc" id="agroup__ds18b20__base__driver_html_ga4cf8a45542f1dfdca17347c0870f870f"><div class="ttname"><a href="group__ds18b20__base__driver.html#ga4cf8a45542f1dfdca17347c0870f870f">ds18b20_set_rom</a></div><div class="ttdeci">uint8_t ds18b20_set_rom(ds18b20_handle_t *handle, uint8_t rom[8])</div><div class="ttdoc">set the handle rom</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20_8c_source.html#l00394">driver_ds18b20.c:394</a></div></div>
@@ -175,7 +173,7 @@ $(document).ready(function(){initNavTree('driver__ds18b20__match_8c_source.html'
 <div class="ttc" id="agroup__ds18b20__base__driver_html_gadd246c4e8a5887a1acd710dee214323c"><div class="ttname"><a href="group__ds18b20__base__driver.html#gadd246c4e8a5887a1acd710dee214323c">ds18b20_set_mode</a></div><div class="ttdeci">uint8_t ds18b20_set_mode(ds18b20_handle_t *handle, ds18b20_mode_t mode)</div><div class="ttdoc">set the chip mode</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20_8c_source.html#l00342">driver_ds18b20.c:342</a></div></div>
 <div class="ttc" id="agroup__ds18b20__base__driver_html_ggaa76e51e2201d4058f4274ca420c165f6a6fefdf17cbb1204ac17187e4c6c96eeb"><div class="ttname"><a href="group__ds18b20__base__driver.html#ggaa76e51e2201d4058f4274ca420c165f6a6fefdf17cbb1204ac17187e4c6c96eeb">DS18B20_MODE_MATCH_ROM</a></div><div class="ttdeci">@ DS18B20_MODE_MATCH_ROM</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20_8h_source.html#l00082">driver_ds18b20.h:82</a></div></div>
 <div class="ttc" id="agroup__ds18b20__example__driver_html_ga11b62a141baad231f23aa555e80761ea"><div class="ttname"><a href="group__ds18b20__example__driver.html#ga11b62a141baad231f23aa555e80761ea">ds18b20_match_read</a></div><div class="ttdeci">uint8_t ds18b20_match_read(uint8_t rom[8], float *temperature)</div><div class="ttdoc">match example read</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20__match_8c_source.html#l00096">driver_ds18b20_match.c:96</a></div></div>
-<div class="ttc" id="agroup__ds18b20__example__driver_html_ga6bafc384b9f254b9f236dbdd522237b9"><div class="ttname"><a href="group__ds18b20__example__driver.html#ga6bafc384b9f254b9f236dbdd522237b9">ds18b20_match_deinit</a></div><div class="ttdeci">uint8_t ds18b20_match_deinit(void)</div><div class="ttdoc">match example deinit</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20__match_8c_source.html#l00128">driver_ds18b20_match.c:128</a></div></div>
+<div class="ttc" id="agroup__ds18b20__example__driver_html_ga6bafc384b9f254b9f236dbdd522237b9"><div class="ttname"><a href="group__ds18b20__example__driver.html#ga6bafc384b9f254b9f236dbdd522237b9">ds18b20_match_deinit</a></div><div class="ttdeci">uint8_t ds18b20_match_deinit(void)</div><div class="ttdoc">match example deinit</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20__match_8c_source.html#l00126">driver_ds18b20_match.c:126</a></div></div>
 <div class="ttc" id="agroup__ds18b20__example__driver_html_gaa68264a8f7943f9b86191a6c5d9303ee"><div class="ttname"><a href="group__ds18b20__example__driver.html#gaa68264a8f7943f9b86191a6c5d9303ee">ds18b20_match_init</a></div><div class="ttdeci">uint8_t ds18b20_match_init(void)</div><div class="ttdoc">match example init</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20__match_8c_source.html#l00049">driver_ds18b20_match.c:49</a></div></div>
 <div class="ttc" id="agroup__ds18b20__interface__driver_html_ga03a7158f8be182347f2263bb61efb869"><div class="ttname"><a href="group__ds18b20__interface__driver.html#ga03a7158f8be182347f2263bb61efb869">ds18b20_interface_deinit</a></div><div class="ttdeci">uint8_t ds18b20_interface_deinit(void)</div><div class="ttdoc">interface bus deinit</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20__interface__template_8c_source.html#l00059">driver_ds18b20_interface_template.c:59</a></div></div>
 <div class="ttc" id="agroup__ds18b20__interface__driver_html_ga0fc93e0908a80f48e859cf1aeb8d3136"><div class="ttname"><a href="group__ds18b20__interface__driver.html#ga0fc93e0908a80f48e859cf1aeb8d3136">ds18b20_interface_delay_ms</a></div><div class="ttdeci">void ds18b20_interface_delay_ms(uint32_t ms)</div><div class="ttdoc">interface delay ms</div><div class="ttdef"><b>Definition:</b> <a href="driver__ds18b20__interface__template_8c_source.html#l00095">driver_ds18b20_interface_template.c:95</a></div></div>
