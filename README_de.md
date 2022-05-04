@@ -29,15 +29,15 @@ Libdriver DS18B20 ist ein voll funktionsfähiger DS18B20-Treiber, der von LibDri
 
 /src enthält LibDriver DS18B20-Quelldateien.
 
-/interface enthält die plattformunabhängige Vorlage LibDriver DS18B20 onewire。
+/interface enthält die plattformunabhängige Vorlage LibDriver DS18B20 onewire.
 
-/test enthält den Testcode des LibDriver DS18B20-Treibers und dieser Code kann die erforderliche Funktion des Chips einfach testen。
+/test enthält den Testcode des LibDriver DS18B20-Treibers und dieser Code kann die erforderliche Funktion des Chips einfach testen.
 
 /example enthält LibDriver DS18B20-Beispielcode.
 
 /doc enthält das LibDriver DS18B20-Offlinedokument.
 
-/Datenblatt enthält DS18B20-Datenblatt。
+/Datenblatt enthält DS18B20-Datenblatt.
 
 /project enthält den allgemeinen Beispielcode für Linux- und MCU-Entwicklungsboards. Alle Projekte verwenden das Shell-Skript, um den Treiber zu debuggen, und die detaillierten Anweisungen finden Sie in der README.md jedes Projekts.
 
