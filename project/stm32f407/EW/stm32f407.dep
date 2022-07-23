@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <fileVersion>5</fileVersion>
+    <fileChecksum>3559470046</fileChecksum>
+    <configuration>
+        <name>Release</name>
+        <outputs>
+            <file>$PROJ_DIR$\..\interface\src\uart.c</file>
+            <file>$PROJ_DIR$\..\interface\src\clock.c</file>
+            <file>$PROJ_DIR$\..\interface\src\delay.c</file>
+            <file>$PROJ_DIR$\..\..\..\example\driver_ds18b20_alarm.c</file>
+            <file>$PROJ_DIR$\..\..\..\test\driver_ds18b20_read_test.c</file>
+            <file>$PROJ_DIR$\..\..\..\example\driver_ds18b20_basic.c</file>
+            <file>$PROJ_DIR$\..\driver\src\stm32f407_driver_ds18b20_interface.c</file>
+            <file>$PROJ_DIR$\..\..\..\example\driver_ds18b20_match.c</file>
+            <file>$PROJ_DIR$\..\..\..\example\driver_ds18b20_search.c</file>
+            <file>$PROJ_DIR$\..\..\..\src\driver_ds18b20.c</file>
+            <file>$PROJ_DIR$\..\..\..\test\driver_ds18b20_search_test.c</file>
+            <file>$PROJ_DIR$\..\interface\src\wire.c</file>
+            <file>$PROJ_DIR$\..\..\..\test\driver_ds18b20_register_test.c</file>
+        </outputs>
+        <forcedrebuild>
+            <name>[REBUILD_ALL]</name>
+        </forcedrebuild>
+    </configuration>
+</project>
