@@ -30,15 +30,15 @@ Libdriver DS18B20 is a full function DS18B20 driver launched by LibDriver. It pr
 
 /src includes LibDriver DS18B20 source files.
 
-/interface includes LibDriver DS18B20 onewire platform independent template。
+/interface includes LibDriver DS18B20 onewire platform independent template.
 
-/test includes LibDriver DS18B20 driver test code and this code can test the chip necessary function simply。
+/test includes LibDriver DS18B20 driver test code and this code can test the chip necessary function simply.
 
 /example includes LibDriver DS18B20 sample code.
 
 /doc includes LibDriver DS18B20 offline document.
 
-/datasheet includes DS18B20 datasheet。
+/datasheet includes DS18B20 datasheet.
 
 /project includes the common Linux and MCU development board sample code. All projects use the shell script to debug the driver and the detail instruction can be found in each project's README.md.
 
@@ -53,6 +53,8 @@ Add /src, /interface and /example to your project.
 #### example basic
 
 ```C
+#include "driver_ds18b20_basic.h"
+
 uint8_t res;
 uint8_t i;
 float temperature;
@@ -91,6 +93,8 @@ return 0;
 #### example match
 
 ```C
+#include "driver_ds18b20_match.h"
+
 uint8_t res;
 uint8_t i;
 float temperature;
@@ -130,6 +134,8 @@ return 0;
 #### example alarm
 
 ```C
+#include "driver_ds18b20_alarm.h"
+
 uint8_t res;
 uint8_t rom[8][8];
 uint8_t num;
@@ -177,6 +183,8 @@ return 0;
 #### example search
 
 ```C
+#include "driver_ds18b20_search.h"
+
 uint8_t res, i, j;
 uint8_t rom[8][8];
 uint8_t num;
