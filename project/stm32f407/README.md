@@ -1,6 +1,6 @@
-### 1. chip
+### 1. Chip
 
-#### 1.1 chip info
+#### 1.1 Chip Info
 
 chip name : STM32F407ZGT6.
 
@@ -10,23 +10,23 @@ uart pin: TX/RX PA9/PA10.
 
 data pin: PA8.
 
-### 2. shell
+### 2. Shell
 
-#### 2.1 shell parameter
+#### 2.1 Shell Parameter
 
-baud rate: 115200
+baud rate: 115200.
 
-data bits : 8
+data bits : 8.
 
-stop bits: 1
+stop bits: 1.
 
-parity: none
+parity: none.
 
-flow control: none
+flow control: none.
 
-### 3. ds18b20
+### 3. DS18B20
 
-#### 3.1 command Instruction
+#### 3.1 Command Instruction
 
 ​          ds18b20 is a basic command which can test all ds18b20 driver function:
 
@@ -58,7 +58,7 @@ flow control: none
 
 ​          -c alarm search        run ds18b20 search alarm rom function.
 
-#### 3.2 command example
+#### 3.2 Command Example
 
 ```shell
 ds18b20 -i
