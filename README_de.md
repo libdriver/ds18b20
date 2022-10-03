@@ -52,6 +52,8 @@ Fügen Sie /src, /interface und /example zu Ihrem Projekt hinzu.
 #### example basic
 
 ```C
+#include "driver_ds18b20_basic.h"
+
 uint8_t res;
 uint8_t i;
 float temperature;
@@ -89,6 +91,8 @@ return 0;
 #### example match
 
 ```C
+#include "driver_ds18b20_match.h"
+
 uint8_t res;
 uint8_t i;
 float temperature;
@@ -128,6 +132,8 @@ return 0;
 #### example alarm
 
 ```C
+#include "driver_ds18b20_alarm.h"
+
 uint8_t res;
 uint8_t rom[8][8];
 uint8_t num;
@@ -175,6 +181,8 @@ return 0;
 #### example search
 
 ```C
+#include "driver_ds18b20_search.h"
+
 uint8_t res, i, j;
 uint8_t rom[8][8];
 uint8_t num;

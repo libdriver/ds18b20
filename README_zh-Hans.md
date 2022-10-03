@@ -53,6 +53,8 @@ LibDriver DS18B20是LibDriver推出的DS18B20全功能驱动，该驱动提供�
 #### example basic
 
 ```C
+#include "driver_ds18b20_basic.h"
+
 uint8_t res;
 uint8_t i;
 float temperature;
@@ -91,6 +93,8 @@ return 0;
 #### example match
 
 ```C
+#include "driver_ds18b20_match.h"
+
 uint8_t res;
 uint8_t i;
 float temperature;
@@ -130,6 +134,8 @@ return 0;
 #### example alarm
 
 ```C
+#include "driver_ds18b20_alarm.h"
+
 uint8_t res;
 uint8_t rom[8][8];
 uint8_t num;
@@ -177,6 +183,8 @@ return 0;
 #### example search
 
 ```C
+#include "driver_ds18b20_search.h"
+
 uint8_t res, i, j;
 uint8_t rom[8][8];
 uint8_t num;
