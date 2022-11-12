@@ -9,7 +9,7 @@
 
 Das digitale Thermometer DS18B20 bietet 9-Bit- bis 12-Bit-Celsius-Temperaturmessungen und verfügt über eine Alarmfunktion mit nichtflüchtigen, vom Benutzer programmierbaren oberen und unteren Triggerpunkten. Der DS18B20 kommuniziert über einen 1-Wire-Bus, der per Definition nur eine Datenleitung (und Masse) für die Kommunikation mit einem zentralen Mikroprozessor benötigt. Darüber hinaus kann der DS18B20 Strom direkt von der Datenleitung ableiten („parasitäre Stromversorgung“), wodurch die Notwendigkeit einer externen Stromversorgung. Jeder DS18B20 verfügt über einen eindeutigen 64-Bit-Seriencode, der es mehreren DS18B20 ermöglicht, auf demselben 1-Wire-Bus zu funktionieren. Somit ist es einfach, einen Mikroprozessor zu verwenden, um viele über einen großen Bereich verteilte DS18B20 zu steuern. Zu den Anwendungen, die von dieser Funktion profitieren können, gehören HVAC-Umgebungssteuerungen, Temperaturüberwachungssysteme in Gebäuden, Geräten oder Maschinen sowie Prozessüberwachungs- und -steuerungssysteme.
 
-Libdriver DS18B20 ist ein voll funktionsfähiger DS18B20-Treiber, der von LibDriver gestartet wurde. Es bietet die Funktionen Temperaturablesung, ROM-Abgleichtemperaturablesung, Alarmablesung und ROM-Suchfunktion. LibDriver ist MISRA-konform.
+LibDriver DS18B20 ist ein voll funktionsfähiger DS18B20-Treiber, der von LibDriver gestartet wurde. Es bietet die Funktionen Temperaturablesung, ROM-Abgleichtemperaturablesung, Alarmablesung und ROM-Suchfunktion. LibDriver ist MISRA-konform.
 
 ### Inhaltsverzeichnis
 
