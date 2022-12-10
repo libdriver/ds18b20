@@ -2,61 +2,115 @@
 
 #### 1.1 Chip Info
 
-chip name : STM32F407ZGT6.
+Chip Name: STM32F407ZGT6.
 
-extern oscillator : 8MHz.
+Extern Oscillator: 8MHz.
 
-uart pin: TX/RX PA9/PA10.
+UART Pin: TX/RX PA9/PA10.
 
-data pin: PA8.
+Data Pin: PA8.
 
-### 2. Shell
+### 2. Development and Debugging
 
-#### 2.1 Shell Parameter
+#### 2.1 Integrated Development Environment
 
-baud rate: 115200.
+LidDriver provides both Keil and IAR integrated development environment projects.
 
-data bits : 8.
+MDK is the Keil ARM project and your Keil version must be 5 or higher.Keil ARM project needs STMicroelectronics STM32F4 Series Device Family Pack and you can download from https://www.keil.com/dd2/stmicroelectronics/stm32f407zgtx.
 
-stop bits: 1.
+EW is the IAR ARM project and your IAR version must be 9 or higher.
 
-parity: none.
+#### 2.2 Serial Port Parameter
 
-flow control: none.
+Baud Rate: 115200.
+
+Data Bits : 8.
+
+Stop Bits: 1.
+
+Parity: None.
+
+Flow Control: None.
+
+#### 2.3 Serial Port Assistant
+
+We use '\n' to wrap lines.If your serial port assistant displays exceptions (e.g. the displayed content does not divide lines), please modify the configuration of your serial port assistant or replace one that supports '\n' parsing.
 
 ### 3. DS18B20
 
 #### 3.1 Command Instruction
 
-​          ds18b20 is a basic command which can test all ds18b20 driver function:
+1. Show ds18b20 chip and driver information.
 
-​          -i        show ds18b20 chip and driver information.
+    ```shell
+    ds18b20 (-i | --information)
+    ```
 
-​          -h       show ds18b20 help.
+2. Show ds18b20 help.
 
-​          -p       show ds18b20 pin connections of the current board.
+   ```shell
+   ds18b20 (-h | --help)
+   ```
 
-​          -t (reg | read <times>| search)
+3. Show ds18b20 pin connections of the current board.
 
-​          -t reg        run ds18b20 register test.
+   ```shell
+   ds18b20 (-p | --port)
+   ```
 
-​          -t read <times>        run ds18b20 read test. times means the test times.
+4. Run ds18b20 register test.
 
-​          -t search        run ds18b20 search test.
+   ```shell
+   ds18b20 (-t reg | --test=reg)
+   ```
 
-​          -c (read <times>| match <times> -rom <r1> <r2> <r3> <r4> <r5> <r6> <r7> <r8>| search |alarm (set <lowthreshold> <highthreshold> -rom <r1> <r2> <r3> <r4> <r5> <r6> <r7> <r8> | get -rom  <r1> <r2> <r3> <r4> <r5> <r6> <r7> <r8> | search))
+5.  Run ds18b20 read test, times means the test times.
 
-​          -c read <times>        run ds18b20 read function. times means the read times.
+   ```shell
+   ds18b20 (-t read | --test=read) [--times=<num>]
+   ```
 
-​          -c match <times> -rom <r1> <r2> <r3> <r4> <r5> <r6> <r7> <r8>        run ds18b20 match function. times means the read times. <r1> - <r8> mean the rom id and they are hexadecimal.
+6. Run ds18b20 search test.
 
-​          -c search        run ds18b20 search rom function.
+   ```shell
+   ds18b20 (-t search | --test=search)
+   ```
 
-​          -c alarm set <lowthreshold> <highthreshold> -rom <r1> <r2> <r3> <r4> <r5> <r6> <r7> <r8>           run  alarm set threshold function. lowthreshold means the low threshold.highthreshold means the high threshold. <r1> - <r8> mean the rom id and they are hexadecimal.
+7. Run ds18b20 read function, times means the read times.
 
-​          -c alarm get  -rom  <r1> <r2> <r3> <r4> <r5> <r6> <r7> <r8>        run  alarm get threshold function. <r1> - <r8> mean the rom id and they are hexadecimal.
+   ```shell
+   ds18b20 (-e read | --example=read) [--times=<num>]
+   ```
 
-​          -c alarm search        run ds18b20 search alarm rom function.
+8. Run ds18b20 match function, times means the read times, code means the rom code with the length of 8 and it is hexadecimal.
+
+   ```shell
+   ds18b20 (-e match | --example=match) --rom=<code> [--times=<num>]
+   ```
+
+9. Run ds18b20 search rom function.
+
+   ```shell
+   ds18b20 (-e search | --example=search)
+   ```
+
+10. Run alarm set threshold function, low means the low threshold, high means the high threshold, code means the rom code with the length of 8 and it is hexadecimal.
+
+    ```shell
+    ds18b20 (-e alarm-set | --example=alarm-set) --low-threshold=<low> --high-threshold=<high> --rom=<code>
+    ```
+
+11. Run alarm get threshold function, code means the rom code with the length of 8 and it is hexadecimal.
+
+    ```shell
+    ds18b20 (-e alarm-get | --example=alarm-get) --rom=<code>
+    ```
+
+12. Run ds18b20 search alarm rom function.
+
+    ```shell
+    ds18b20 (-e alarm-search | --example=alarm-search)
+    ```
 
 #### 3.2 Command Example
 
@@ -113,16 +167,16 @@ ds18b20: check resolution ok.
 ds18b20: scrachpad set resolution 12bit.
 ds18b20: check resolution ok.
 ds18b20: ds18b20_scrachpad_set_alarm_threshold/ds18b20_scrachpad_get_alarm_threshold test.
-ds18b20: scrachpad set alarm high threshold 104.
-ds18b20: scrachpad set alarm low threshold -7.
+ds18b20: scrachpad set alarm high threshold 48.
+ds18b20: scrachpad set alarm low threshold -75.
 ds18b20: check alarm high threshold ok.
 ds18b20: check alarm low threshold ok.
 ds18b20: ds18b20_copy_scratchpad_to_eeprom/ds18b20_copy_eeprom_to_scratchpad test.
 ds18b20: copy scratchpad to eeprom.
 ds18b20: check scratchpad eeprom ok.
 ds18b20: ds18b20_alarm_convert_to_register/ds18b20_alarm_convert_to_data test.
-ds18b20: set alarm convert to register 20.74.
-ds18b20: get convert to data 20.00.
+ds18b20: set alarm convert to register 18.41.
+ds18b20: get convert to data 18.00.
 ds18b20: finish register test.
 ```
 
@@ -141,14 +195,14 @@ ds18b20: min temperature is -55.0C.
 ds18b20: start search test.
 ds18b20: search rom...
 ds18b20: find 1 rom.
-ds18b20: rom 0x28 0x56 0x5F 0xAF 0x33 0x19 0x01 0x71 .
+ds18b20: rom 28565FAF33190171.
 ds18b20: search alarm rom...
 ds18b20: find 0 alarm rom.
 ds18b20: finish search test.
 ```
 
 ```shell
-ds18b20 -t read 3
+ds18b20 -t read --times=3
 
 ds18b20: chip is Maxim Integrated DS18B20.
 ds18b20: manufacturer is Maxim Integrated.
@@ -162,86 +216,86 @@ ds18b20: min temperature is -55.0C.
 ds18b20: start basic read test.
 ds18b20: set skip rom.
 ds18b20: scrachpad set resolution 9bit.
-ds18b20: temperature: 29.5C.
-ds18b20: temperature: 29.5C.
-ds18b20: temperature: 29.5C.
+ds18b20: temperature: 30.0C.
+ds18b20: temperature: 30.0C.
+ds18b20: temperature: 30.0C.
 ds18b20: scrachpad set resolution 10bit.
-ds18b20: temperature: 29.2C.
-ds18b20: temperature: 29.2C.
-ds18b20: temperature: 29.2C.
+ds18b20: temperature: 30.0C.
+ds18b20: temperature: 30.0C.
+ds18b20: temperature: 30.0C.
 ds18b20: scrachpad set resolution 11bit.
-ds18b20: temperature: 29.0C.
-ds18b20: temperature: 29.0C.
-ds18b20: temperature: 29.0C.
+ds18b20: temperature: 29.8C.
+ds18b20: temperature: 29.8C.
+ds18b20: temperature: 29.8C.
 ds18b20: scrachpad set resolution 12bit.
-ds18b20: temperature: 28.8C.
-ds18b20: temperature: 28.8C.
-ds18b20: temperature: 28.8C.
+ds18b20: temperature: 29.7C.
+ds18b20: temperature: 29.7C.
+ds18b20: temperature: 29.6C.
 ds18b20: set match rom.
 ds18b20: scrachpad set resolution 9bit.
-ds18b20: temperature: 29.0C.
-ds18b20: temperature: 29.0C.
-ds18b20: temperature: 29.0C.
+ds18b20: temperature: 30.0C.
+ds18b20: temperature: 30.0C.
+ds18b20: temperature: 30.0C.
 ds18b20: scrachpad set resolution 10bit.
-ds18b20: temperature: 29.0C.
-ds18b20: temperature: 29.0C.
-ds18b20: temperature: 29.0C.
+ds18b20: temperature: 30.0C.
+ds18b20: temperature: 30.0C.
+ds18b20: temperature: 29.8C.
 ds18b20: scrachpad set resolution 11bit.
-ds18b20: temperature: 28.9C.
-ds18b20: temperature: 28.9C.
-ds18b20: temperature: 28.9C.
+ds18b20: temperature: 29.6C.
+ds18b20: temperature: 29.6C.
+ds18b20: temperature: 29.6C.
 ds18b20: scrachpad set resolution 12bit.
-ds18b20: temperature: 28.9C.
-ds18b20: temperature: 28.9C.
-ds18b20: temperature: 28.9C.
+ds18b20: temperature: 29.6C.
+ds18b20: temperature: 29.6C.
+ds18b20: temperature: 29.6C.
 ds18b20: finish read test.
 ```
 
 ```shell
-ds18b20 -c search
+ds18b20 -e search
 
 ds18b20: find 1 rom(s).
-ds18b20: 1/1 is 28 56 5F AF 33 19 01 71 .
+ds18b20: 1/1 is 28565FAF33190171.
 ```
 
 ```shell
-ds18b20 -c read 3
+ds18b20 -e read --times=3
 
 ds18b20: 1/3.
-ds18b20: temperature is 27.38C.
+ds18b20: temperature is 30.00C.
 ds18b20: 2/3.
-ds18b20: temperature is 27.38C.
+ds18b20: temperature is 30.00C.
 ds18b20: 3/3.
-ds18b20: temperature is 27.45C.
+ds18b20: temperature is 29.94C.
 ```
 
 ```shell
-ds18b20 -c match 3 -rom 28 56 5F AF 33 19 01 71
+ds18b20 -e match --times=3 --rom=28565FAF33190171
 
 ds18b20: 1/3.
-ds18b20: temperature is 27.25C.
+ds18b20: temperature is 29.50C.
 ds18b20: 2/3.
-ds18b20: temperature is 27.25C.
+ds18b20: temperature is 29.50C.
 ds18b20: 3/3.
-ds18b20: temperature is 27.25C.
+ds18b20: temperature is 29.50C.
 ```
 
 ```shell
-ds18b20 -c alarm set 20.0 50.0 -rom 28 56 5F AF 33 19 01 71
+ds18b20 -e alarm-set --low=20.0 --high=30.0 --rom=28565FAF33190171
 
 ds18b20: set alarm low threshold 20.00.
-ds18b20: set alarm high threshold 50.00.
+ds18b20: set alarm high threshold 30.00.
 ```
 
 ```shell
-ds18b20 -c alarm get -rom 28 56 5F AF 33 19 01 71
+ds18b20 -e alarm-get --rom=28565FAF33190171
 
-ds18b20: alarm low threshold is -7.00.
-ds18b20: alarm high threshold is 104.00.
+ds18b20: alarm low threshold is 20.00.
+ds18b20: alarm high threshold is 30.00.
 ```
 
 ```shell
-ds18b20 -c alarm search 
+ds18b20 -e alarm-search 
 
 ds18b20: find 0 alarm rom(s).
 ```
@@ -249,29 +303,31 @@ ds18b20: find 0 alarm rom(s).
 ```shell
 ds18b20 -h
 
-ds18b20 -i
-	show ds18b20 chip and driver information.
-ds18b20 -h
-	show ds18b20 help.
-ds18b20 -p
-	show ds18b20 pin connections of the current board.
-ds18b20 -t reg
-	run ds18b20 register test.
-ds18b20 -t read <times>
-	run ds18b20 read test.times means the test times.
-ds18b20 -t search
-	run ds18b20 search test.
-ds18b20 -c read <times>
-	run ds18b20 read function.times means the read times.
-ds18b20 -c match <times> -rom <r1> <r2> <r3> <r4> <r5> <r6> <r7> <r8>
-	run ds18b20 match function.times means the read times.<r1>-<r8> mean the rom id and they are hexadecimal.
-ds18b20 -c search
-	run ds18b20 search rom function.
-ds18b20 -c alarm set <lowthreshold> <highthreshold> -rom <r1> <r2> <r3> <r4> <r5> <r6> <r7> <r8>
-	run alarm set threshold function.lowthreshold means the low threshold.highthreshold means the high threshold.<r1>-<r8> mean the rom id and they are hexadecimal.
-ds18b20 -c alarm get -rom <r1> <r2> <r3> <r4> <r5> <r6> <r7> <r8>
-	run alarm get threshold function.<r1>-<r8> mean the rom id and they are hexadecimal.
-ds18b20 -c alarm search
-	run ds18b20 search alarm rom function.
+Usage:
+  ds18b20 (-i | --information)
+  ds18b20 (-h | --help)
+  ds18b20 (-p | --port)
+  ds18b20 (-t reg | --test=reg)
+  ds18b20 (-t read | --test=read) [--times=<num>]
+  ds18b20 (-t search | --test=search)
+  ds18b20 (-e read | --example=read) [--times=<num>]
+  ds18b20 (-e match | --example=match) --rom=<code> [--times=<num>]
+  ds18b20 (-e search | --example=search)
+  ds18b20 (-e alarm-set | --example=alarm-set) --low-threshold=<low> --high-threshold=<high> --rom=<code>
+  ds18b20 (-e alarm-get | --example=alarm-get) --rom=<code>
+  ds18b20 (-e alarm-search | --example=alarm-search)
+
+Options:
+  -e <read | match | search | alarm-set | alarm-get | alarm-search>, --example=<read | match | search | alarm-set | alarm-get | alarm-search>
+                                 Run the driver example.
+  -h, --help                     Show the help.
+      --high-threshold=<high>    Set the temperature interrupt high threshold.
+  -i, --information              Show the chip information.
+      --low-threshold=<low>      Set the temperature interrupt low threshold.
+  -p, --port                     Display the pin connections of the current board.
+      --rom=<code>               Set the rom with the length of 8 and it is hexadecimal.
+  -t <reg | read | search>, --test=<reg | read | search>
+                                 Run the driver test.
+      --times=<num>              Set the running times.([default: 3])
 ```
 

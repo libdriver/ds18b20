@@ -231,13 +231,13 @@ return 0;
 
 ### Document
 
-Online documents: https://www.libdriver.com/docs/ds18b20/index.html
+Online documents: [https://www.libdriver.com/docs/ds18b20/index.html](https://www.libdriver.com/docs/ds18b20/index.html).
 
-Offline documents: /doc/html/index.html
+Offline documents: /doc/html/index.html.
 
 ### Contributing
 
-Please sent an e-mail to lishifenging@outlook.com
+Please refer to CONTRIBUTING.md.
 
 ### License
 
@@ -285,4 +285,4 @@ SOFTWARE.
 
 ### Contact Us
 
-Please sent an e-mail to lishifenging@outlook.com
+Please sent an e-mail to lishifenging@outlook.com.

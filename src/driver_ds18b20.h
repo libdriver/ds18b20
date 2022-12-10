@@ -113,7 +113,7 @@ typedef struct ds18b20_handle_s
     uint8_t (*bus_write)(uint8_t value);                    /**< point to a bus_write function address */
     void (*delay_ms)(uint32_t ms);                          /**< point to a delay_ms function address */
     void (*delay_us)(uint32_t us);                          /**< point to a delay_us function address */
-    void (*enable_irq)(void);                               /**< point to a enable_irq function address */
+    void (*enable_irq)(void);                               /**< point to an enable_irq function address */
     void (*disable_irq)(void);                              /**< point to a disable_irq function address */
     void (*debug_print)(const char *const fmt, ...);        /**< point to a debug_print function address */
     uint8_t inited;                                         /**< inited flag */
@@ -207,7 +207,7 @@ typedef struct ds18b20_info_s
 /**
  * @brief     link enable_irq function
  * @param[in] HANDLE points to a ds18b20 handle structure
- * @param[in] FUC points to a enable_irq function address
+ * @param[in] FUC points to an enable_irq function address
  * @note      none
  */
 #define DRIVER_DS18B20_LINK_ENABLE_IRQ(HANDLE, FUC)  (HANDLE)->enable_irq = FUC
@@ -442,7 +442,7 @@ uint8_t ds18b20_alarm_convert_to_register(ds18b20_handle_t *handle, float temp, 
  * @brief      convert the register data to the alarm temperature
  * @param[in]  *handle points to a ds18b20 handle structure
  * @param[in]  reg is the register data
- * @param[out] *temp points to a alarm temperature buffer
+ * @param[out] *temp points to an alarm temperature buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -455,7 +455,7 @@ uint8_t ds18b20_alarm_convert_to_data(ds18b20_handle_t *handle, int8_t reg, floa
  * @brief         search the ds18b20 rom
  * @param[in]     *handle points to a ds18b20 handle structure
  * @param[out]    **rom points to a rom array
- * @param[in,out] *num points to a array size buffer
+ * @param[in,out] *num points to an array size buffer
  * @return        status code
  *                - 0 success
  *                - 1 search rom failed
@@ -467,7 +467,7 @@ uint8_t ds18b20_search_rom(ds18b20_handle_t *handle, uint8_t (*rom)[8], uint8_t 
  * @brief         search the ds18b20 alarm rom
  * @param[in]     *handle points to a ds18b20 handle structure
  * @param[out]    **rom points to a rom array
- * @param[in,out] *num points to a array size buffer
+ * @param[in,out] *num points to an array size buffer
  * @return        status code
  *                - 0 success
  *                - 1 search alarm failed
