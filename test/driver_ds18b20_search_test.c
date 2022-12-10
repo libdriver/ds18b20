@@ -78,7 +78,7 @@ uint8_t ds18b20_search_test(void)
         ds18b20_interface_debug_print("ds18b20: chip is %s.\n", info.chip_name);
         ds18b20_interface_debug_print("ds18b20: manufacturer is %s.\n", info.manufacturer_name);
         ds18b20_interface_debug_print("ds18b20: interface is %s.\n", info.interface);
-        ds18b20_interface_debug_print("ds18b20: driver version is %d.%d.\n", info.driver_version/1000, (info.driver_version%1000)/100);
+        ds18b20_interface_debug_print("ds18b20: driver version is %d.%d.\n", info.driver_version / 1000, (info.driver_version % 1000) / 100);
         ds18b20_interface_debug_print("ds18b20: min supply voltage is %0.1fV.\n", info.supply_voltage_min_v);
         ds18b20_interface_debug_print("ds18b20: max supply voltage is %0.1fV.\n", info.supply_voltage_max_v);
         ds18b20_interface_debug_print("ds18b20: max current is %0.2fmA.\n", info.max_current_ma);
@@ -127,7 +127,7 @@ uint8_t ds18b20_search_test(void)
             char hex_buf[6];
             
             memset((char *)hex_buf, 0 ,sizeof(char)*6);
-            (void)snprintf((char *)hex_buf, 6, "0x%02X ", rom[i][j]);
+            (void)snprintf((char *)hex_buf, 6, "%02X", rom[i][j]);
             strcat((char *)cmd_buf, (char *)hex_buf);
         }
         ds18b20_interface_debug_print("%s.\n",cmd_buf);
@@ -162,7 +162,7 @@ uint8_t ds18b20_search_test(void)
             char hex_buf[6];
             
             memset((char *)hex_buf, 0 ,sizeof(char)*6);
-            (void)snprintf((char *)hex_buf, 6, "0x%02X ", rom[i][j]);
+            (void)snprintf((char *)hex_buf, 6, "%02X", rom[i][j]);
             strcat((char *)cmd_buf, (char *)hex_buf);
         }
         ds18b20_interface_debug_print("%s.\n",cmd_buf);

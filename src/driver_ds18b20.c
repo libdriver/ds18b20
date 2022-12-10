@@ -269,7 +269,7 @@ static uint8_t a_ds18b20_read_byte(ds18b20_handle_t *handle, uint8_t *byte)
 /**
  * @brief     write one byte to the chip
  * @param[in] *handle points to a ds18b20 handle structure
- * @param[in] byte is the written byte
+ * @param[in] byte is the write byte
  * @return    status code
  *            - 0 success
  *            - 1 write byte failed
@@ -1268,7 +1268,7 @@ uint8_t ds18b20_alarm_convert_to_register(ds18b20_handle_t *handle, float temp, 
  * @brief      convert the register data to the alarm temperature
  * @param[in]  *handle points to a ds18b20 handle structure
  * @param[in]  reg is the register data
- * @param[out] *temp points to a alarm temperature buffer
+ * @param[out] *temp points to an alarm temperature buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1753,7 +1753,7 @@ static uint8_t a_ds18b20_read_2bit(ds18b20_handle_t *handle, uint8_t *data)
 /**
  * @brief     write 1 bit to the bus
  * @param[in] *handle points to a ds18b20 handle structure
- * @param[in] bit is the written bit
+ * @param[in] bit is the write bit
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -1796,7 +1796,7 @@ static uint8_t a_ds18b20_write_bit(ds18b20_handle_t *handle, uint8_t bit)
  * @param[in]     *handle points to a ds18b20 handle structure
  * @param[out]    **pid points to a rom array
  * @param[in]     cmd is the search command
- * @param[in,out] *number points to a array size buffer
+ * @param[in,out] *number points to an array size buffer
  * @return        status code
  *                - 0 success
  *                - 1 search failed
@@ -1932,7 +1932,7 @@ static uint8_t a_ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uin
  * @brief         search the ds18b20 rom
  * @param[in]     *handle points to a ds18b20 handle structure
  * @param[out]    **rom points to a rom array
- * @param[in,out] *num points to a array size buffer
+ * @param[in,out] *num points to an array size buffer
  * @return        status code
  *                - 0 success
  *                - 1 search rom failed
@@ -1956,7 +1956,7 @@ uint8_t ds18b20_search_rom(ds18b20_handle_t *handle, uint8_t (*rom)[8], uint8_t 
  * @brief         search the ds18b20 alarm rom
  * @param[in]     *handle points to a ds18b20 handle structure
  * @param[out]    **rom points to a rom array
- * @param[in,out] *num points to a array size buffer
+ * @param[in,out] *num points to an array size buffer
  * @return        status code
  *                - 0 success
  *                - 1 search alarm failed
