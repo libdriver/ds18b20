@@ -104,7 +104,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
     /* parse */
     do
     {
-        /* parse the args*/
+        /* parse the args */
         c = getopt_long(argc, argv, short_options, long_options, &longindex);
         
         /* judge the result */
