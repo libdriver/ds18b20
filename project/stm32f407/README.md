@@ -64,7 +64,7 @@ We use '\n' to wrap lines.If your serial port assistant displays exceptions (e.g
    ds18b20 (-t reg | --test=reg)
    ```
 
-5.  Run ds18b20 read test, times means the test times.
+5.  Run ds18b20 read test, num means the test times.
 
    ```shell
    ds18b20 (-t read | --test=read) [--times=<num>]
@@ -76,13 +76,13 @@ We use '\n' to wrap lines.If your serial port assistant displays exceptions (e.g
    ds18b20 (-t search | --test=search)
    ```
 
-7. Run ds18b20 read function, times means the read times.
+7. Run ds18b20 read function, num means the read times.
 
    ```shell
    ds18b20 (-e read | --example=read) [--times=<num>]
    ```
 
-8. Run ds18b20 match function, times means the read times, code means the rom code with the length of 8 and it is hexadecimal.
+8. Run ds18b20 match function, num means the read times, code means the rom code with the length of 8 and it is hexadecimal.
 
    ```shell
    ds18b20 (-e match | --example=match) --rom=<code> [--times=<num>]
