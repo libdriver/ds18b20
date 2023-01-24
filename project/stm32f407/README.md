@@ -8,7 +8,7 @@ Extern Oscillator: 8MHz.
 
 UART Pin: TX/RX PA9/PA10.
 
-Data Pin: PA8.
+DATA Pin: PA8.
 
 ### 2. Development and Debugging
 

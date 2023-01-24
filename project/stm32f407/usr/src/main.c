@@ -59,9 +59,9 @@ volatile uint16_t g_len;   /**< uart buffer length */
  * @param[in] argc is arg numbers
  * @param[in] **argv is the arg address
  * @return    status code
- *             - 0 success
- *             - 1 run failed
- *             - 5 param is invalid
+ *            - 0 success
+ *            - 1 run failed
+ *            - 5 param is invalid
  * @note      none
  */
 uint8_t ds18b20(uint8_t argc, char **argv)
