@@ -189,15 +189,17 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             {
                 uint8_t i;
                 
+                /* check the flag */
+                if (strlen(optarg) != 16)
+                {
+                    return 5;
+                }
+                
                 /* set the rom */
                 for (i = 0; i < 8; i++)
                 {
                     uint8_t temp;
                     
-                    if (strlen(optarg) < 16)
-                    {
-                        return 5;
-                    }
                     if ((optarg[i * 2 + 0] <= '9') && (optarg[i * 2 + 0] >= '0'))
                     {
                         temp = (optarg[i * 2 + 0] - '0') * 16;

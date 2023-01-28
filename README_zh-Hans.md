@@ -42,6 +42,8 @@ LibDriver DS18B20是LibDriver推出的DS18B20全功能驱动，该驱动提供�
 
 /project目录包含了常用Linux与单片机开发板的工程样例。所有工程均采用shell脚本作为调试方法，详细内容可参考每个工程里面的README.md。
 
+/misra目录包含了LibDriver MISRA代码扫描结果。
+
 ### 安装
 
 参考/interface目录下与平台无关的onewire总线模板，完成指定平台的onewire总线驱动。

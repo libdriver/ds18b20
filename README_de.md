@@ -41,6 +41,8 @@ LibDriver DS18B20 ist ein voll funktionsfähiger DS18B20-Treiber, der von LibDri
 
 /project enthält den allgemeinen Beispielcode für Linux- und MCU-Entwicklungsboards. Alle Projekte verwenden das Shell-Skript, um den Treiber zu debuggen, und die detaillierten Anweisungen finden Sie in der README.md jedes Projekts.
 
+/misra enthält die Ergebnisse des LibDriver MISRA Code Scans.
+
 ### Installieren
 
 Verweisen Sie auf eine plattformunabhängige onewire-Schnittstellenvorlage und stellen Sie Ihren Plattform-onewire-Treiber fertig.
