@@ -59,9 +59,9 @@ volatile uint16_t g_len;   /**< uart buffer length */
  * @param[in] argc is arg numbers
  * @param[in] **argv is the arg address
  * @return    status code
- *             - 0 success
- *             - 1 run failed
- *             - 5 param is invalid
+ *            - 0 success
+ *            - 1 run failed
+ *            - 5 param is invalid
  * @note      none
  */
 uint8_t ds18b20(uint8_t argc, char **argv)
@@ -82,7 +82,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
         {"times", required_argument, NULL, 4},
         {NULL, 0, NULL, 0},
     };
-    char type[32] = "unknow";
+    char type[33] = "unknow";
     uint8_t flag_rom = 0;
     uint8_t flag_low = 0;
     uint8_t flag_high = 0;
@@ -114,7 +114,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             case 'h' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "h");
                 
                 break;
@@ -124,7 +124,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             case 'i' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "i");
                 
                 break;
@@ -134,7 +134,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             case 'p' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "p");
                 
                 break;
@@ -144,7 +144,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             case 'e' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "e_%s", optarg);
                 
                 break;
@@ -154,7 +154,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             case 't' :
             {
                 /* set the type */
-                memset(type, 0, sizeof(char) * 32);
+                memset(type, 0, sizeof(char) * 33);
                 snprintf(type, 32, "t_%s", optarg);
                 
                 break;
@@ -189,15 +189,17 @@ uint8_t ds18b20(uint8_t argc, char **argv)
             {
                 uint8_t i;
                 
+                /* check the flag */
+                if (strlen(optarg) != 16)
+                {
+                    return 5;
+                }
+                
                 /* set the rom */
                 for (i = 0; i < 8; i++)
                 {
                     uint8_t temp;
                     
-                    if (strlen(optarg) < 16)
-                    {
-                        return 5;
-                    }
                     if ((optarg[i * 2 + 0] <= '9') && (optarg[i * 2 + 0] >= '0'))
                     {
                         temp = (optarg[i * 2 + 0] - '0') * 16;
