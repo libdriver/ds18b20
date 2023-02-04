@@ -85,7 +85,7 @@ uint8_t ds18b20_basic_init(void)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_BASIC_DEFAULT_RESOLUTION);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;

@@ -117,12 +117,12 @@ uint8_t ds18b20_read_test(uint32_t times)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_9BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 9bit.\n"); 
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 9bit.\n");
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
@@ -141,12 +141,12 @@ uint8_t ds18b20_read_test(uint32_t times)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_10BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 10bit.\n"); 
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 10bit.\n");
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
@@ -165,12 +165,12 @@ uint8_t ds18b20_read_test(uint32_t times)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_11BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 11bit.\n"); 
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 11bit.\n");
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
@@ -189,12 +189,12 @@ uint8_t ds18b20_read_test(uint32_t times)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_12BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 12bit.\n");
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 12bit.\n");
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
@@ -242,12 +242,12 @@ uint8_t ds18b20_read_test(uint32_t times)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_9BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 9bit.\n"); 
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 9bit.\n");
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
@@ -266,12 +266,12 @@ uint8_t ds18b20_read_test(uint32_t times)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_10BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 10bit.\n"); 
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 10bit.\n");
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
@@ -290,12 +290,12 @@ uint8_t ds18b20_read_test(uint32_t times)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_11BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 11bit.\n");
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 11bit.\n");
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);
@@ -314,12 +314,12 @@ uint8_t ds18b20_read_test(uint32_t times)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_12BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 12bit.\n"); 
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 12bit.\n");
     for (i = 0; i < times; i++)
     {
         res = ds18b20_read(&gs_handle, (int16_t *)&raw, (float *)&temperature);

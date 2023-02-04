@@ -58,9 +58,9 @@
 #define DS18B20_CMD_SKIP_ROM                 0xCC        /**< skip rom command */
 #define DS18B20_CMD_ALARM_SEARCH             0xEC        /**< alarm search command */
 #define DS18B20_CMD_CONVERT_T                0x44        /**< convert command */
-#define DS18B20_CMD_WRITE_SCRATCHPAD         0x4E        /**< write scrachpad command */
-#define DS18B20_CMD_READ_SCRATCHPAD          0xBE        /**< read scrachpad command */
-#define DS18B20_CMD_COPY_SCRATCHPAD          0x48        /**< copy scrachpad command */
+#define DS18B20_CMD_WRITE_SCRATCHPAD         0x4E        /**< write scratchpad command */
+#define DS18B20_CMD_READ_SCRATCHPAD          0xBE        /**< read scratchpad command */
+#define DS18B20_CMD_COPY_SCRATCHPAD          0x48        /**< copy scratchpad command */
 #define DS18B20_CMD_RECALL_EE                0xB8        /**< recall ee command */
 #define DS18B20_CMD_READ_POWER_SUPPLY        0xB4        /**< read power supply command */
 
@@ -281,7 +281,7 @@ static uint8_t a_ds18b20_write_byte(ds18b20_handle_t *handle, uint8_t byte)
     uint8_t test_b;
     
     handle->disable_irq();                                                  /* disable irq */
-    for (j = 1; j <= 8; j++)                                                /* run 8 times, 8 bist = 1 Byte */
+    for (j = 1; j <= 8; j++)                                                /* run 8 times, 8 bits = 1 Byte */
     {
         test_b = byte & 0x01;                                               /* get 1 bit */
         byte = byte >> 1;                                                   /* right shift 1 bit */
@@ -546,7 +546,7 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
         
         return 0;                                                               /* success return 0 */
     }
-    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
+    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if we use match rom mode */
     {
         if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
@@ -633,7 +633,7 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
     }    
     else
     {
-        handle->debug_print("ds18b20: mode invalid.\n");                        /* ds18b20 mode invlaid */
+        handle->debug_print("ds18b20: mode invalid.\n");                        /* ds18b20 mode invalid */
         
         return 1;                                                               /* return error */
     }
@@ -702,7 +702,7 @@ uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_reso
         
         return 0;                                                               /* success return 0 */
     }
-    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
+    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if we use match rom mode */
     {
         if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
@@ -735,7 +735,7 @@ uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_reso
         {
             if (a_ds18b20_read_byte(handle, (uint8_t *)&buf[i]) != 0)           /* read 9 bytes */
             {
-                handle->debug_print("ds18b20: read dtaa failed.\n");            /* read failed */
+                handle->debug_print("ds18b20: read data failed.\n");            /* read failed */
                 
                 return 1;                                                       /* return error */
             }
@@ -791,13 +791,13 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
             
             return 1;                                                           /* return error */
         }
-        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom commmand */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_SKIP_ROM) != 0)            /* sent skip rom command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
             return 1;                                                           /* return error */
         }
-        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -850,7 +850,7 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
         
         return 0;                                                               /* success return 0 */
     }
-    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
+    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if we use match rom mode */
     {
         if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
@@ -873,7 +873,7 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
                 return 1;                                                       /* return error */
             }
         }
-        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -947,7 +947,7 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
  * @brief      get the alarm threshold in the scratchpad
  * @param[in]  *handle points to a ds18b20 handle structure
  * @param[out] *threshold_high points to a high threshold buffer
- * @param[out] *threshold_low points to a low threshold buuffer
+ * @param[out] *threshold_low points to a low threshold buffer
  * @return     status code
  *             - 0 success
  *             - 1 scratchpad get alarm threshold failed
@@ -982,7 +982,7 @@ uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *
             
             return 1;                                                           /* return error */
         }
-        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* sent read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1008,7 +1008,7 @@ uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *
         
         return 0;                                                               /* success return 0 */
     }
-    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
+    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if we use match rom mode */
     {
         if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
@@ -1111,7 +1111,7 @@ uint8_t ds18b20_copy_scratchpad_to_eeprom(ds18b20_handle_t *handle)
         
         return 0;                                                               /* success return 0 */
     }
-    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
+    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if we use match rom mode */
     {
         if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
@@ -1174,7 +1174,7 @@ uint8_t ds18b20_copy_eeprom_to_scratchpad(ds18b20_handle_t *handle)
         return 3;                                                               /* return error */
     }
     
-    if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if use in skip rom */
+    if (handle->mode == DS18B20_MODE_SKIP_ROM)                                  /* if we use in skip rom */
     {
         if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
@@ -1197,7 +1197,7 @@ uint8_t ds18b20_copy_eeprom_to_scratchpad(ds18b20_handle_t *handle)
         
         return 0;                                                               /* success return 0 */
     }
-    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
+    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if we use match rom mode */
     {
         if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
@@ -1464,7 +1464,7 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         {
             if (a_ds18b20_read_bit(handle, (uint8_t *)&res) != 0)               /* read 1 bit */
             {
-                handle->debug_print("ds18b20: read bit failed.\n");             /* read bit failed */
+                handle->debug_print("ds18b20: read bit failed.\n");             /* read a bit failed */
                 
                 return 1;                                                       /* return error */
             }
@@ -1489,7 +1489,7 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
             
             return 1;                                                           /* return error */
         }
-        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* write read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* write read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1513,10 +1513,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         *raw = (int16_t)(((uint16_t)buf[1]) << 8) | buf[0];                     /* get raw data */
         if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_9BIT)                  /* if 9 bit resolution */
         {
-            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negative */
             {
                 *raw = (*raw ) >> 3;                                            /* right shift 3 */
-                *raw = (*raw) | 0xE000U;                                        /* set negtive part */
+                *raw = (*raw) | 0xE000U;                                        /* set negative part */
             }
             else                                                                /* if positive */
             {
@@ -1526,10 +1526,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         else if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_10BIT)            /* if 10 bit resolution */
         {
-            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negative */
             {
                 *raw = (*raw ) >> 2;                                            /* right shift 2 */
-                *raw = (*raw) | 0xC000U;                                        /* set negtive part */
+                *raw = (*raw) | 0xC000U;                                        /* set negative part */
             }
             else
             {
@@ -1539,10 +1539,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         else if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_11BIT)            /* if 11 bit resolution */
         {
-            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negative */
             {
                 *raw = (*raw ) >> 1;                                            /* right shift 1 */
-                *raw = (*raw) | 0x8000U;                                        /* set negtive part */
+                *raw = (*raw) | 0x8000U;                                        /* set negative part */
             }
             else
             {
@@ -1564,7 +1564,7 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         
         return 0;                                                               /* success return 0 */
     }
-    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
+    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if we use match rom mode */
     {
         if (a_ds18b20_reset(handle) != 0)                                       /* reset bus */
         {
@@ -1582,7 +1582,7 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         {
             if (a_ds18b20_write_byte(handle, handle->rom[i]) != 0)              /* send rom */
             {
-                handle->debug_print("ds18b20: write command failed.\n");        /* wrtie command failed */
+                handle->debug_print("ds18b20: write command failed.\n");        /* write command failed */
                 
                 return 1;                                                       /* return error */
             }
@@ -1633,7 +1633,7 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
                 return 1;                                                       /* return error */
             }
         } 
-        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* send read scrachpad command */
+        if (a_ds18b20_write_byte(handle, DS18B20_CMD_READ_SCRATCHPAD) != 0)     /* send read scratchpad command */
         {
             handle->debug_print("ds18b20: write command failed.\n");            /* write command failed */
             
@@ -1657,10 +1657,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         *raw = (int16_t)(((uint16_t)buf[1]) << 8) | buf[0];                     /* get raw data */
         if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_9BIT)                  /* if 9 bit resolution */
         {
-            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negative */
             {
                 *raw = (*raw ) >> 3;                                            /* right shift 3 */
-                *raw = (*raw) | 0xE000U;                                        /* set negtive part */
+                *raw = (*raw) | 0xE000U;                                        /* set negative part */
             }
             else                                                                /* if positive */
             {
@@ -1670,10 +1670,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         else if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_10BIT)            /* if 10 bit resolution */
         {
-            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negative */
             {
                 *raw = (*raw ) >> 2;                                            /* right shift 2 */
-                *raw = (*raw) | 0xC000U;                                        /* set negtive part */
+                *raw = (*raw) | 0xC000U;                                        /* set negative part */
             }
             else
             {
@@ -1683,10 +1683,10 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
         }
         else if (((buf[4] >> 5) & 0x03) == DS18B20_RESOLUTION_11BIT)            /* if 11 bit resolution */
         {
-            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negtive */
+            if ((((uint16_t)(*raw)) & (1 << 15)) != 0)                          /* if negative */
             {
                 *raw = (*raw ) >> 1;                                            /* right shift 1 */
-                *raw = (*raw) | 0x8000U;                                        /* set negtive part */
+                *raw = (*raw) | 0x8000U;                                        /* set negative part */
             }
             else
             {
@@ -1738,7 +1738,7 @@ static uint8_t a_ds18b20_read_2bit(ds18b20_handle_t *handle, uint8_t *data)
         if (a_ds18b20_read_bit(handle, (uint8_t *)&res) != 0)           /* read one bit */
         {
             handle->enable_irq();                                       /* enable irq */
-            handle->debug_print("ds18b20: read bit failed.\n");         /* read bit failed */
+            handle->debug_print("ds18b20: read bit failed.\n");         /* read a bit failed */
             
             return 1;                                                   /* return error */
         }
@@ -2020,14 +2020,14 @@ uint8_t ds18b20_get_power_mode(ds18b20_handle_t *handle, ds18b20_power_mode_t *p
         }
         if (a_ds18b20_read_bit(handle, (uint8_t *)power_mode) != 0)             /* get power mode */
         {
-            handle->debug_print("ds18b20: read bit failed.\n");                 /* read bit failed */
+            handle->debug_print("ds18b20: read bit failed.\n");                 /* read a bit failed */
             
             return 1;                                                           /* return error */
         }
         
         return 0;                                                               /* success return 0 */
     }
-    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if use match rom mode */
+    else if (handle->mode == DS18B20_MODE_MATCH_ROM)                            /* if we use match rom mode */
     {
         if (a_ds18b20_reset(handle) != 0)                                       /* bus reset */
         {
@@ -2058,7 +2058,7 @@ uint8_t ds18b20_get_power_mode(ds18b20_handle_t *handle, ds18b20_power_mode_t *p
         }
         if (a_ds18b20_read_bit(handle, (uint8_t *)power_mode) != 0)             /* get power mode */
         {
-            handle->debug_print("ds18b20: read bit failed.\n");                 /* read bit failed */
+            handle->debug_print("ds18b20: read bit failed.\n");                 /* read a bit failed */
             
             return 1;                                                           /* return error */
         }
@@ -2097,7 +2097,7 @@ uint8_t ds18b20_info(ds18b20_info_t *info)
     info->max_current_ma = MAX_CURRENT;                             /* set maximum current */
     info->temperature_max = TEMPERATURE_MAX;                        /* set minimal temperature */
     info->temperature_min = TEMPERATURE_MIN;                        /* set maximum temperature */
-    info->driver_version = DRIVER_VERSION;                          /* set driver verison */
+    info->driver_version = DRIVER_VERSION;                          /* set driver version */
     
     return 0;                                                       /* success return 0 */
 }

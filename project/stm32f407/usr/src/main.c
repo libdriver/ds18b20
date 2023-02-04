@@ -82,7 +82,7 @@ uint8_t ds18b20(uint8_t argc, char **argv)
         {"times", required_argument, NULL, 4},
         {NULL, 0, NULL, 0},
     };
-    char type[33] = "unknow";
+    char type[33] = "unknown";
     uint8_t flag_rom = 0;
     uint8_t flag_low = 0;
     uint8_t flag_high = 0;
@@ -616,7 +616,7 @@ int main(void)
     /* uart init */
     uart_init(115200);
     
-    /* shell init && register ds18b20 fuction */
+    /* shell init && register ds18b20 function */
     shell_init();
     shell_register("ds18b20", ds18b20);
     uart_print("ds18b20: welcome to libdriver ds18b20.\n");
@@ -639,7 +639,7 @@ int main(void)
             }
             else if (res == 2)
             {
-                uart_print("ds18b20: unknow command.\n");
+                uart_print("ds18b20: unknown command.\n");
             }
             else if (res == 3)
             {
@@ -655,7 +655,7 @@ int main(void)
             }
             else
             {
-                uart_print("ds18b20: unknow status code.\n");
+                uart_print("ds18b20: unknown status code.\n");
             }
             uart_flush();
         }
