@@ -205,16 +205,16 @@ uint8_t ds18b20_register_test(void)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_9BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 9bit.\n");
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 9bit.\n");
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad get resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
@@ -225,16 +225,16 @@ uint8_t ds18b20_register_test(void)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_10BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 10bit.\n");
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 10bit.\n");
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad get resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
@@ -245,16 +245,16 @@ uint8_t ds18b20_register_test(void)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_11BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 11bit.\n");
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 11bit.\n");
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad get resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
@@ -265,16 +265,16 @@ uint8_t ds18b20_register_test(void)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_12BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set resolution 12bit.\n");
+    ds18b20_interface_debug_print("ds18b20: scratchpad set resolution 12bit.\n");
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad get resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
@@ -288,17 +288,17 @@ uint8_t ds18b20_register_test(void)
     res = ds18b20_scratchpad_set_alarm_threshold(&gs_handle, threshold_high, threshold_low);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set alarm threshold failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set alarm threshold failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
     }
-    ds18b20_interface_debug_print("ds18b20: scrachpad set alarm high threshold %d.\n", threshold_high);
-    ds18b20_interface_debug_print("ds18b20: scrachpad set alarm low threshold %d.\n", threshold_low);
+    ds18b20_interface_debug_print("ds18b20: scratchpad set alarm high threshold %d.\n", threshold_high);
+    ds18b20_interface_debug_print("ds18b20: scratchpad set alarm low threshold %d.\n", threshold_low);
     res = ds18b20_scrachpad_get_alarm_threshold(&gs_handle, (int8_t *)&threshold_high_check, (int8_t *)&threshold_low_check);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad get alarm threshold failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad get alarm threshold failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
@@ -311,7 +311,7 @@ uint8_t ds18b20_register_test(void)
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_9BIT);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad set resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad set resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;
@@ -336,7 +336,7 @@ uint8_t ds18b20_register_test(void)
     res = ds18b20_scratchpad_get_resolution(&gs_handle, &resolution);
     if (res != 0)
     {
-        ds18b20_interface_debug_print("ds18b20: scrachpad get resolution failed.\n");
+        ds18b20_interface_debug_print("ds18b20: scratchpad get resolution failed.\n");
         (void)ds18b20_deinit(&gs_handle);
         
         return 1;

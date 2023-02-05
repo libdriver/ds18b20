@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2015 - present LibDriver All rights reserved
- * 
+ *
  * The MIT License (MIT)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,7 +19,7 @@
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE. 
+ * SOFTWARE.
  *
  * @file      driver_ds18b20.h
  * @brief     driver ds18b20 header file
@@ -415,7 +415,7 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
  * @brief      get the alarm threshold in the scratchpad
  * @param[in]  *handle points to a ds18b20 handle structure
  * @param[out] *threshold_high points to a high threshold buffer
- * @param[out] *threshold_low points to a low threshold buuffer
+ * @param[out] *threshold_low points to a low threshold buffer
  * @return     status code
  *             - 0 success
  *             - 1 scratchpad get alarm threshold failed
