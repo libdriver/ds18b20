@@ -1,6 +1,6 @@
 /**
  * @mainpage  LibDriver DS18B20
- * @brief     libdriver ds18b20 is a full function driver of ds18b20 and it can run in both MCU and Linux platform.
+ * @brief     LibDriver DS18B20 is a full function driver of DS18B20 and it can run in both MCU and Linux platform.
  * @version   2.0.0
  * @author    Shifeng Li
  *
