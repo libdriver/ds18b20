@@ -48,7 +48,7 @@ LibDriver DS18B20 is a full function DS18B20 driver launched by LibDriver. It pr
 
 Reference /interface onewire platform independent template and finish your platform onewire driver.
 
-Add /src, /interface and /example to your project.
+Add the /src directory, the interface driver for your platform, and your own drivers to your project, if you want to use the default example drivers, add the /example directory to your project.
 
 ### Usage
 

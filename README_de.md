@@ -47,7 +47,7 @@ LibDriver DS18B20 ist ein voll funktionsfähiger DS18B20-Treiber, der von LibDri
 
 Verweisen Sie auf eine plattformunabhängige onewire-Schnittstellenvorlage und stellen Sie Ihren Plattform-onewire-Treiber fertig.
 
-Fügen Sie /src, /interface und /example zu Ihrem Projekt hinzu.
+Fügen Sie das Verzeichnis /src, den Schnittstellentreiber für Ihre Plattform und Ihre eigenen Treiber zu Ihrem Projekt hinzu. Wenn Sie die Standardbeispieltreiber verwenden möchten, fügen Sie das Verzeichnis /example zu Ihrem Projekt hinzu.
 
 ### Nutzung
 
