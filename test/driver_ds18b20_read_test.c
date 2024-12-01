@@ -41,7 +41,7 @@ static ds18b20_handle_t gs_handle;        /**< ds18b20 handle */
 
 /**
  * @brief     read test
- * @param[in] times is the test times
+ * @param[in] times test times
  * @return    status code
  *            - 0 success
  *            - 1 test failed

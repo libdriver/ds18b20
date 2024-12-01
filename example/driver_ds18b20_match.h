@@ -69,8 +69,8 @@ uint8_t ds18b20_match_deinit(void);
 
 /**
  * @brief      match example read
- * @param[in]  *rom points to a rom buffer
- * @param[out] *temperature points to a converted temperature buffer
+ * @param[in]  *rom pointer to a rom buffer
+ * @param[out] *temperature pointer to a converted temperature buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed

@@ -86,9 +86,9 @@ uint8_t ds18b20_alarm_init(void)
 
 /**
  * @brief     alarm example set the threshold
- * @param[in] *rom points to a rom buffer
- * @param[in] low is the low threshold
- * @param[in] high is the high threshold
+ * @param[in] *rom pointer to a rom buffer
+ * @param[in] low low threshold
+ * @param[in] high high threshold
  * @return     status code
  *             - 0 success
  *             - 1 set threshold failed
@@ -133,9 +133,9 @@ uint8_t ds18b20_alarm_set_threshold(uint8_t rom[8], float low, float high)
 
 /**
  * @brief      alarm example get the threshold
- * @param[in]  *rom points to a rom buffer
- * @param[out] *low points to a low threshold
- * @param[out] *high points to a high threshold
+ * @param[in]  *rom pointer to a rom buffer
+ * @param[out] *low pointer to a low threshold
+ * @param[out] *high pointer to a high threshold
  * @return      status code
  *              - 0 success
  *              - 1 get threshold failed
@@ -180,8 +180,8 @@ uint8_t ds18b20_alarm_get_threshold(uint8_t rom[8], float *low, float *high)
 
 /**
  * @brief         alarm example find
- * @param[in]     *rom points to a rom buffer
- * @param[in,out] *num points to a number buffer
+ * @param[in]     *rom pointer to a rom buffer
+ * @param[in,out] *num pointer to a number buffer
  * @return        status code
  *                - 0 success
  *                - 1 search failed

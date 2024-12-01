@@ -71,7 +71,7 @@ uint8_t ds18b20_interface_deinit(void);
 
 /**
  * @brief      interface bus read
- * @param[out] *value points to a value buffer
+ * @param[out] *value pointer to a value buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
@@ -81,7 +81,7 @@ uint8_t ds18b20_interface_read(uint8_t *value);
 
 /**
  * @brief     interface bus write
- * @param[in] value is the written value
+ * @param[in] value written value
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -91,14 +91,14 @@ uint8_t ds18b20_interface_write(uint8_t value);
 
 /**
  * @brief     interface delay ms
- * @param[in] ms
+ * @param[in] ms time
  * @note      none
  */
 void ds18b20_interface_delay_ms(uint32_t ms);
 
 /**
  * @brief     interface delay us
- * @param[in] us
+ * @param[in] us time
  * @note      none
  */
 void ds18b20_interface_delay_us(uint32_t us);
@@ -117,7 +117,7 @@ void ds18b20_interface_disable_irq(void);
 
 /**
  * @brief     interface print format data
- * @param[in] fmt is the format data
+ * @param[in] fmt format data
  * @note      none
  */
 void ds18b20_interface_debug_print(const char *const fmt, ...);

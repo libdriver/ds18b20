@@ -60,8 +60,8 @@ uint8_t ds18b20_search_init(void);
 
 /**
  * @brief         search example find
- * @param[in]     *rom points to a rom buffer
- * @param[in,out] *num points to a number buffer
+ * @param[in]     *rom pointer to a rom buffer
+ * @param[in,out] *num pointer to a number buffer
  * @return        status code
  *                - 0 success
  *                - 1 search failed

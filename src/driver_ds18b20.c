@@ -93,9 +93,9 @@ const uint8_t gc_ds18b20_crc_table[256] =
 
 /**
  * @brief     check the crc
- * @param[in] *buf points to a data buffer
- * @param[in] len is the data length
- * @param[in] crc is the checked crc
+ * @param[in] *buf pointer to a data buffer
+ * @param[in] len data length
+ * @param[in] crc checked crc
  * @return    status code
  *            - 0 success
  *            - 1 check failed
@@ -122,7 +122,7 @@ static uint8_t a_ds18b20_check_crc(uint8_t *buf, uint8_t len, uint8_t crc)
 
 /**
  * @brief     reset the chip
- * @param[in] *handle points to a ds18b20 handle structure
+ * @param[in] *handle pointer to a ds18b20 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 reset failed
@@ -201,8 +201,8 @@ static uint8_t a_ds18b20_reset(ds18b20_handle_t *handle)
 
 /**
  * @brief      read one bit from the chip
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[out] *data points to a data buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[out] *data pointer to a data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read bit failed
@@ -237,8 +237,8 @@ static uint8_t a_ds18b20_read_bit(ds18b20_handle_t *handle, uint8_t *data)
 
 /**
  * @brief      read one byte from the chip
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[out] *byte points to a byte buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[out] *byte pointer to a byte buffer
  * @return     status code
  *             - 0 success
  *             - 1 read byte failed
@@ -268,8 +268,8 @@ static uint8_t a_ds18b20_read_byte(ds18b20_handle_t *handle, uint8_t *byte)
 
 /**
  * @brief     write one byte to the chip
- * @param[in] *handle points to a ds18b20 handle structure
- * @param[in] byte is the write byte
+ * @param[in] *handle pointer to a ds18b20 handle structure
+ * @param[in] byte written byte
  * @return    status code
  *            - 0 success
  *            - 1 write byte failed
@@ -331,8 +331,8 @@ static uint8_t a_ds18b20_write_byte(ds18b20_handle_t *handle, uint8_t byte)
 
 /**
  * @brief     set the chip mode
- * @param[in] *handle points to a ds18b20 handle structure
- * @param[in] mode is the chip mode
+ * @param[in] *handle pointer to a ds18b20 handle structure
+ * @param[in] mode chip mode
  * @return    status code
  *            - 0 success
  *            - 2 handle is NULL
@@ -357,8 +357,8 @@ uint8_t ds18b20_set_mode(ds18b20_handle_t *handle, ds18b20_mode_t mode)
 
 /**
  * @brief      get the chip mode
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[out] *mode points to a chip mode buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[out] *mode pointer to a chip mode buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -383,8 +383,8 @@ uint8_t ds18b20_get_mode(ds18b20_handle_t *handle, ds18b20_mode_t *mode)
 
 /**
  * @brief     set the handle rom
- * @param[in] *handle points to a ds18b20 handle structure
- * @param[in] *rom points to a rom buffer
+ * @param[in] *handle pointer to a ds18b20 handle structure
+ * @param[in] *rom pointer to a rom buffer
  * @return    status code
  *            - 0 success
  *            - 2 handle is NULL
@@ -409,8 +409,8 @@ uint8_t ds18b20_set_rom(ds18b20_handle_t *handle, uint8_t rom[8])
 
 /**
  * @brief      get the chip rom
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[out] *rom points to a rom buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[out] *rom pointer to a rom buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -457,8 +457,8 @@ uint8_t ds18b20_get_rom(ds18b20_handle_t *handle, uint8_t rom[8])
 
 /**
  * @brief     set the resolution in the scratchpad
- * @param[in] *handle points to a ds18b20 handle structure
- * @param[in] resolution is the chip resolution
+ * @param[in] *handle pointer to a ds18b20 handle structure
+ * @param[in] resolution chip resolution
  * @return    status code
  *            - 0 success
  *            - 1 scratchpad set resolution failed
@@ -641,8 +641,8 @@ uint8_t ds18b20_scratchpad_set_resolution(ds18b20_handle_t *handle, ds18b20_reso
 
 /**
  * @brief      get the resolution in the scratchpad
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[out] *resolution points to a chip resolution buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[out] *resolution pointer to a chip resolution buffer
  * @return     status code
  *             - 0 success
  *             - 1 scratchpad get resolution failed
@@ -760,9 +760,9 @@ uint8_t ds18b20_scratchpad_get_resolution(ds18b20_handle_t *handle, ds18b20_reso
 
 /**
  * @brief     set the alarm threshold in the scratchpad
- * @param[in] *handle points to a ds18b20 handle structure
- * @param[in] threshold_high is the high threshold
- * @param[in] threshold_low is the low threshold
+ * @param[in] *handle pointer to a ds18b20 handle structure
+ * @param[in] threshold_high high threshold
+ * @param[in] threshold_low low threshold
  * @return    status code
  *            - 0 success
  *            - 1 scratchpad set alarm threshold failed
@@ -945,9 +945,9 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
 
 /**
  * @brief      get the alarm threshold in the scratchpad
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[out] *threshold_high points to a high threshold buffer
- * @param[out] *threshold_low points to a low threshold buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[out] *threshold_high pointer to a high threshold buffer
+ * @param[out] *threshold_low pointer to a low threshold buffer
  * @return     status code
  *             - 0 success
  *             - 1 scratchpad get alarm threshold failed
@@ -1067,7 +1067,7 @@ uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *
 
 /**
  * @brief     copy the scratchpad content to the eeprom
- * @param[in] *handle points to a ds18b20 handle structure
+ * @param[in] *handle pointer to a ds18b20 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 copy scratchpad to eeprom failed
@@ -1153,7 +1153,7 @@ uint8_t ds18b20_copy_scratchpad_to_eeprom(ds18b20_handle_t *handle)
 
 /**
  * @brief     copy the eeprom content to the scratchpad
- * @param[in] *handle points to a ds18b20 handle structure
+ * @param[in] *handle pointer to a ds18b20 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 copy eeprom to scratchpad failed
@@ -1239,9 +1239,9 @@ uint8_t ds18b20_copy_eeprom_to_scratchpad(ds18b20_handle_t *handle)
 
 /**
  * @brief      convert the alarm temperature to the register data
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[in]  temp is the alarm temperature
- * @param[out] *reg points to a register data
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[in]  temp alarm temperature
+ * @param[out] *reg pointer to a register data
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1266,9 +1266,9 @@ uint8_t ds18b20_alarm_convert_to_register(ds18b20_handle_t *handle, float temp, 
 
 /**
  * @brief      convert the register data to the alarm temperature
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[in]  reg is the register data
- * @param[out] *temp points to an alarm temperature buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[in]  reg register data
+ * @param[out] *temp pointer to an alarm temperature buffer
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
@@ -1293,7 +1293,7 @@ uint8_t ds18b20_alarm_convert_to_data(ds18b20_handle_t *handle, int8_t reg, floa
 
 /**
  * @brief     initialize the chip
- * @param[in] *handle points to a ds18b20 handle structure
+ * @param[in] *handle pointer to a ds18b20 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 bus initialization failed
@@ -1381,7 +1381,7 @@ uint8_t ds18b20_init(ds18b20_handle_t *handle)
 
 /**
  * @brief     close the chip
- * @param[in] *handle points to a ds18b20 handle structure
+ * @param[in] *handle pointer to a ds18b20 handle structure
  * @return    status code
  *            - 0 success
  *            - 1 bus deinit failed
@@ -1413,9 +1413,9 @@ uint8_t ds18b20_deinit(ds18b20_handle_t *handle)
 
 /**
  * @brief      read data from the chip
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[out] *raw points to a raw adc buffer
- * @param[out] *temp points to a converted temperature buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[out] *raw pointer to a raw adc buffer
+ * @param[out] *temp pointer to a converted temperature buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
@@ -1718,8 +1718,8 @@ uint8_t ds18b20_read(ds18b20_handle_t *handle, int16_t *raw, float *temp)
 
 /**
  * @brief      read 2 bits from the bus
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[out] *data points to a data buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[out] *data pointer to a data buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
@@ -1752,8 +1752,8 @@ static uint8_t a_ds18b20_read_2bit(ds18b20_handle_t *handle, uint8_t *data)
 
 /**
  * @brief     write 1 bit to the bus
- * @param[in] *handle points to a ds18b20 handle structure
- * @param[in] bit is the write bit
+ * @param[in] *handle pointer to a ds18b20 handle structure
+ * @param[in] bit written bit
  * @return    status code
  *            - 0 success
  *            - 1 write failed
@@ -1793,10 +1793,10 @@ static uint8_t a_ds18b20_write_bit(ds18b20_handle_t *handle, uint8_t bit)
 
 /**
  * @brief         search the ds18b20 bus
- * @param[in]     *handle points to a ds18b20 handle structure
- * @param[out]    **pid points to a rom array
- * @param[in]     cmd is the search command
- * @param[in,out] *number points to an array size buffer
+ * @param[in]     *handle pointer to a ds18b20 handle structure
+ * @param[out]    **pid pointer to a rom array
+ * @param[in]     cmd command
+ * @param[in,out] *number pointer to an array size buffer
  * @return        status code
  *                - 0 success
  *                - 1 search failed
@@ -1930,9 +1930,9 @@ static uint8_t a_ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uin
 
 /**
  * @brief         search the ds18b20 rom
- * @param[in]     *handle points to a ds18b20 handle structure
- * @param[out]    **rom points to a rom array
- * @param[in,out] *num points to an array size buffer
+ * @param[in]     *handle pointer to a ds18b20 handle structure
+ * @param[out]    **rom pointer to a rom array
+ * @param[in,out] *num pointer to an array size buffer
  * @return        status code
  *                - 0 success
  *                - 1 search rom failed
@@ -1954,9 +1954,9 @@ uint8_t ds18b20_search_rom(ds18b20_handle_t *handle, uint8_t (*rom)[8], uint8_t 
 
 /**
  * @brief         search the ds18b20 alarm rom
- * @param[in]     *handle points to a ds18b20 handle structure
- * @param[out]    **rom points to a rom array
- * @param[in,out] *num points to an array size buffer
+ * @param[in]     *handle pointer to a ds18b20 handle structure
+ * @param[out]    **rom pointer to a rom array
+ * @param[in,out] *num pointer to an array size buffer
  * @return        status code
  *                - 0 success
  *                - 1 search alarm failed
@@ -1978,8 +1978,8 @@ uint8_t ds18b20_search_alarm(ds18b20_handle_t *handle, uint8_t (*rom)[8], uint8_
 
 /**
  * @brief      get the power mode
- * @param[in]  *handle points to a ds18b20 handle structure
- * @param[out] *power_mode points to a power mode buffer
+ * @param[in]  *handle pointer to a ds18b20 handle structure
+ * @param[out] *power_mode pointer to a power mode buffer
  * @return     status code
  *             - 0 success
  *             - 1 get power mode failed
@@ -2075,7 +2075,7 @@ uint8_t ds18b20_get_power_mode(ds18b20_handle_t *handle, ds18b20_power_mode_t *p
 
 /**
  * @brief      get chip's information
- * @param[out] *info points to a ds18b20 info structure
+ * @param[out] *info pointer to a ds18b20 info structure
  * @return     status code
  *             - 0 success
  *             - 2 handle is NULL
