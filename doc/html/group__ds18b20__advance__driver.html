@@ -183,9 +183,9 @@ Functions</h2></td></tr>
 <p>convert the register data to the alarm temperature </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a ds18b20 handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">reg</td><td>is the register data </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*temp</td><td>points to an alarm temperature buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a ds18b20 handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">reg</td><td>register data </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*temp</td><td>pointer to an alarm temperature buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -236,9 +236,9 @@ Functions</h2></td></tr>
 <p>convert the alarm temperature to the register data </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a ds18b20 handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">temp</td><td>is the alarm temperature </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*reg</td><td>points to a register data </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a ds18b20 handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">temp</td><td>alarm temperature </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*reg</td><td>pointer to a register data </td></tr>
   </table>
   </dd>
 </dl>
@@ -283,8 +283,8 @@ Functions</h2></td></tr>
 <p>get the power mode </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a ds18b20 handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*power_mode</td><td>points to a power mode buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a ds18b20 handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*power_mode</td><td>pointer to a power mode buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -334,9 +334,9 @@ Functions</h2></td></tr>
 <p>get the alarm threshold in the scratchpad </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a ds18b20 handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*threshold_high</td><td>points to a high threshold buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*threshold_low</td><td>points to a low threshold buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a ds18b20 handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*threshold_high</td><td>pointer to a high threshold buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*threshold_low</td><td>pointer to a low threshold buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -388,9 +388,9 @@ Functions</h2></td></tr>
 <p>set the alarm threshold in the scratchpad </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a ds18b20 handle structure </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">threshold_high</td><td>is the high threshold </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">threshold_low</td><td>is the low threshold </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a ds18b20 handle structure </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">threshold_high</td><td>high threshold </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">threshold_low</td><td>low threshold </td></tr>
   </table>
   </dd>
 </dl>
@@ -442,9 +442,9 @@ Functions</h2></td></tr>
 <p>search the ds18b20 alarm rom </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a ds18b20 handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">**rom</td><td>points to a rom array </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">*num</td><td>points to an array size buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a ds18b20 handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">**rom</td><td>pointer to a rom array </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">*num</td><td>pointer to an array size buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -494,9 +494,9 @@ Functions</h2></td></tr>
 <p>search the ds18b20 rom </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>points to a ds18b20 handle structure </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">**rom</td><td>points to a rom array </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">*num</td><td>points to an array size buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*handle</td><td>pointer to a ds18b20 handle structure </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">**rom</td><td>pointer to a rom array </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">*num</td><td>pointer to an array size buffer </td></tr>
   </table>
   </dd>
 </dl>

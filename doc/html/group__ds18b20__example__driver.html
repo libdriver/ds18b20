@@ -103,6 +103,21 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:gaceca818b591b2a75bf7587264df98e5a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ds18b20__example__driver.html#gaceca818b591b2a75bf7587264df98e5a">ds18b20_alarm_init</a> (void)</td></tr>
+<tr class="memdesc:gaceca818b591b2a75bf7587264df98e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">alarm example init  <a href="group__ds18b20__example__driver.html#gaceca818b591b2a75bf7587264df98e5a">More...</a><br /></td></tr>
+<tr class="separator:gaceca818b591b2a75bf7587264df98e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6872277417e0d85467d391c591d182e0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ds18b20__example__driver.html#ga6872277417e0d85467d391c591d182e0">ds18b20_alarm_deinit</a> (void)</td></tr>
+<tr class="memdesc:ga6872277417e0d85467d391c591d182e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">alarm example deinit  <a href="group__ds18b20__example__driver.html#ga6872277417e0d85467d391c591d182e0">More...</a><br /></td></tr>
+<tr class="separator:ga6872277417e0d85467d391c591d182e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaea7386790c80de8807e9f1b7467426f3"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ds18b20__example__driver.html#gaea7386790c80de8807e9f1b7467426f3">ds18b20_alarm_set_threshold</a> (uint8_t rom[8], float low, float high)</td></tr>
+<tr class="memdesc:gaea7386790c80de8807e9f1b7467426f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">alarm example set the threshold  <a href="group__ds18b20__example__driver.html#gaea7386790c80de8807e9f1b7467426f3">More...</a><br /></td></tr>
+<tr class="separator:gaea7386790c80de8807e9f1b7467426f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf399ae219cf762344c9bcf9af5177636"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ds18b20__example__driver.html#gaf399ae219cf762344c9bcf9af5177636">ds18b20_alarm_get_threshold</a> (uint8_t rom[8], float *low, float *high)</td></tr>
+<tr class="memdesc:gaf399ae219cf762344c9bcf9af5177636"><td class="mdescLeft">&#160;</td><td class="mdescRight">alarm example get the threshold  <a href="group__ds18b20__example__driver.html#gaf399ae219cf762344c9bcf9af5177636">More...</a><br /></td></tr>
+<tr class="separator:gaf399ae219cf762344c9bcf9af5177636"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga23feb959a6ccf44bfa06138c5ae73319"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ds18b20__example__driver.html#ga23feb959a6ccf44bfa06138c5ae73319">ds18b20_alarm_search</a> (uint8_t(*rom)[8], uint8_t *num)</td></tr>
+<tr class="memdesc:ga23feb959a6ccf44bfa06138c5ae73319"><td class="mdescLeft">&#160;</td><td class="mdescRight">alarm example find  <a href="group__ds18b20__example__driver.html#ga23feb959a6ccf44bfa06138c5ae73319">More...</a><br /></td></tr>
+<tr class="separator:ga23feb959a6ccf44bfa06138c5ae73319"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabbc1be111431055188293405cc123def"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ds18b20__example__driver.html#gabbc1be111431055188293405cc123def">ds18b20_basic_init</a> (void)</td></tr>
 <tr class="memdesc:gabbc1be111431055188293405cc123def"><td class="mdescLeft">&#160;</td><td class="mdescRight">basic example init  <a href="group__ds18b20__example__driver.html#gabbc1be111431055188293405cc123def">More...</a><br /></td></tr>
 <tr class="separator:gabbc1be111431055188293405cc123def"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,6 +169,211 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="ga6872277417e0d85467d391c591d182e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6872277417e0d85467d391c591d182e0">&#9670;&nbsp;</a></span>ds18b20_alarm_deinit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ds18b20_alarm_deinit </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>alarm example deinit </p>
+<dl class="section return"><dt>Returns</dt><dd>status code<ul>
+<li>0 success</li>
+<li>1 deinit failed </li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>none </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="driver__ds18b20__alarm_8c_source.html#l00210">210</a> of file <a class="el" href="driver__ds18b20__alarm_8c_source.html">driver_ds18b20_alarm.c</a>.</p>
+
+</div>
+</div>
+<a id="gaf399ae219cf762344c9bcf9af5177636"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf399ae219cf762344c9bcf9af5177636">&#9670;&nbsp;</a></span>ds18b20_alarm_get_threshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ds18b20_alarm_get_threshold </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>rom</em>[8], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>low</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>high</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>alarm example get the threshold </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">*rom</td><td>pointer to a rom buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*low</td><td>pointer to a low threshold </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*high</td><td>pointer to a high threshold </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code<ul>
+<li>0 success</li>
+<li>1 get threshold failed </li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>none </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="driver__ds18b20__alarm_8c_source.html#l00144">144</a> of file <a class="el" href="driver__ds18b20__alarm_8c_source.html">driver_ds18b20_alarm.c</a>.</p>
+
+</div>
+</div>
+<a id="gaceca818b591b2a75bf7587264df98e5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaceca818b591b2a75bf7587264df98e5a">&#9670;&nbsp;</a></span>ds18b20_alarm_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ds18b20_alarm_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>alarm example init </p>
+<dl class="section return"><dt>Returns</dt><dd>status code<ul>
+<li>0 success</li>
+<li>1 init failed </li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>none </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="driver__ds18b20__alarm_8c_source.html#l00049">49</a> of file <a class="el" href="driver__ds18b20__alarm_8c_source.html">driver_ds18b20_alarm.c</a>.</p>
+
+</div>
+</div>
+<a id="ga23feb959a6ccf44bfa06138c5ae73319"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga23feb959a6ccf44bfa06138c5ae73319">&#9670;&nbsp;</a></span>ds18b20_alarm_search()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ds18b20_alarm_search </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t(*)&#160;</td>
+          <td class="paramname"><em>rom</em>[8], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>alarm example find </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">*rom</td><td>pointer to a rom buffer </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">*num</td><td>pointer to a number buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code<ul>
+<li>0 success</li>
+<li>1 search failed </li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>none </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="driver__ds18b20__alarm_8c_source.html#l00190">190</a> of file <a class="el" href="driver__ds18b20__alarm_8c_source.html">driver_ds18b20_alarm.c</a>.</p>
+
+</div>
+</div>
+<a id="gaea7386790c80de8807e9f1b7467426f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaea7386790c80de8807e9f1b7467426f3">&#9670;&nbsp;</a></span>ds18b20_alarm_set_threshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t ds18b20_alarm_set_threshold </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>rom</em>[8], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>low</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>high</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>alarm example set the threshold </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">*rom</td><td>pointer to a rom buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">low</td><td>low threshold </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">high</td><td>high threshold </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>status code<ul>
+<li>0 success</li>
+<li>1 set threshold failed </li>
+</ul>
+</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>none </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="driver__ds18b20__alarm_8c_source.html#l00097">97</a> of file <a class="el" href="driver__ds18b20__alarm_8c_source.html">driver_ds18b20_alarm.c</a>.</p>
+
+</div>
+</div>
 <a id="gac7dfe13a7b7111d8ef8dc5f9b91d28b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gac7dfe13a7b7111d8ef8dc5f9b91d28b0">&#9670;&nbsp;</a></span>ds18b20_basic_deinit()</h2>
 
@@ -229,7 +449,7 @@ Functions</h2></td></tr>
 <p>basic example read </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">*temperature</td><td>points to a converted temperature buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*temperature</td><td>pointer to a converted temperature buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -329,8 +549,8 @@ Functions</h2></td></tr>
 <p>match example read </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*rom</td><td>points to a rom buffer </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">*temperature</td><td>points to a converted temperature buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*rom</td><td>pointer to a rom buffer </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">*temperature</td><td>pointer to a converted temperature buffer </td></tr>
   </table>
   </dd>
 </dl>
@@ -374,8 +594,8 @@ Functions</h2></td></tr>
 <p>search example find </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">*rom</td><td>points to a rom buffer </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">*num</td><td>points to a number buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">*rom</td><td>pointer to a rom buffer </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">*num</td><td>pointer to a number buffer </td></tr>
   </table>
   </dd>
 </dl>
