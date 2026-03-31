@@ -170,11 +170,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:ga508a88dccd8b9b8ddbff04c7e867fd5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">get the power mode  <br /></td></tr>
 <tr class="memitem:ga73dc824fee896b24252b86e683618ee8" id="r_ga73dc824fee896b24252b86e683618ee8"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ds18b20__base__driver.html#ga73dc824fee896b24252b86e683618ee8">ds18b20_info</a> (<a class="el" href="group__ds18b20__base__driver.html#gaf0d8f59ec1b4c532700951b5039bc839">ds18b20_info_t</a> *info)</td></tr>
 <tr class="memdesc:ga73dc824fee896b24252b86e683618ee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">get chip's information  <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a32219b19129afbf46d1a7025492ed4e4" id="r_a32219b19129afbf46d1a7025492ed4e4"><td class="memItemLeft" align="right" valign="top">const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a32219b19129afbf46d1a7025492ed4e4">gc_ds18b20_crc_table</a> [256]</td></tr>
-<tr class="memdesc:a32219b19129afbf46d1a7025492ed4e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">crc table  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>driver ds18b20 source file </p>
@@ -522,48 +517,6 @@ Variables</h2></td></tr>
 <p>chip min operating temperature </p>
 
 <p class="definition">Definition at line <a class="el" href="driver__ds18b20_8c_source.html#l00048">48</a> of file <a class="el" href="driver__ds18b20_8c_source.html">driver_ds18b20.c</a>.</p>
-
-</div>
-</div>
-<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="a32219b19129afbf46d1a7025492ed4e4" name="a32219b19129afbf46d1a7025492ed4e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32219b19129afbf46d1a7025492ed4e4">&#9670;&#160;</a></span>gc_ds18b20_crc_table</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const uint8_t gc_ds18b20_crc_table[256]</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">{</div>
-<div class="line">    0X00, 0X5E, 0XBC, 0XE2, 0X61, 0X3F, 0XDD, 0X83, 0XC2, 0X9C, 0X7E, 0X20, 0XA3,</div>
-<div class="line">    0XFD, 0X1F, 0X41, 0X9D, 0XC3, 0X21, 0X7F, 0XFC, 0XA2, 0X40, 0X1E, 0X5F, 0X01,</div>
-<div class="line">    0XE3, 0XBD, 0X3E, 0X60, 0X82, 0XDC, 0X23, 0X7D, 0X9F, 0XC1, 0X42, 0X1C, 0XFE,</div>
-<div class="line">    0XA0, 0XE1, 0XBF, 0X5D, 0X03, 0X80, 0XDE, 0X3C, 0X62, 0XBE, 0XE0, 0X02, 0X5C,</div>
-<div class="line">    0XDF, 0X81, 0X63, 0X3D, 0X7C, 0X22, 0XC0, 0X9E, 0X1D, 0X43, 0XA1, 0XFF, 0X46,</div>
-<div class="line">    0X18, 0XFA, 0XA4, 0X27, 0X79, 0X9B, 0XC5, 0X84, 0XDA, 0X38, 0X66, 0XE5, 0XBB,</div>
-<div class="line">    0X59, 0X07, 0XDB, 0X85, 0X67, 0X39, 0XBA, 0XE4, 0X06, 0X58, 0X19, 0X47, 0XA5,</div>
-<div class="line">    0XFB, 0X78, 0X26, 0XC4, 0X9A, 0X65, 0X3B, 0XD9, 0X87, 0X04, 0X5A, 0XB8, 0XE6,</div>
-<div class="line">    0XA7, 0XF9, 0X1B, 0X45, 0XC6, 0X98, 0X7A, 0X24, 0XF8, 0XA6, 0X44, 0X1A, 0X99,</div>
-<div class="line">    0XC7, 0X25, 0X7B, 0X3A, 0X64, 0X86, 0XD8, 0X5B, 0X05, 0XE7, 0XB9, 0X8C, 0XD2,</div>
-<div class="line">    0X30, 0X6E, 0XED, 0XB3, 0X51, 0X0F, 0X4E, 0X10, 0XF2, 0XAC, 0X2F, 0X71, 0X93,</div>
-<div class="line">    0XCD, 0X11, 0X4F, 0XAD, 0XF3, 0X70, 0X2E, 0XCC, 0X92, 0XD3, 0X8D, 0X6F, 0X31,</div>
-<div class="line">    0XB2, 0XEC, 0X0E, 0X50, 0XAF, 0XF1, 0X13, 0X4D, 0XCE, 0X90, 0X72, 0X2C, 0X6D,</div>
-<div class="line">    0X33, 0XD1, 0X8F, 0X0C, 0X52, 0XB0, 0XEE, 0X32, 0X6C, 0X8E, 0XD0, 0X53, 0X0D,</div>
-<div class="line">    0XEF, 0XB1, 0XF0, 0XAE, 0X4C, 0X12, 0X91, 0XCF, 0X2D, 0X73, 0XCA, 0X94, 0X76,</div>
-<div class="line">    0X28, 0XAB, 0XF5, 0X17, 0X49, 0X08, 0X56, 0XB4, 0XEA, 0X69, 0X37, 0XD5, 0X8B,</div>
-<div class="line">    0X57, 0X09, 0XEB, 0XB5, 0X36, 0X68, 0X8A, 0XD4, 0X95, 0XCB, 0X29, 0X77, 0XF4,</div>
-<div class="line">    0XAA, 0X48, 0X16, 0XE9, 0XB7, 0X55, 0X0B, 0X88, 0XD6, 0X34, 0X6A, 0X2B, 0X75,</div>
-<div class="line">    0X97, 0XC9, 0X4A, 0X14, 0XF6, 0XA8, 0X74, 0X2A, 0XC8, 0X96, 0X15, 0X4B, 0XA9,</div>
-<div class="line">    0XF7, 0XB6, 0XE8, 0X0A, 0X54, 0XD7, 0X89, 0X6B, 0X35,</div>
-<div class="line">}</div>
-</div><!-- fragment -->
-<p>crc table </p>
-
-<p class="definition">Definition at line <a class="el" href="driver__ds18b20_8c_source.html#l00070">70</a> of file <a class="el" href="driver__ds18b20_8c_source.html">driver_ds18b20.c</a>.</p>
 
 </div>
 </div>
