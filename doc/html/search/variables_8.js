@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['supply_5fvoltage_5fmax_5fv_0',['supply_voltage_max_v',['../structds18b20__info__s.html#a3d2b12bcac7a85ea8646bff9debe8660',1,'ds18b20_info_s']]],
-  ['supply_5fvoltage_5fmin_5fv_1',['supply_voltage_min_v',['../structds18b20__info__s.html#ad8bde6ddadaf43d951e62f3befb9d35a',1,'ds18b20_info_s']]]
+  ['temperature_5fmax_0',['temperature_max',['../structds18b20__info__s.html#a3366a5dce9b829e03c3d321c2b4df3f6',1,'ds18b20_info_s']]],
+  ['temperature_5fmin_1',['temperature_min',['../structds18b20__info__s.html#a8f9dbe66ac0b66ebae0a36fcb4ba368e',1,'ds18b20_info_s']]]
 ];

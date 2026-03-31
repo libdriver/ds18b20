@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['rom_0',['rom',['../structds18b20__handle__s.html#ae3c9459b1dbf0dc64f4398a7b7c12e59',1,'ds18b20_handle_s']]]
+  ['supply_5fvoltage_5fmax_5fv_0',['supply_voltage_max_v',['../structds18b20__info__s.html#a3d2b12bcac7a85ea8646bff9debe8660',1,'ds18b20_info_s']]],
+  ['supply_5fvoltage_5fmin_5fv_1',['supply_voltage_min_v',['../structds18b20__info__s.html#ad8bde6ddadaf43d951e62f3befb9d35a',1,'ds18b20_info_s']]]
 ];

@@ -119,8 +119,7 @@ $(function(){initNavTree('driver__ds18b20_8c_source.html','',''); });
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="driver__ds18b20_8c.html#ab8ff7b9c7b59106d5c9bda3c03d56c6d">   64</a></span><span class="preprocessor">#define DS18B20_CMD_RECALL_EE                0xB8        </span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="driver__ds18b20_8c.html#afacf9219cf1ebe44185d974711492cdc">   65</a></span><span class="preprocessor">#define DS18B20_CMD_READ_POWER_SUPPLY        0xB4        </span><span class="preprocessor"></span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
-<div class="foldopen" id="foldopen00070" data-start="{" data-end="};">
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="driver__ds18b20_8c.html#a32219b19129afbf46d1a7025492ed4e4">   70</a></span><span class="keyword">const</span> uint8_t <a class="code hl_variable" href="driver__ds18b20_8c.html#a32219b19129afbf46d1a7025492ed4e4">gc_ds18b20_crc_table</a>[256] =</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="keyword">static</span> <span class="keyword">const</span> uint8_t gcs_ds18b20_crc_table[256] =</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>{</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    0X00, 0X5E, 0XBC, 0XE2, 0X61, 0X3F, 0XDD, 0X83, 0XC2, 0X9C, 0X7E, 0X20, 0XA3,</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    0XFD, 0X1F, 0X41, 0X9D, 0XC3, 0X21, 0X7F, 0XFC, 0XA2, 0X40, 0X1E, 0X5F, 0X01,</div>
@@ -143,7 +142,6 @@ $(function(){initNavTree('driver__ds18b20_8c_source.html','',''); });
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    0X97, 0XC9, 0X4A, 0X14, 0XF6, 0XA8, 0X74, 0X2A, 0XC8, 0X96, 0X15, 0X4B, 0XA9,</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    0XF7, 0XB6, 0XE8, 0X0A, 0X54, 0XD7, 0X89, 0X6B, 0X35,</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
-</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">static</span> uint8_t a_ds18b20_check_crc(uint8_t *buf, uint8_t len, uint8_t crc)</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>{</div>
@@ -152,7 +150,7 @@ $(function(){initNavTree('driver__ds18b20_8c_source.html','',''); });
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    </div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">for</span> (i = 0; i &lt; len; i++)</div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        crc8 = <a class="code hl_variable" href="driver__ds18b20_8c.html#a32219b19129afbf46d1a7025492ed4e4">gc_ds18b20_crc_table</a>[crc8 ^ buf[i]];        <span class="comment">/* calculate crc */</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        crc8 = gcs_ds18b20_crc_table[crc8 ^ buf[i]];       <span class="comment">/* calculate crc */</span></div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    }</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">if</span> (crc8 == crc)                                       <span class="comment">/* check crc */</span></div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    {</div>
@@ -1922,7 +1920,6 @@ $(function(){initNavTree('driver__ds18b20_8c_source.html','',''); });
 <div class="line"><a id="l02103" name="l02103"></a><span class="lineno"> 2103</span>}</div>
 </div>
 <div class="ttc" id="adriver__ds18b20_8c_html_a2989837a37d6d63b59c6dd541b785435"><div class="ttname"><a href="driver__ds18b20_8c.html#a2989837a37d6d63b59c6dd541b785435">MAX_CURRENT</a></div><div class="ttdeci">#define MAX_CURRENT</div><div class="ttdef"><b>Definition</b> <a href="#l00047">driver_ds18b20.c:47</a></div></div>
-<div class="ttc" id="adriver__ds18b20_8c_html_a32219b19129afbf46d1a7025492ed4e4"><div class="ttname"><a href="driver__ds18b20_8c.html#a32219b19129afbf46d1a7025492ed4e4">gc_ds18b20_crc_table</a></div><div class="ttdeci">const uint8_t gc_ds18b20_crc_table[256]</div><div class="ttdoc">crc table</div><div class="ttdef"><b>Definition</b> <a href="#l00070">driver_ds18b20.c:70</a></div></div>
 <div class="ttc" id="adriver__ds18b20_8c_html_a3734ec2848db33401ad3246798e474a7"><div class="ttname"><a href="driver__ds18b20_8c.html#a3734ec2848db33401ad3246798e474a7">DS18B20_CMD_READ_SCRATCHPAD</a></div><div class="ttdeci">#define DS18B20_CMD_READ_SCRATCHPAD</div><div class="ttdef"><b>Definition</b> <a href="#l00062">driver_ds18b20.c:62</a></div></div>
 <div class="ttc" id="adriver__ds18b20_8c_html_a57959c93d714e1c177afc244b2c57d5e"><div class="ttname"><a href="driver__ds18b20_8c.html#a57959c93d714e1c177afc244b2c57d5e">DS18B20_CMD_WRITE_SCRATCHPAD</a></div><div class="ttdeci">#define DS18B20_CMD_WRITE_SCRATCHPAD</div><div class="ttdef"><b>Definition</b> <a href="#l00061">driver_ds18b20.c:61</a></div></div>
 <div class="ttc" id="adriver__ds18b20_8c_html_a608ba051f40d5b9e54f8ebc016dc1514"><div class="ttname"><a href="driver__ds18b20_8c.html#a608ba051f40d5b9e54f8ebc016dc1514">DS18B20_CMD_SKIP_ROM</a></div><div class="ttdeci">#define DS18B20_CMD_SKIP_ROM</div><div class="ttdef"><b>Definition</b> <a href="#l00058">driver_ds18b20.c:58</a></div></div>

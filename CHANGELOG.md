@@ -1,3 +1,9 @@
+## 2.0.7 (2026-03-31)
+
+## Bug Fixes
+
+- fix crc buffer bug
+
 ## 2.0.6 (2025-10-26)
 
 ## Features

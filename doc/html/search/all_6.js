@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['gc_5fds18b20_5fcrc_5ftable_0',['gc_ds18b20_crc_table',['../driver__ds18b20_8c.html#a32219b19129afbf46d1a7025492ed4e4',1,'driver_ds18b20.c']]]
+  ['inited_0',['inited',['../structds18b20__handle__s.html#a19bedf28d2b9748f6a62d9ae93f4e68f',1,'ds18b20_handle_s']]],
+  ['interface_1',['interface',['../structds18b20__info__s.html#aebaa6c28dd4f2c3dc27566fcb910fd28',1,'ds18b20_info_s']]],
+  ['interface_20driver_20function_2',['ds18b20 interface driver function',['../group__ds18b20__interface__driver.html',1,'']]]
 ];

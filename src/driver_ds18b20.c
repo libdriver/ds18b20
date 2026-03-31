@@ -67,7 +67,7 @@
 /**
  * @brief crc table
  */
-const uint8_t gc_ds18b20_crc_table[256] =
+static const uint8_t gcs_ds18b20_crc_table[256] =
 {
     0X00, 0X5E, 0XBC, 0XE2, 0X61, 0X3F, 0XDD, 0X83, 0XC2, 0X9C, 0X7E, 0X20, 0XA3,
     0XFD, 0X1F, 0X41, 0X9D, 0XC3, 0X21, 0X7F, 0XFC, 0XA2, 0X40, 0X1E, 0X5F, 0X01,
@@ -108,7 +108,7 @@ static uint8_t a_ds18b20_check_crc(uint8_t *buf, uint8_t len, uint8_t crc)
     
     for (i = 0; i < len; i++)
     {
-        crc8 = gc_ds18b20_crc_table[crc8 ^ buf[i]];        /* calculate crc */
+        crc8 = gcs_ds18b20_crc_table[crc8 ^ buf[i]];       /* calculate crc */
     }
     if (crc8 == crc)                                       /* check crc */
     {

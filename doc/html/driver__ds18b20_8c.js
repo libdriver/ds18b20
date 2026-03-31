@@ -37,6 +37,5 @@ var driver__ds18b20_8c =
     [ "ds18b20_search_alarm", "group__ds18b20__advance__driver.html#ga384c1500974d1390b4113f5b474774e5", null ],
     [ "ds18b20_search_rom", "group__ds18b20__advance__driver.html#ga7b1500ff71c4d2a2ba63825b639ae808", null ],
     [ "ds18b20_set_mode", "group__ds18b20__base__driver.html#gadd246c4e8a5887a1acd710dee214323c", null ],
-    [ "ds18b20_set_rom", "group__ds18b20__base__driver.html#ga4cf8a45542f1dfdca17347c0870f870f", null ],
-    [ "gc_ds18b20_crc_table", "driver__ds18b20_8c.html#a32219b19129afbf46d1a7025492ed4e4", null ]
+    [ "ds18b20_set_rom", "group__ds18b20__base__driver.html#ga4cf8a45542f1dfdca17347c0870f870f", null ]
 ];
