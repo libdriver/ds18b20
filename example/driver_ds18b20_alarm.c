@@ -155,7 +155,7 @@ uint8_t ds18b20_alarm_get_threshold(uint8_t rom[8], float *low, float *high)
     }
     
     /* get alarm threshold */
-    res = ds18b20_scrachpad_get_alarm_threshold(&gs_handle, (int8_t *)&threshold_high, (int8_t *)&threshold_low);
+    res = ds18b20_scratchpad_get_alarm_threshold(&gs_handle, (int8_t *)&threshold_high, (int8_t *)&threshold_low);
     if (res != 0)
     {
         return 1;

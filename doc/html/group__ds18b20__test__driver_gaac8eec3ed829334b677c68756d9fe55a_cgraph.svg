@@ -367,10 +367,10 @@
 <!-- Node21 -->
 <g id="Node000021" class="node">
 <title>Node21</title>
-<g id="a_Node000021"><a xlink:href="group__ds18b20__advance__driver.html#gabe12d7ad8c1a4812239d2d85e0536a0d" target="_top" xlink:title="get the alarm threshold in the scratchpad">
-<polygon fill="white" stroke="#666666" points="282.5,-258 160.75,-258 160.75,-226 282.5,-226 282.5,-258"/>
-<text xml:space="preserve" text-anchor="start" x="168.75" y="-244.5" font-family="Helvetica,sans-Serif" font-size="10.00">ds18b20_scrachpad_get</text>
-<text xml:space="preserve" text-anchor="middle" x="221.62" y="-232.5" font-family="Helvetica,sans-Serif" font-size="10.00">_alarm_threshold</text>
+<g id="a_Node000021"><a xlink:href="group__ds18b20__advance__driver.html#gace103f1b556b42a6f690e1f21b77104e" target="_top" xlink:title="get the alarm threshold in the scratchpad">
+<polygon fill="white" stroke="#666666" points="276.12,-258 167.12,-258 167.12,-226 276.12,-226 276.12,-258"/>
+<text xml:space="preserve" text-anchor="start" x="175.12" y="-244.5" font-family="Helvetica,sans-Serif" font-size="10.00">ds18b20_scratchpad</text>
+<text xml:space="preserve" text-anchor="middle" x="221.62" y="-232.5" font-family="Helvetica,sans-Serif" font-size="10.00">_get_alarm_threshold</text>
 </a>
 </g>
 </g>
@@ -378,8 +378,8 @@
 <g id="edge20_Node000001_Node000021" class="edge">
 <title>Node1&#45;&gt;Node21</title>
 <g id="a_edge20_Node000001_Node000021"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M57.74,-503.64C60.95,-466.21 76.97,-336.53 148,-267 149.05,-265.98 150.13,-265 151.26,-264.05"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="153.1,-267.04 159.31,-258.46 149.1,-261.29 153.1,-267.04"/>
+<path fill="none" stroke="#63b8ff" d="M57.74,-503.64C60.95,-466.21 76.97,-336.53 148,-267 150.67,-264.39 153.62,-262.05 156.77,-259.95"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="158.36,-263.07 165.36,-255.11 154.93,-256.97 158.36,-263.07"/>
 </a>
 </g>
 </g>

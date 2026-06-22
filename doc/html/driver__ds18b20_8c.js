@@ -30,7 +30,7 @@ var driver__ds18b20_8c =
     [ "ds18b20_info", "group__ds18b20__base__driver.html#ga73dc824fee896b24252b86e683618ee8", null ],
     [ "ds18b20_init", "group__ds18b20__base__driver.html#ga42a0bced6314bc11b3c47f1d83bbff9a", null ],
     [ "ds18b20_read", "group__ds18b20__base__driver.html#ga7b55e1d3f3ba9ca53c3a78c1d8d221b4", null ],
-    [ "ds18b20_scrachpad_get_alarm_threshold", "group__ds18b20__advance__driver.html#gabe12d7ad8c1a4812239d2d85e0536a0d", null ],
+    [ "ds18b20_scratchpad_get_alarm_threshold", "group__ds18b20__advance__driver.html#gace103f1b556b42a6f690e1f21b77104e", null ],
     [ "ds18b20_scratchpad_get_resolution", "group__ds18b20__base__driver.html#ga1e6aa803f8f341dbaeb010e5c4b3ecda", null ],
     [ "ds18b20_scratchpad_set_alarm_threshold", "group__ds18b20__advance__driver.html#gacdec4dca56e47a203832ffcd1d71b2f0", null ],
     [ "ds18b20_scratchpad_set_resolution", "group__ds18b20__base__driver.html#ga93cfb5e6ae40d2595d55aafcd947f4ba", null ],

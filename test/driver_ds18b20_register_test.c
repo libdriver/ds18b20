@@ -198,8 +198,8 @@ uint8_t ds18b20_register_test(void)
     ds18b20_interface_debug_print("ds18b20: check power mode %s.\n",
                                   power_mode == DS18B20_POWER_MODE_EXTERNALLY ? "externally power" : "parasite power");
     
-    /* ds18b20_scrachpad_set_resolution/ds18b20_scrachpad_get_resolution test */
-    ds18b20_interface_debug_print("ds18b20: ds18b20_scrachpad_set_resolution/ds18b20_scrachpad_get_resolution test.\n");
+    /* ds18b20_scratchpad_set_resolution/ds18b20_scratchpad_get_resolution test */
+    ds18b20_interface_debug_print("ds18b20: ds18b20_scratchpad_set_resolution/ds18b20_scratchpad_get_resolution test.\n");
     
     /* RESOLUTION_9BIT */
     res = ds18b20_scratchpad_set_resolution(&gs_handle, DS18B20_RESOLUTION_9BIT);
@@ -281,8 +281,8 @@ uint8_t ds18b20_register_test(void)
     }
     ds18b20_interface_debug_print("ds18b20: check resolution %s.\n", resolution==DS18B20_RESOLUTION_12BIT?"ok":"error");
     
-    /* ds18b20_scrachpad_set_alarm_threshold/ds18b20_scrachpad_get_alarm_threshold test */
-    ds18b20_interface_debug_print("ds18b20: ds18b20_scrachpad_set_alarm_threshold/ds18b20_scrachpad_get_alarm_threshold test.\n");
+    /* ds18b20_scratchpad_set_alarm_threshold/ds18b20_scratchpad_get_alarm_threshold test */
+    ds18b20_interface_debug_print("ds18b20: ds18b20_scratchpad_set_alarm_threshold/ds18b20_scratchpad_get_alarm_threshold test.\n");
     threshold_high = (int8_t)(rand()%128);
     threshold_low = (int8_t)(-(rand()%128));
     res = ds18b20_scratchpad_set_alarm_threshold(&gs_handle, threshold_high, threshold_low);
@@ -295,7 +295,7 @@ uint8_t ds18b20_register_test(void)
     }
     ds18b20_interface_debug_print("ds18b20: scratchpad set alarm high threshold %d.\n", threshold_high);
     ds18b20_interface_debug_print("ds18b20: scratchpad set alarm low threshold %d.\n", threshold_low);
-    res = ds18b20_scrachpad_get_alarm_threshold(&gs_handle, (int8_t *)&threshold_high_check, (int8_t *)&threshold_low_check);
+    res = ds18b20_scratchpad_get_alarm_threshold(&gs_handle, (int8_t *)&threshold_high_check, (int8_t *)&threshold_low_check);
     if (res != 0)
     {
         ds18b20_interface_debug_print("ds18b20: scratchpad get alarm threshold failed.\n");

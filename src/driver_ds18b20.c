@@ -955,7 +955,7 @@ uint8_t ds18b20_scratchpad_set_alarm_threshold(ds18b20_handle_t *handle, int8_t 
  *             - 3 handle is not initialized
  * @note       none
  */
-uint8_t ds18b20_scrachpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *threshold_high, int8_t *threshold_low)
+uint8_t ds18b20_scratchpad_get_alarm_threshold(ds18b20_handle_t *handle, int8_t *threshold_high, int8_t *threshold_low)
 {
     uint8_t i, buf[9];
     
