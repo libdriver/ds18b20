@@ -157,18 +157,18 @@ ds18b20: set rom.
 ds18b20: check rom ok.
 ds18b20: ds18b20_get_power_mode test.
 ds18b20: check power mode externally power.
-ds18b20: ds18b20_scrachpad_set_resolution/ds18b20_scrachpad_get_resolution test.
-ds18b20: scrachpad set resolution 9bit.
+ds18b20: ds18b20_scratchpad_set_resolution/ds18b20_scratchpad_get_resolution test.
+ds18b20: scratchpad set resolution 9bit.
 ds18b20: check resolution ok.
-ds18b20: scrachpad set resolution 10bit.
+ds18b20: scratchpad set resolution 10bit.
 ds18b20: check resolution ok.
-ds18b20: scrachpad set resolution 11bit.
+ds18b20: scratchpad set resolution 11bit.
 ds18b20: check resolution ok.
-ds18b20: scrachpad set resolution 12bit.
+ds18b20: scratchpad set resolution 12bit.
 ds18b20: check resolution ok.
-ds18b20: ds18b20_scrachpad_set_alarm_threshold/ds18b20_scrachpad_get_alarm_threshold test.
-ds18b20: scrachpad set alarm high threshold 48.
-ds18b20: scrachpad set alarm low threshold -75.
+ds18b20: ds18b20_scratchpad_set_alarm_threshold/ds18b20_scratchpad_get_alarm_threshold test.
+ds18b20: scratchpad set alarm high threshold 48.
+ds18b20: scratchpad set alarm low threshold -75.
 ds18b20: check alarm high threshold ok.
 ds18b20: check alarm low threshold ok.
 ds18b20: ds18b20_copy_scratchpad_to_eeprom/ds18b20_copy_eeprom_to_scratchpad test.
@@ -215,36 +215,36 @@ ds18b20: max temperature is 125.0C.
 ds18b20: min temperature is -55.0C.
 ds18b20: start basic read test.
 ds18b20: set skip rom.
-ds18b20: scrachpad set resolution 9bit.
+ds18b20: scratchpad set resolution 9bit.
 ds18b20: temperature: 30.0C.
 ds18b20: temperature: 30.0C.
 ds18b20: temperature: 30.0C.
-ds18b20: scrachpad set resolution 10bit.
+ds18b20: scratchpad set resolution 10bit.
 ds18b20: temperature: 30.0C.
 ds18b20: temperature: 30.0C.
 ds18b20: temperature: 30.0C.
-ds18b20: scrachpad set resolution 11bit.
+ds18b20: scratchpad set resolution 11bit.
 ds18b20: temperature: 29.8C.
 ds18b20: temperature: 29.8C.
 ds18b20: temperature: 29.8C.
-ds18b20: scrachpad set resolution 12bit.
+ds18b20: scratchpad set resolution 12bit.
 ds18b20: temperature: 29.7C.
 ds18b20: temperature: 29.7C.
 ds18b20: temperature: 29.6C.
 ds18b20: set match rom.
-ds18b20: scrachpad set resolution 9bit.
+ds18b20: scratchpad set resolution 9bit.
 ds18b20: temperature: 30.0C.
 ds18b20: temperature: 30.0C.
 ds18b20: temperature: 30.0C.
-ds18b20: scrachpad set resolution 10bit.
+ds18b20: scratchpad set resolution 10bit.
 ds18b20: temperature: 30.0C.
 ds18b20: temperature: 30.0C.
 ds18b20: temperature: 29.8C.
-ds18b20: scrachpad set resolution 11bit.
+ds18b20: scratchpad set resolution 11bit.
 ds18b20: temperature: 29.6C.
 ds18b20: temperature: 29.6C.
 ds18b20: temperature: 29.6C.
-ds18b20: scrachpad set resolution 12bit.
+ds18b20: scratchpad set resolution 12bit.
 ds18b20: temperature: 29.6C.
 ds18b20: temperature: 29.6C.
 ds18b20: temperature: 29.6C.
