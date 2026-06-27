@@ -1108,6 +1108,7 @@ uint8_t ds18b20_copy_scratchpad_to_eeprom(ds18b20_handle_t *handle)
             
             return 1;                                                           /* return error */
         }
+        handle->delay_ms(12);                                                   /* delay 12ms */
         
         return 0;                                                               /* success return 0 */
     }
@@ -1140,6 +1141,7 @@ uint8_t ds18b20_copy_scratchpad_to_eeprom(ds18b20_handle_t *handle)
             
             return 1;                                                           /* return error */
         }
+        handle->delay_ms(12);                                                   /* delay 12ms */
         
         return 0;                                                               /* success return 0 */
     }

@@ -1,3 +1,9 @@
+## 2.0.9 (2026-06-27)
+
+## Bug Fixes
+
+- fix eeprom bugs
+
 ## 2.0.8 (2026-06-22)
 
 ## Bug Fixes
