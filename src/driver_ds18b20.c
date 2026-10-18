@@ -1762,36 +1762,50 @@ static uint8_t a_ds18b20_read_2bit(ds18b20_handle_t *handle, uint8_t *data)
  * @note      none
  */
 static uint8_t a_ds18b20_write_bit(ds18b20_handle_t *handle, uint8_t bit)
-{    
+{
     handle->disable_irq();                                          /* disable irq */
-    if (handle->bus_write(0) != 0)                                  /* write 0 */
+    if (bit != 0)                                                   /* write 1 */
     {
-        handle->enable_irq();                                       /* enable irq */
-        handle->debug_print("ds18b20: write bit failed.\n");        /* write bit failed */
-        
-        return 1;                                                   /* return error */
+        if (handle->bus_write(0) != 0)                              /* pull the bus low */
+        {
+            handle->enable_irq();                                   /* enable irq */
+            handle->debug_print("ds18b20: write bit failed.\n");    /* write bit failed */
+            
+            return 1;                                               /* return error */
+        }
+        handle->delay_us(2);                                        /* wait 2 us */
+        if (handle->bus_write(1) != 0)                              /* release the bus */
+        {
+            handle->enable_irq();                                   /* enable irq */
+            handle->debug_print("ds18b20: write bit failed.\n");    /* write bit failed */
+            
+            return 1;                                               /* return error */
+        }
+        handle->delay_us(60);                                       /* wait 60 us */
     }
-    handle->delay_us(12);                                           /* wait 12 us */
-    if (handle->bus_write(bit) != 0)                                /* write bit */
+    else                                                            /* write 0 */
     {
-        handle->enable_irq();                                       /* enable irq */
-        handle->debug_print("ds18b20: write bit failed.\n");        /* write bit failed */
-        
-        return 1;                                                   /* return error */
-    } 
-    handle->delay_us(30);                                           /* wait 30 us */
-    if (handle->bus_write(1) != 0)                                  /* write 1 */
-    {
-        handle->enable_irq();                                       /* enable irq */
-        handle->debug_print("ds18b20: write bit failed.\n");        /* write bit failed */
-        
-        return 1;                                                   /* return error */
+        if (handle->bus_write(0) != 0)                              /* pull the bus low */
+        {
+            handle->enable_irq();                                   /* enable irq */
+            handle->debug_print("ds18b20: write bit failed.\n");    /* write bit failed */
+            
+            return 1;                                               /* return error */
+        }
+        handle->delay_us(60);                                       /* wait 60 us */
+        if (handle->bus_write(1) != 0)                              /* release the bus */
+        {
+            handle->enable_irq();                                   /* enable irq */
+            handle->debug_print("ds18b20: write bit failed.\n");    /* write bit failed */
+            
+            return 1;                                               /* return error */
+        }
+        handle->delay_us(2);                                        /* wait 2 us */
     }
-    handle->delay_us(5);                                            /* wait 5 us */
     handle->enable_irq();                                           /* enable irq */
     
     return 0;                                                       /* success return 0 */
-}    
+}
 
 /**
  * @brief         search the ds18b20 bus
@@ -1812,12 +1826,19 @@ static uint8_t a_ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uin
     uint8_t s = 0;
     uint8_t num = 0;
     
+    if ((*number) == 0)                                                                   /* check number */
+    {
+        handle->debug_print("ds18b20: number is zero.\n");                                /* number is zero */
+
+        return 1;                                                                         /* return error */
+    }
     if ((*number) > DS18B20_MAX_SEARCH_SIZE)                                              /* check number */
     {
         handle->debug_print("ds18b20: number is over DS18B20_MAX_SEARCH_SIZE.\n");        /* number is over */
         
         return 1;                                                                         /* return error */
     }
+    
     memset((uint8_t *)buffer, 0, DS18B20_MAX_SEARCH_SIZE);                                /* clear buffer */
     memset((uint8_t *)ss, 0, sizeof(uint8_t) * 64);                                       /* clear buffer */
     do
@@ -1920,7 +1941,7 @@ static uint8_t a_ds18b20_search(ds18b20_handle_t *handle, uint8_t (*pid)[8], uin
             s = 0;                                                                        /* reset s */
         }
         num++;                                                                            /* num++ */
-        if (num > (*number))                                                              /* check num range */
+        if (num >= (*number))                                                             /* check num range */
         {
             break;                                                                        /* break */
         }
